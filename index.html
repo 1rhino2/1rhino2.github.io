@@ -1084,7 +1084,7 @@
       const grid = document.getElementById("projectsGrid");
       grid.innerHTML = `<div class="project-card"><em>Loading your projects...</em></div>`;
       try {
-        const res = await fetch("https://api.github.com/users/1rhino2/repos?sort=updated&per_page=20");
+        const res = await fetch("https://api.github.com/users/1rhino2/repos?sort=updated&per_page=100");
         const repos = await res.json();
         grid.innerHTML = "";
         if (!Array.isArray(repos) || repos.length === 0) {
