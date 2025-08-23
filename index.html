@@ -10,439 +10,609 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat:700,400|Roboto:400,700&display=swap"
         rel="stylesheet">
     <style>
-    :root {
-      --bg-main: #181a1b;
-      --bg-section: #22262a;
-      --bg-card: #262b31;
-      --accent: #3e4c57;
-      --accent-dark: #c9d1d9;
-      --accent-light: #23272b;
-      --text-main: #c9d1d9;
-      --text-muted: #8b949e;
-      --primary: #58a6ff;
-      --success: #3fb950;
-      --info: #58a6ff;
-      --warning: #f1c40f;
-      --danger: #e74c3c;
-      --radius: 17px;
-      --shadow: 0 6px 32px rgba(34,58,94,0.18);
-      --highlight: #21262d;
-      --project-favorite: #1e2735;
-      --pulse: #3fb950;
-    }
-    body {
-      font-family: 'Montserrat', 'Roboto', sans-serif;
-      background: var(--bg-main);
-      margin: 0;
-      color: var(--text-main);
-      overflow-x: hidden;
-      animation: fadeBg 2.8s cubic-bezier(.34,.9,.19,1.01);
-    }
-    @keyframes fadeBg {
-      from { background: #23272b; }
-      to { background: var(--bg-main);}
-    }
-    .container {
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 2rem;
-      animation: fadeInUp 1.5s cubic-bezier(.34,.9,.19,1.01) backwards;
-    }
-    header {
-      display: flex;
-      align-items: center;
-      gap: 2rem;
-      background: var(--bg-section);
-      color: var(--accent-dark);
-      padding: 2.25rem 1rem 1.2rem 1rem;
-      border-radius: 0 0 var(--radius) var(--radius);
-      box-shadow: var(--shadow);
-      margin-bottom: 2rem;
-      position: relative;
-      overflow: hidden;
-      animation: headerWave 1.5s cubic-bezier(.13,.79,.78,.97) backwards;
-    }
-    @keyframes headerWave {
-      0% { opacity: 0; transform: scale(0.9) rotate(-3deg);}
-      70% { opacity: 1; transform: scale(1.07) rotate(1deg);}
-      100% { opacity: 1; transform: scale(1) rotate(0);}
-    }
-    .avatar {
-      border-radius: 50%;
-      width: 110px;
-      height: 110px;
-      background: linear-gradient(135deg, var(--primary) 70%, var(--accent) 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 4.5rem;
-      border: 5px solid var(--primary);
-      box-shadow: 0 6px 24px rgba(34,58,94,0.22);
-      animation: avatarPop 1.3s cubic-bezier(.2,2,.2,1) backwards;
-      position: relative;
-      z-index: 2;
-    }
-    @keyframes avatarPop {
-      0% { transform: scale(0.5) rotate(-30deg); opacity: 0; }
-      80% { transform: scale(1.2) rotate(5deg); opacity: 1; }
-      100% { transform: scale(1) rotate(0deg); opacity: 1; }
-    }
-    .header-info h1 {
-      margin: 0;
-      font-size: 2.5rem;
-      letter-spacing: 1px;
-      color: var(--primary);
-      animation: fadeInDown 1.1s ease 0.2s backwards;
-      position: relative;
-      z-index: 2;
-      text-shadow: 0 2px 12px var(--accent);
-    }
-    .header-info p {
-      margin: .6rem 0 0 0;
-      font-size: 1.23rem;
-      font-weight: 400;
-      color: var(--text-muted);
-      animation: fadeInDown 1.2s ease 0.5s backwards;
-      position: relative;
-      z-index: 2;
-    }
-    .location {
-      font-size: 1.07rem;
-      color: var(--info);
-      margin-top: .5rem;
-      animation: fadeInDown 1.2s ease 0.8s backwards;
-      position: relative;
-      z-index: 2;
-    }
-    @keyframes fadeInDown {
-      0% { opacity: 0; transform: translateY(-28px);}
-      100% { opacity: 1; transform: translateY(0);}
-    }
-    nav {
-      text-align: right;
-      margin-top: 1.7rem;
-      margin-bottom: 1rem;
-    }
-    nav a {
-      color: var(--accent-dark);
-      background: var(--highlight);
-      text-decoration: none;
-      font-weight: 700;
-      padding: 0.45rem 1.25rem;
-      margin: 0 .55rem;
-      border-radius: 25px;
-      transition: background 0.2s, color 0.2s, box-shadow 0.3s;
-      font-size: 1.08rem;
-      box-shadow: 0 2px 12px rgba(34,58,94,0.13);
-      animation: fadeNav 1.1s cubic-bezier(.2,1,.2,1) backwards;
-      position: relative;
-      z-index: 3;
-    }
-    @keyframes fadeNav {
-      0% { opacity: 0; transform: translateY(-12px);}
-      100% { opacity: 1; transform: translateY(0);}
-    }
-    nav a:hover {
-      background: var(--primary);
-      color: var(--bg-section);
-      box-shadow: 0 6px 18px rgba(34,58,94,0.18);
-      transform: scale(1.13) rotate(-2deg);
-    }
-    .pulse {
-      display: inline-block;
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: var(--pulse);
-      box-shadow: 0 0 12px var(--pulse);
-      animation: pulse 1.2s infinite alternate;
-      margin-right: 8px;
-      vertical-align: middle;
-    }
-    @keyframes pulse {
-      0% { opacity: 0.5; box-shadow:0 0 4px var(--pulse);}
-      100% { opacity: 1; box-shadow:0 0 16px var(--pulse);}
-    }
-    .advertising {
-      margin: 2.8rem 0 1.6rem 0;
-      background: linear-gradient(108deg, var(--accent) 80%, var(--bg-section) 100%);
-      border-radius: var(--radius);
-      box-shadow: 0 2px 32px rgba(34,58,94,0.24);
-      padding: 2.3rem 2rem 2.3rem 2.8rem;
-      border-left: 13px solid var(--success);
-      animation: fadeInUp 2.2s cubic-bezier(.2,1,.2,1) backwards;
-      position: relative;
-      z-index: 2;
-    }
-    .advertising h2 {
-      border-left: none;
-      color: var(--success);
-      font-size: 1.44rem;
-      margin-bottom: 1.1rem;
-      letter-spacing: 1px;
-      animation: bounceIn 1.2s cubic-bezier(.2,.9,.2,1.1) backwards;
-    }
-    .advertising-content {
-      font-size: 1.22rem;
-      color: var(--accent-dark);
-      margin-bottom: 1.1rem;
-      animation: fadeInDown 1.3s cubic-bezier(.37,1.3,.52,1.05) backwards;
-    }
-    .advertising-list {
-      font-size: 1.11rem;
-      color: var(--text-main);
-      margin-bottom: 0.7rem;
-      animation: fadeInUp 1.2s cubic-bezier(.37,1.3,.52,1.05) backwards;
-    }
-    .advertising-cta {
-      font-size: 1.19rem;
-      color: var(--success);
-      font-weight: bold;
-      animation: bounceIn 1.2s cubic-bezier(.17,1.1,.7,1.02) backwards;
-    }
-    .advertising-payment {
-      margin-top:1.1rem;
-      font-size: 1.14rem;
-      color: var(--warning);
-      font-weight: 600;
-      animation: bounceIn 1.3s cubic-bezier(.17,1.1,.7,1.02) backwards;
-    }
-    .advertising-steps {
-      margin-top: 1.2rem;
-      background: var(--bg-card);
-      border-radius: 12px;
-      padding: 1.2rem 1rem;
-      color: var(--info);
-      box-shadow: 0 1px 8px rgba(34,58,94,0.13);
-      animation: fadeInUp 1.3s cubic-bezier(.2,1,.2,1) backwards;
-    }
-    .advertising-steps h3 {
-      color: var(--success);
-      margin-top:0;
-      font-size:1.14rem;
-    }
-    .advertising-steps ol {
-      font-size: 1.06rem;
-      color: var(--accent-dark);
-      margin: 0.7em 0 0 0;
-      padding-left:1.2em;
-    }
-    section {
-      margin: 2.8rem 0;
-      background: var(--bg-section);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 2.2rem;
-      animation: fadeInUp 1.6s cubic-bezier(.2,1,.2,1) backwards;
-      position: relative;
-      z-index: 1;
-    }
-    @keyframes fadeInUp {
-      0% { opacity: 0; transform: translateY(48px);}
-      80% { opacity: 1; transform: translateY(-7px);}
-      100% { opacity: 1; transform: translateY(0);}
-    }
-    h2 {
-      margin-top: 0;
-      color: var(--primary);
-      font-size: 1.43rem;
-      border-left: 8px solid var(--accent);
-      padding-left: 1.1rem;
-      margin-bottom: 1.1rem;
-      font-weight: 700;
-      position: relative;
-      z-index: 2;
-      animation: bounceIn 1.1s cubic-bezier(.2,.9,.2,1.1) backwards;
-    }
-    @keyframes bounceIn {
-      0% { opacity: 0; transform: scale(0.8);}
-      70% { opacity: 1; transform: scale(1.07);}
-      100% { opacity: 1; transform: scale(1);}
-    }
-    .lang-skills-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 1.3rem;
-      margin-bottom: 2rem;
-    }
-    .lang-card {
-      background: var(--bg-card);
-      padding: 1.4rem 1.1rem;
-      border-radius: 18px;
-      box-shadow: 0 2px 18px rgba(34,58,94,0.22);
-      border-left: 8px solid var(--accent);
-      opacity: 0;
-      transform: translateY(60px) scale(0.97) rotate(-3deg);
-      transition: box-shadow 0.2s, border-color 0.2s, transform 0.33s;
-      position: relative;
-      animation: none;
-      will-change: opacity, transform;
-    }
-    .lang-card.know { border-color: var(--info); }
-    .lang-card.learn { border-color: var(--warning); }
-    .lang-card.rust { border-color: var(--success); }
-    .lang-card.go { border-color: var(--primary); }
-    .lang-card.animate {
-      opacity: 1;
-      transform: translateY(0) scale(1) rotate(0deg);
-      animation: langCardPop 0.8s cubic-bezier(.23,1.7,.18,1.01) backwards;
-    }
-    @keyframes langCardPop {
-      0% { opacity: 0; transform: scale(.93) translateY(70px);}
-      80% { opacity: 1; transform: scale(1.08) translateY(-10px);}
-      100% { opacity: 1; transform: scale(1) translateY(0);}
-    }
-    .lang-title {
-      font-size: 1.27rem;
-      font-weight: bold;
-      margin-bottom: 0.3rem;
-      color: var(--primary);
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      letter-spacing: 1px;
-      animation: fadeInDown 1.2s cubic-bezier(.37,1.3,.52,1.05) backwards;
-    }
-    .lang-status {
-      font-size: 0.97rem;
-      color: var(--info);
-      background: var(--highlight);
-      border-radius: 10px;
-      padding: 0.13em 0.7em;
-      font-weight: 600;
-      margin-left: 0.2rem;
-      box-shadow: 0 2px 9px rgba(34,58,94,0.07);
-      animation: fadeInDown 1.3s cubic-bezier(.37,1.3,.52,1.05) backwards;
-    }
-    .lang-strengths {
-      font-size: 1.07rem;
-      margin-top: .7rem;
-      color: var(--text-muted);
-      line-height: 1.75;
-      animation: fadeInUp 1.1s cubic-bezier(.2,1,.2,1) backwards;
-    }
-    .lang-make {
-      margin-top: 1rem;
-      font-size: 1.11rem;
-      color: var(--primary);
-      font-weight: 500;
-      animation: bounceIn 0.95s cubic-bezier(.17,1.1,.7,1.02) backwards;
-    }
-    .lang-future {
-      margin-top: .9rem;
-      font-size: 1.03rem;
-      color: var(--success);
-      animation: fadeInDown 0.95s cubic-bezier(.17,1.1,.7,1.02) backwards;
-    }
-    .proscons {
-      margin-top: .7rem;
-      animation: fadeInUp 1.1s cubic-bezier(.2,1,.2,1) backwards;
-    }
-    .proscons-title {
-      color: var(--info);
-      font-weight: 600;
-      font-size: 1.08rem;
-      margin-bottom: .3rem;
-    }
-    .proscons-list {
-      margin: 0;
-      padding-left: 1.2em;
-      font-size: 1.02rem;
-      color: var(--accent-dark);
-    }
-    .proscons-list li {
-      margin-bottom: 0.23em;
-      animation: bounceIn 1s cubic-bezier(.2,.9,.2,1.1) backwards;
-    }
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 1.1rem;
-    }
-    .project-card {
-      background: var(--bg-card);
-      border-radius: 12px;
-      box-shadow: 0 2px 24px rgba(34,58,94,0.19);
-      padding: 1.2rem;
-      border-left: 6px solid var(--accent);
-      transition: box-shadow 0.2s, transform 0.2s;
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      min-height: 155px;
-      animation: fadeInUp 1.1s cubic-bezier(.2,1,.2,1) backwards;
-    }
-    .project-card.favorite {
-      border-left: 6px solid var(--success);
-      background: var(--project-favorite);
-    }
-    .project-card:hover {
-      box-shadow: 0 8px 36px rgba(34,58,94,0.22);
-      transform: translateY(-4px) scale(1.07) rotate(-2deg);
-    }
-    .project-title {
-      font-size: 1.16rem;
-      font-weight: bold;
-      margin: 0 0 .37rem 0;
-      color: var(--primary);
-    }
-    .project-desc {
-      font-size: 1.01rem;
-      color: var(--text-muted);
-      margin-bottom: 0.5rem;
-    }
-    .project-meta {
-      font-size: 0.97rem;
-      color: var(--info);
-      margin-bottom: 0.2rem;
-    }
-    .project-links a {
-      text-decoration: none;
-      color: var(--accent-dark);
-      background: var(--highlight);
-      padding: 0.27rem 0.9rem;
-      border-radius: 15px;
-      margin-right: .4rem;
-      font-size: 0.96rem;
-      font-weight: 600;
-      transition: background 0.2s, color 0.2s;
-      border: 1px solid var(--accent);
-    }
-    .project-links a:hover {
-      background: var(--primary);
-      color: var(--bg-section);
-      transform: scale(1.09) rotate(-1.5deg);
-    }
-    .footer {
-      text-align: center;
-      color: var(--text-muted);
-      margin: 2.2rem 0 0 0;
-      font-size: 1.02rem;
-      animation: fadeInUp 1.1s cubic-bezier(.2,1,.2,1) backwards;
-    }
-    @media (max-width: 700px) {
-      .container {padding: 1rem;}
-      header {flex-direction: column;align-items: flex-start;}
-      .avatar {margin-bottom: 1rem;}
-      .projects-grid {grid-template-columns: 1fr;}
-      .lang-skills-grid {grid-template-columns: 1fr;}
-    }
-    .header-bg {
-      position: absolute;
-      left: -60px;
-      top: -50px;
-      width: 260px;
-      height: 260px;
-      background: radial-gradient(ellipse at center, var(--primary) 0%, var(--bg-section) 80%);
-      opacity: 0.21;
-      filter: blur(13px);
-      z-index: 0;
-      animation: bgWave 8s infinite linear alternate;
-    }
-    @keyframes bgWave {
-      0% { transform: scale(1) translateY(0);}
-      100% { transform: scale(1.1) translateY(12px);}
-    }    </style>
+        :root {
+            --bg-main: #181a1b;
+            --bg-section: #22262a;
+            --bg-card: #262b31;
+            --accent: #3e4c57;
+            --accent-dark: #c9d1d9;
+            --accent-light: #23272b;
+            --text-main: #c9d1d9;
+            --text-muted: #8b949e;
+            --primary: #58a6ff;
+            --success: #3fb950;
+            --info: #58a6ff;
+            --warning: #f1c40f;
+            --danger: #e74c3c;
+            --radius: 17px;
+            --shadow: 0 6px 32px rgba(34, 58, 94, 0.18);
+            --highlight: #21262d;
+            --project-favorite: #1e2735;
+            --pulse: #3fb950;
+        }
+
+        body {
+            font-family: 'Montserrat', 'Roboto', sans-serif;
+            background: var(--bg-main);
+            margin: 0;
+            color: var(--text-main);
+            overflow-x: hidden;
+            animation: fadeBg 2.8s cubic-bezier(.34, .9, .19, 1.01);
+        }
+
+        @keyframes fadeBg {
+            from {
+                background: #23272b;
+            }
+
+            to {
+                background: var(--bg-main);
+            }
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+            animation: fadeInUp 1.5s cubic-bezier(.34, .9, .19, 1.01) backwards;
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            background: var(--bg-section);
+            color: var(--accent-dark);
+            padding: 2.25rem 1rem 1.2rem 1rem;
+            border-radius: 0 0 var(--radius) var(--radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+            animation: headerWave 1.5s cubic-bezier(.13, .79, .78, .97) backwards;
+        }
+
+        @keyframes headerWave {
+            0% {
+                opacity: 0;
+                transform: scale(0.9) rotate(-3deg);
+            }
+
+            70% {
+                opacity: 1;
+                transform: scale(1.07) rotate(1deg);
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(1) rotate(0);
+            }
+        }
+
+        .avatar {
+            border-radius: 50%;
+            width: 110px;
+            height: 110px;
+            background: linear-gradient(135deg, var(--primary) 70%, var(--accent) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4.5rem;
+            border: 5px solid var(--primary);
+            box-shadow: 0 6px 24px rgba(34, 58, 94, 0.22);
+            animation: avatarPop 1.3s cubic-bezier(.2, 2, .2, 1) backwards;
+            position: relative;
+            z-index: 2;
+        }
+
+        @keyframes avatarPop {
+            0% {
+                transform: scale(0.5) rotate(-30deg);
+                opacity: 0;
+            }
+
+            80% {
+                transform: scale(1.2) rotate(5deg);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(1) rotate(0deg);
+                opacity: 1;
+            }
+        }
+
+        .header-info h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            letter-spacing: 1px;
+            color: var(--primary);
+            animation: fadeInDown 1.1s ease 0.2s backwards;
+            position: relative;
+            z-index: 2;
+            text-shadow: 0 2px 12px var(--accent);
+        }
+
+        .header-info p {
+            margin: .6rem 0 0 0;
+            font-size: 1.23rem;
+            font-weight: 400;
+            color: var(--text-muted);
+            animation: fadeInDown 1.2s ease 0.5s backwards;
+            position: relative;
+            z-index: 2;
+        }
+
+        .location {
+            font-size: 1.07rem;
+            color: var(--info);
+            margin-top: .5rem;
+            animation: fadeInDown 1.2s ease 0.8s backwards;
+            position: relative;
+            z-index: 2;
+        }
+
+        @keyframes fadeInDown {
+            0% {
+                opacity: 0;
+                transform: translateY(-28px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        nav {
+            text-align: right;
+            margin-top: 1.7rem;
+            margin-bottom: 1rem;
+        }
+
+        nav a {
+            color: var(--accent-dark);
+            background: var(--highlight);
+            text-decoration: none;
+            font-weight: 700;
+            padding: 0.45rem 1.25rem;
+            margin: 0 .55rem;
+            border-radius: 25px;
+            transition: background 0.2s, color 0.2s, box-shadow 0.3s;
+            font-size: 1.08rem;
+            box-shadow: 0 2px 12px rgba(34, 58, 94, 0.13);
+            animation: fadeNav 1.1s cubic-bezier(.2, 1, .2, 1) backwards;
+            position: relative;
+            z-index: 3;
+        }
+
+        @keyframes fadeNav {
+            0% {
+                opacity: 0;
+                transform: translateY(-12px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        nav a:hover {
+            background: var(--primary);
+            color: var(--bg-section);
+            box-shadow: 0 6px 18px rgba(34, 58, 94, 0.18);
+            transform: scale(1.13) rotate(-2deg);
+        }
+
+        .pulse {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--pulse);
+            box-shadow: 0 0 12px var(--pulse);
+            animation: pulse 1.2s infinite alternate;
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+
+        @keyframes pulse {
+            0% {
+                opacity: 0.5;
+                box-shadow: 0 0 4px var(--pulse);
+            }
+
+            100% {
+                opacity: 1;
+                box-shadow: 0 0 16px var(--pulse);
+            }
+        }
+
+        .advertising {
+            margin: 2.8rem 0 1.6rem 0;
+            background: linear-gradient(108deg, var(--accent) 80%, var(--bg-section) 100%);
+            border-radius: var(--radius);
+            box-shadow: 0 2px 32px rgba(34, 58, 94, 0.24);
+            padding: 2.3rem 2rem 2.3rem 2.8rem;
+            border-left: 13px solid var(--success);
+            animation: fadeInUp 2.2s cubic-bezier(.2, 1, .2, 1) backwards;
+            position: relative;
+            z-index: 2;
+        }
+
+        .advertising h2 {
+            border-left: none;
+            color: var(--success);
+            font-size: 1.44rem;
+            margin-bottom: 1.1rem;
+            letter-spacing: 1px;
+            animation: bounceIn 1.2s cubic-bezier(.2, .9, .2, 1.1) backwards;
+        }
+
+        .advertising-content {
+            font-size: 1.22rem;
+            color: var(--accent-dark);
+            margin-bottom: 1.1rem;
+            animation: fadeInDown 1.3s cubic-bezier(.37, 1.3, .52, 1.05) backwards;
+        }
+
+        .advertising-list {
+            font-size: 1.11rem;
+            color: var(--text-main);
+            margin-bottom: 0.7rem;
+            animation: fadeInUp 1.2s cubic-bezier(.37, 1.3, .52, 1.05) backwards;
+        }
+
+        .advertising-cta {
+            font-size: 1.19rem;
+            color: var(--success);
+            font-weight: bold;
+            animation: bounceIn 1.2s cubic-bezier(.17, 1.1, .7, 1.02) backwards;
+        }
+
+        .advertising-payment {
+            margin-top: 1.1rem;
+            font-size: 1.14rem;
+            color: var(--warning);
+            font-weight: 600;
+            animation: bounceIn 1.3s cubic-bezier(.17, 1.1, .7, 1.02) backwards;
+        }
+
+        .advertising-steps {
+            margin-top: 1.2rem;
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 1.2rem 1rem;
+            color: var(--info);
+            box-shadow: 0 1px 8px rgba(34, 58, 94, 0.13);
+            animation: fadeInUp 1.3s cubic-bezier(.2, 1, .2, 1) backwards;
+        }
+
+        .advertising-steps h3 {
+            color: var(--success);
+            margin-top: 0;
+            font-size: 1.14rem;
+        }
+
+        .advertising-steps ol {
+            font-size: 1.06rem;
+            color: var(--accent-dark);
+            margin: 0.7em 0 0 0;
+            padding-left: 1.2em;
+        }
+
+        section {
+            margin: 2.8rem 0;
+            background: var(--bg-section);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 2.2rem;
+            animation: fadeInUp 1.6s cubic-bezier(.2, 1, .2, 1) backwards;
+            position: relative;
+            z-index: 1;
+        }
+
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(48px);
+            }
+
+            80% {
+                opacity: 1;
+                transform: translateY(-7px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h2 {
+            margin-top: 0;
+            color: var(--primary);
+            font-size: 1.43rem;
+            border-left: 8px solid var(--accent);
+            padding-left: 1.1rem;
+            margin-bottom: 1.1rem;
+            font-weight: 700;
+            position: relative;
+            z-index: 2;
+            animation: bounceIn 1.1s cubic-bezier(.2, .9, .2, 1.1) backwards;
+        }
+
+        @keyframes bounceIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+
+            70% {
+                opacity: 1;
+                transform: scale(1.07);
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .lang-skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.3rem;
+            margin-bottom: 2rem;
+        }
+
+        .lang-card {
+            background: var(--bg-card);
+            padding: 1.4rem 1.1rem;
+            border-radius: 18px;
+            box-shadow: 0 2px 18px rgba(34, 58, 94, 0.22);
+            border-left: 8px solid var(--accent);
+            opacity: 0;
+            transform: translateY(60px) scale(0.97) rotate(-3deg);
+            transition: box-shadow 0.2s, border-color 0.2s, transform 0.33s;
+            position: relative;
+            animation: none;
+            will-change: opacity, transform;
+        }
+
+        .lang-card.know {
+            border-color: var(--info);
+        }
+
+        .lang-card.learn {
+            border-color: var(--warning);
+        }
+
+        .lang-card.rust {
+            border-color: var(--success);
+        }
+
+        .lang-card.go {
+            border-color: var(--primary);
+        }
+
+        .lang-card.animate {
+            opacity: 1;
+            transform: translateY(0) scale(1) rotate(0deg);
+            animation: langCardPop 0.8s cubic-bezier(.23, 1.7, .18, 1.01) backwards;
+        }
+
+        @keyframes langCardPop {
+            0% {
+                opacity: 0;
+                transform: scale(.93) translateY(70px);
+            }
+
+            80% {
+                opacity: 1;
+                transform: scale(1.08) translateY(-10px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .lang-title {
+            font-size: 1.27rem;
+            font-weight: bold;
+            margin-bottom: 0.3rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            letter-spacing: 1px;
+            animation: fadeInDown 1.2s cubic-bezier(.37, 1.3, .52, 1.05) backwards;
+        }
+
+        .lang-status {
+            font-size: 0.97rem;
+            color: var(--info);
+            background: var(--highlight);
+            border-radius: 10px;
+            padding: 0.13em 0.7em;
+            font-weight: 600;
+            margin-left: 0.2rem;
+            box-shadow: 0 2px 9px rgba(34, 58, 94, 0.07);
+            animation: fadeInDown 1.3s cubic-bezier(.37, 1.3, .52, 1.05) backwards;
+        }
+
+        .lang-strengths {
+            font-size: 1.07rem;
+            margin-top: .7rem;
+            color: var(--text-muted);
+            line-height: 1.75;
+            animation: fadeInUp 1.1s cubic-bezier(.2, 1, .2, 1) backwards;
+        }
+
+        .lang-make {
+            margin-top: 1rem;
+            font-size: 1.11rem;
+            color: var(--primary);
+            font-weight: 500;
+            animation: bounceIn 0.95s cubic-bezier(.17, 1.1, .7, 1.02) backwards;
+        }
+
+        .lang-future {
+            margin-top: .9rem;
+            font-size: 1.03rem;
+            color: var(--success);
+            animation: fadeInDown 0.95s cubic-bezier(.17, 1.1, .7, 1.02) backwards;
+        }
+
+        .proscons {
+            margin-top: .7rem;
+            animation: fadeInUp 1.1s cubic-bezier(.2, 1, .2, 1) backwards;
+        }
+
+        .proscons-title {
+            color: var(--info);
+            font-weight: 600;
+            font-size: 1.08rem;
+            margin-bottom: .3rem;
+        }
+
+        .proscons-list {
+            margin: 0;
+            padding-left: 1.2em;
+            font-size: 1.02rem;
+            color: var(--accent-dark);
+        }
+
+        .proscons-list li {
+            margin-bottom: 0.23em;
+            animation: bounceIn 1s cubic-bezier(.2, .9, .2, 1.1) backwards;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.1rem;
+        }
+
+        .project-card {
+            background: var(--bg-card);
+            border-radius: 12px;
+            box-shadow: 0 2px 24px rgba(34, 58, 94, 0.19);
+            padding: 1.2rem;
+            border-left: 6px solid var(--accent);
+            transition: box-shadow 0.2s, transform 0.2s;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            min-height: 155px;
+            animation: fadeInUp 1.1s cubic-bezier(.2, 1, .2, 1) backwards;
+        }
+
+        .project-card.favorite {
+            border-left: 6px solid var(--success);
+            background: var(--project-favorite);
+        }
+
+        .project-card:hover {
+            box-shadow: 0 8px 36px rgba(34, 58, 94, 0.22);
+            transform: translateY(-4px) scale(1.07) rotate(-2deg);
+        }
+
+        .project-title {
+            font-size: 1.16rem;
+            font-weight: bold;
+            margin: 0 0 .37rem 0;
+            color: var(--primary);
+        }
+
+        .project-desc {
+            font-size: 1.01rem;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+
+        .project-meta {
+            font-size: 0.97rem;
+            color: var(--info);
+            margin-bottom: 0.2rem;
+        }
+
+        .project-links a {
+            text-decoration: none;
+            color: var(--accent-dark);
+            background: var(--highlight);
+            padding: 0.27rem 0.9rem;
+            border-radius: 15px;
+            margin-right: .4rem;
+            font-size: 0.96rem;
+            font-weight: 600;
+            transition: background 0.2s, color 0.2s;
+            border: 1px solid var(--accent);
+        }
+
+        .project-links a:hover {
+            background: var(--primary);
+            color: var(--bg-section);
+            transform: scale(1.09) rotate(-1.5deg);
+        }
+
+        .footer {
+            text-align: center;
+            color: var(--text-muted);
+            margin: 2.2rem 0 0 0;
+            font-size: 1.02rem;
+            animation: fadeInUp 1.1s cubic-bezier(.2, 1, .2, 1) backwards;
+        }
+
+        @media (max-width: 700px) {
+            .container {
+                padding: 1rem;
+            }
+
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .avatar {
+                margin-bottom: 1rem;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .lang-skills-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .header-bg {
+            position: absolute;
+            left: -60px;
+            top: -50px;
+            width: 260px;
+            height: 260px;
+            background: radial-gradient(ellipse at center, var(--primary) 0%, var(--bg-section) 80%);
+            opacity: 0.21;
+            filter: blur(13px);
+            z-index: 0;
+            animation: bgWave 8s infinite linear alternate;
+        }
+
+        @keyframes bgWave {
+            0% {
+                transform: scale(1) translateY(0);
+            }
+
+            100% {
+                transform: scale(1.1) translateY(12px);
+            }
+        }
+    </style>
     <script>
         window.onload = function () {
             setTimeout(() => {
@@ -475,73 +645,104 @@
             <a href="#contact">Contact</a>
         </nav>
 
-<div class="advertising">
-    <h2>Want a project? I'll make it for FREE!</h2>
-    <div class="advertising-content">
-        I build small to medium projects for you, for free.<br>
-        DM me on Discord (<strong>1rhino2</strong>) or GitHub!<br>
-        <h3><strong>I DONT FUCKING DO GAMEDEV!!!</strong></h3>
-        <a href="/lag.html" style="color:#e74c3c;">Femboys</a>
-    </div>
-    <div class="advertising-list">
-        <ul>
-            <li>Discord bots, automations, utilities</li>
-            <li>Web tools, scrapers, dashboards, game mods</li>
-            <li>Python scripts with requests, aiohttp, discord.py, pillow, numpy, pandas, flask, selenium, matplotlib,
-                and more</li>
-            <li>Rust CLI tools, Go servers, C++ calculators, Node.js/Express bots, D system utilities, Haskell pure
-                functions, C and C# utilities</li>
-            <li>OSINT scripts, calculators, encryption tools, and anything experimental</li>
-        </ul>
-    </div>
-    <div class="advertising-cta">
-        Fast turnarounds. Friendly help. <span style="color:var(--info);">No payment, just ideas!</span>
-        <br>Let's build something awesome together 🚀
-    </div>
-    <div class="advertising-payment">
-        <span style="color:var(--warning);">The only payment: while I'm working for you, set your Discord status
-            to:</span>
-        <br>
-        <span style="color:var(--primary);font-weight:bold;">"1rhino2 discord acc is the best dev, he's making {WHATEVER
-            I'M MAKING FOR YOU}"</span>
-    </div>
-    <div class="advertising-steps">
-        <h3>How to pay (scam-proof for both of us):</h3>
-        <ol>
-            <li>
-                <strong>Add me as a friend on Discord:</strong> <span style="color:var(--primary);">1rhino2</span><br>
-                <span style="font-size:0.97em;color:var(--text-muted);">If you don’t have Discord, DM me on GitHub and
-                    I’ll help you set it up.</span>
-            </li>
-            <li>
-                <strong>Send me your project idea.</strong> <span style="color:var(--success);">Be as detailed as you
-                    want!</span>
-            </li>
-            <li>
-                <strong>Change your Discord status to:</strong>
-                <div style="margin:0.4em 0; color:var(--primary); font-weight:bold;">"1rhino2 discord acc is the best
-                    dev, he's making {YOUR PROJECT}"</div>
-                <span style="font-size:0.97em;color:var(--text-muted);">Keep this status visible until I finish your
-                    project.</span>
-            </li>
-            <li>
-                <strong>Send me a screenshot as proof (before I start work):</strong><br>
-                <span style="color:var(--danger); font-weight:600;">If you remove the status before I finish, I stop
-                    working!</span>
-            </li>
-            <li>
-                <strong>I’ll send you progress updates & final code.</strong>
+        <div class="advertising">
+            <h2>Want a project? I'll make it for FREE!</h2>
+            <div class="advertising-content">
+                I build small to medium projects for you, for free.<br>
+                DM me on Discord (<strong>1rhino2</strong>) or GitHub!<br>
+                <h3><strong>I DONT FUCKING DO GAMEDEV!!!</strong></h3>
+                <a href="/lag.html" style="color:#e74c3c;">Femboys</a>
+            </div>
+            <div class="advertising-list">
+                <ul>
+                    <li>Discord bots, automations, utilities</li>
+                    <li>Web tools, scrapers, dashboards, game mods</li>
+                    <li>Python scripts with requests, aiohttp, discord.py, pillow, numpy, pandas, flask, selenium,
+                        matplotlib,
+                        and more</li>
+                    <li>Rust CLI tools, Go servers, C++ calculators, Node.js/Express bots, D system utilities, Haskell
+                        pure
+                        functions, C and C# utilities</li>
+                    <li>OSINT scripts, calculators, encryption tools, and anything experimental</li>
+                    <li> Malwares in exotic languages, Exploit making, Ransomwares(FOR RESEARCH), Port scanners etc.
+                    </li>
+                    <ul>
+                        <li>Ransomware</li>
+                        <li>Rootkit</li>
+                        <li>Bootkit</li>
+                        <li>Worm</li>
+                        <li>Trojan</li>
+                        <li>Keylogger</li>
+                        <li>Stealer</li>
+                        <li>Dropper</li>
+                        <li>Adware</li>
+                        <li>Spyware</li>
+                        <li>Miner</li>
+                        <li>Botnet</li>
+                        <li>Exploit</li>
+                        <li>Fileless</li>
+                        <li>Locker</li>
+                        <h4> All malwares made are purely for research. I can make others just listing some. I will NOT make for nefarious or malicious purposes.</h4>
+                    </ul>
+
+                </ul>
+            </div>
+            <div class="advertising-cta">
+                Fast turnarounds. Friendly help. <span style="color:var(--info);">No payment, just ideas!</span>
+                <br>Let's build something awesome together 🚀
+            </div>
+            <div class="advertising-payment">
+                <span style="color:var(--warning);">The only payment: while I'm working for you, set your Discord status
+                    to:</span>
                 <br>
-                <span style="color:var(--info);">Once you get your finished project, you can change your status
-                    back!</span>
-            </li>
-        </ol>
-        <div style="margin-top:1em;color:var(--warning);">
-            <strong>NOTE:</strong> This keeps things fair—no money, no scams, just a little advertising for me while I
-            work!
+                <span style="color:var(--primary);font-weight:bold;">"1rhino2 discord acc is the best dev, he's making
+                    {WHATEVER
+                    I'M MAKING FOR YOU}"</span>
+            </div>
+            <div class="advertising-steps">
+                <h3>How to pay (scam-proof for both of us):</h3>
+                <ol>
+                    <li>
+                        <strong>Add me as a friend on Discord:</strong> <span
+                            style="color:var(--primary);">1rhino2</span><br>
+                        <span style="font-size:0.97em;color:var(--text-muted);">If you don’t have Discord, DM me on
+                            GitHub and
+                            I’ll help you set it up.</span>
+                    </li>
+                    <li>
+                        <strong>Send me your project idea.</strong> <span style="color:var(--success);">Be as detailed
+                            as you
+                            want!</span>
+                    </li>
+                    <li>
+                        <strong>Change your Discord status to:</strong>
+                        <div style="margin:0.4em 0; color:var(--primary); font-weight:bold;">"1rhino2 discord acc is the
+                            best
+                            dev, he's making {YOUR PROJECT}"</div>
+                        <span style="font-size:0.97em;color:var(--text-muted);">Keep this status visible until I finish
+                            your
+                            project.</span>
+                    </li>
+                    <li>
+                        <strong>Send me a screenshot as proof (before I start work):</strong><br>
+                        <span style="color:var(--danger); font-weight:600;">If you remove the status before I finish, I
+                            stop
+                            working!</span>
+                    </li>
+                    <li>
+                        <strong>I’ll send you progress updates & final code.</strong>
+                        <br>
+                        <span style="color:var(--info);">Once you get your finished project, you can change your status
+                            back!</span>
+                    </li>
+                </ol>
+                <div style="margin-top:1em;color:var(--warning);">
+                    <strong>NOTE:</strong> This keeps things fair—no money, no scams, just a little advertising for me
+                    while I
+                    work!
+                </div>
+            </div>
         </div>
-    </div>
-</div>
         <section id="about">
             <h2>About</h2>
             <p>
@@ -561,594 +762,594 @@
             <script>
                 // Language strengths, pros/cons for me, what I can build, python libs, future projects, projects made. 
                 const langs = [
-                        {
-                            name: "R",
-                            icon: "📊",
-                            status: "Decent",
-                            class: "know",
-                            strengths: [
-                                "Solid at building data analysis scripts and statistical visualizations.",
-                                "Use R for quick data wrangling, graphing, and exploratory analysis.",
-                                "Comfortable with dplyr, ggplot2, tidyverse, and basic modeling."
-                            ],
-                            pros: [
-                                "Great for plotting and statistical summaries.",
-                                "Can automate CSV and Excel workflows.",
-                                "Quick at making custom data reports."
-                            ],
-                            cons: [
-                                "Learning advanced packages.",
-                                "Not as fast as Python for big datasets.",
-                                "GUIs are minimalistic."
-                            ],
-                            make: [
-                                "Statistical dashboards",
-                                "Data visualization scripts",
-                                "Automated data pipeline utilities"
-                            ],
-                            future: [
-                                "Advanced plotting tool",
-                                "R-powered reporting suite"
-                            ],
-                            projects: [
-                                "Will be released soon: R graphing utility"
-                            ]
-                        },
-                        {
-                            name: "Java",
-                            icon: "☕",
-                            status: "Learning",
-                            class: "learn",
-                            strengths: [
-                                "Learning object-oriented patterns and Java libraries.",
-                                "Can write basic CLI and GUI apps.",
-                                "Comfortable with basic JDBC, Swing, and simple multithreading."
-                            ],
-                            pros: [
-                                "Understand core Java syntax.",
-                                "Can debug simple Java programs.",
-                                "Learning to build more robust desktop tools."
-                            ],
-                            cons: [
-                                "Still learning complex frameworks.",
-                                "Prefer scripting for rapid tasks.",
-                                "GUI design is basic."
-                            ],
-                            make: [
-                                "Simple CLI utilities",
-                                "Basic desktop apps"
-                            ],
-                            future: [
-                                "Java-powered dashboard",
-                                "Multi-threaded tool"
-                            ],
-                            projects: [
-                                "Will be released soon: Java CLI app"
-                            ]
-                        },
-                        {
-                            name: "x64 Assembly",
-                            icon: "🧵",
-                            status: "Decent",
-                            class: "know",
-                            strengths: [
-                                "Can reverse engineer and debug binary instructions.",
-                                "Write simple assembly utilities for educational demos.",
-                                "Decent at analyzing malware samples and shellcode."
-                            ],
-                            pros: [
-                                "Good for binary analysis.",
-                                "Fun for reverse engineering puzzles.",
-                                "Can optimize for tiny utilities."
-                            ],
-                            cons: [
-                                "Advanced assembly projects take longer.",
-                                "Debugging is slow.",
-                                "Documentation is sparse."
-                            ],
-                            make: [
-                                "Tiny utilities",
-                                "RE and malware demo tools"
-                            ],
-                            future: [
-                                "Assembly-based puzzle generator"
-                            ],
-                            projects: [
-                                "Will be released soon: Assembly malware analysis demo"
-                            ]
-                        },
-                        {
-                            name: "Nim",
-                            icon: "⚡",
-                            status: "Learning",
-                            class: "learn",
-                            strengths: [
-                                "Learning fast scripting and native code generation.",
-                                "Playing with Nim for web and CLI utilities."
-                            ],
-                            pros: [
-                                "Easy syntax for quick utilities.",
-                                "Compiles to native binaries."
-                            ],
-                            cons: [
-                                "Still learning the ecosystem.",
-                                "Limited package experience."
-                            ],
-                            make: [
-                                "Small CLI tools",
-                                "Web API demos"
-                            ],
-                            future: [
-                                "Nim-based dashboard"
-                            ],
-                            projects: [
-                                "Will be released soon: Nim CLI tool"
-                            ]
-                        },
-                        {
-                            name: "Zig",
-                            icon: "🦓",
-                            status: "Learning",
-                            class: "learn",
-                            strengths: [
-                                "Learning low-level systems and memory management.",
-                                "Tinkering with Zig for fast, safe utilities."
-                            ],
-                            pros: [
-                                "Compiles to ultra-fast binaries.",
-                                "Good for experimenting with system utilities."
-                            ],
-                            cons: [
-                                "Still picking up Zig syntax.",
-                                "Limited real-world experience."
-                            ],
-                            make: [
-                                "Tiny CLI utilities",
-                                "System demos"
-                            ],
-                            future: [
-                                "Zig-powered OS tool"
-                            ],
-                            projects: [
-                                "Will be released soon: Zig system utility"
-                            ]
-                        },
-                        {
-                            name: "Python",
-                            icon: "🐍",
-                            status: "Expert",
-                            class: "know",
-                            strengths: [
-                                "Super fast at scripting, automating, and debugging.",
-                                "Built Discord bots, web scrapers, OSINT tools, and metadata utilities.",
-                                "Expert in requests, aiohttp, discord.py, pillow, numpy, pandas, flask, selenium, matplotlib.",
-                                "Love making CLI tools, automation, and rapid prototypes."
-                            ],
-                            pros: [
-                                "Can make Discord bots and web scrapers in hours.",
-                                "Rapid prototyping and debugging.",
-                                "Expert in Python libraries (see above!).",
-                                "Can automate nearly anything, including your homework."
-                            ],
-                            cons: [
-                                "My GUIs are basic.",
-                                "Overuse list comprehensions.",
-                                "Can't do mobile apps (yet!).",
-                                "Sometimes get bored by repetitive scripts."
-                            ],
-                            make: [
-                                "Discord bots (1-3 days)",
-                                "Automation scripts (hours to days)",
-                                "Web scrapers & OSINT tools",
-                                "Flask web servers",
-                                "Image/video tools",
-                                "Data manipulation scripts",
-                                "Custom utilities/calculators"
-                            ],
-                            future: [
-                                "AI-powered Discord bot",
-                                "Advanced OSINT suite",
-                                "Graphing tool with matplotlib",
-                                "Automated web dashboard"
-                            ],
-                            projects: [
-                                "shadowexif (EXIF remover)",
-                                "Ip-Info-Toolkit",
-                                "Proxy-Verifier-Scraper",
-                                "Exifrecover",
-                                "Webhook-spammer"
-                            ]
-                        },
-                        {
-                            name: "Rust",
-                            icon: "🦀",
-                            status: "Proficient (recently learned!)",
-                            class: "rust",
-                            strengths: [
-                                "Build safe, fast CLI tools and web services.",
-                                "Troubleshoot Rust errors quickly.",
-                                "Enjoy using crates for HTTP, CLI, async.",
-                                "Great for anything needing speed/safety."
-                            ],
-                            pros: [
-                                "Secure tools, no segfaults.",
-                                "Efficient OSINT/encryption programs.",
-                                "Fast CLI tools.",
-                                "Learn new crates quickly."
-                            ],
-                            cons: [
-                                "UI still learning.",
-                                "Advanced async still learning.",
-                                "Over-comment for clarity.",
-                                "Obsess over warnings."
-                            ],
-                            make: [
-                                "Fast CLI apps",
-                                "Small web servers/APIs",
-                                "Encryption/OSINT utilities",
-                                "Script-like Linux/Windows tools"
-                            ],
-                            future: [
-                                "Terminal-based game",
-                                "Rust-based file analyzer",
-                                "Async web scraper",
-                                "Secure messaging CLI"
-                            ],
-                            projects: [
-                                "Will be released soon: Secure file tool, async CLI dashboard"
-                            ]
-                        },
-                        {
-                            name: "Go",
-                            icon: "🐹",
-                            status: "Expert",
-                            class: "go",
-                            strengths: [
-                                "Expert at web servers, scrapers, and concurrent tools.",
-                                "Use Go's concurrency for bots, monitoring.",
-                                "Fast, reliable APIs & utilities.",
-                                "Master of goroutines, channels, and Go's ecosystem."
-                            ],
-                            pros: [
-                                "Web servers in <b>hours</b>.",
-                                "Concurrent apps, monitoring bots.",
-                                "Easy deployment, static binaries.",
-                                "Can build scalable APIs, bots, dashboards."
-                            ],
-                            cons: [
-                                "Error handling can slow me down.",
-                                "Minimalistic, so I invent my own patterns.",
-                                "Avoid huge Go monoliths."
-                            ],
-                            make: [
-                                "Web servers/APIs",
-                                "Scrapers",
-                                "Concurrent tools",
-                                "Bots/automations",
-                                "Monitoring utilities",
-                                "Custom dashboards"
-                            ],
-                            future: [
-                                "Real-time dashboard app",
-                                "Go-based OSINT tool",
-                                "Concurrent Discord bot",
-                                "Live site health monitor"
-                            ],
-                            projects: [
-                                "Quotemaker",
-                                "Will be released soon: Go dashboard, real-time scraper"
-                            ]
-                        },
-                        {
-                            name: "Node.js",
-                            icon: "🟩",
-                            status: "Expert",
-                            class: "know",
-                            strengths: [
-                                "Expert in Node.js scripting, automation, and bots.",
-                                "Build web servers, APIs, and Discord bots.",
-                                "Work with Express, Discord.js, Puppeteer, Axios."
-                            ],
-                            pros: [
-                                "Can create Discord bots and APIs quickly.",
-                                "Good at browser automation and scraping.",
-                                "Quick with async and event-driven code."
-                            ],
-                            cons: [
-                                "My frontend styling is minimal.",
-                                "Async bugs occasionally slow me.",
-                                "Not a React/Angular expert."
-                            ],
-                            make: [
-                                "Discord bots",
-                                "Web servers/APIs",
-                                "Automation scripts",
-                                "Browser automation tools"
-                            ],
-                            future: [
-                                "Node.js real-time chat",
-                                "Discord bot with dashboard",
-                                "Automated browser scraper"
-                            ],
-                            projects: [
-                                "Will be released soon: Discord.js bots, Express APIs"
-                            ]
-                        },
-                        {
-                            name: "D",
-                            icon: "🦑",
-                            status: "Advanced",
-                            class: "know",
-                            strengths: [
-                                "Bluetooth scanners, file encryption tools, system utilities.",
-                                "Tinker with performance and native APIs.",
-                                "Experimental security projects.",
-                                "Debug D code efficiently."
-                            ],
-                            pros: [
-                                "System utilities built quickly.",
-                                "File encryption, Bluetooth tools.",
-                                "Use D's metaprogramming."
-                            ],
-                            cons: [
-                                "Docs sparse—sometimes improvise.",
-                                "Less library support.",
-                                "Debugging takes longer."
-                            ],
-                            make: [
-                                "System utilities",
-                                "Bluetooth tools",
-                                "File encryption/analysis",
-                                "Custom CLI programs"
-                            ],
-                            future: [
-                                "Advanced Bluetooth scanner",
-                                "D-based encryption suite",
-                                "System monitoring CLI"
-                            ],
-                            projects: [
-                                "Bluetooth-Scanner",
-                                "DLang-file-encryptor"
-                            ]
-                        },
-                        {
-                            name: "C++",
-                            icon: "💻",
-                            status: "Expert",
-                            class: "know",
-                            strengths: [
-                                "Calculators, word games, terminal tools.",
-                                "Prototype algorithms and puzzles.",
-                                "Pointers, classes, memory management.",
-                                "Educational demos."
-                            ],
-                            pros: [
-                                "Terminal tools made fast.",
-                                "Optimized for speed/memory.",
-                                "Debugging/fixing bugs efficiently."
-                            ],
-                            cons: [
-                                "GUIs basic.",
-                                "Spend time optimizing.",
-                                "Manual memory tedious."
-                            ],
-                            make: [
-                                "Simple games",
-                                "Calculators & math tools",
-                                "Terminal utilities",
-                                "Algorithmic scripts"
-                            ],
-                            future: [
-                                "C++ puzzle game",
-                                "Math solver tool",
-                                "Terminal-based chat app"
-                            ],
-                            projects: [
-                                "terminal-cpp-calculator",
-                                "word-guess-game"
-                            ]
-                        },
-                        {
-                            name: "JavaScript",
-                            icon: "🌐",
-                            status: "Competent",
-                            class: "know",
-                            strengths: [
-                                "Web experiments, browser games, Node.js scripts.",
-                                "DOM manipulation, automation.",
-                                "Dashboards and widgets."
-                            ],
-                            pros: [
-                                "Browser tools in a day.",
-                                "Node.js quick scripts.",
-                                "Automate browser tasks."
-                            ],
-                            cons: [
-                                "Styling minimal.",
-                                "Async bugs happen.",
-                                "Avoid full-stack JS for now."
-                            ],
-                            make: [
-                                "Browser tools",
-                                "Node.js scripts",
-                                "Web dashboards",
-                                "Automation bots"
-                            ],
-                            future: [
-                                "JS game/animation",
-                                "Node.js site health monitor",
-                                "Interactive dashboard"
-                            ],
-                            projects: [
-                                "Will be released soon: Animated JS dashboard"
-                            ]
-                        },
-                        {
-                            name: "HTML/CSS",
-                            icon: "🎨",
-                            status: "Intermediate",
-                            class: "know",
-                            strengths: [
-                                "Clean landing pages and dashboards.",
-                                "Responsive layouts, custom portfolios.",
-                                "Structure and style sites quickly."
-                            ],
-                            pros: [
-                                "Functional sites fast.",
-                                "Mobile-friendly layouts.",
-                                "Portfolio/dashboard sites."
-                            ],
-                            cons: [
-                                "Keep CSS simple/readable.",
-                                "Advanced animations take longer.",
-                                "Avoid heavy frameworks."
-                            ],
-                            make: [
-                                "Landing pages",
-                                "Dashboards/portfolios",
-                                "Web apps"
-                            ],
-                            future: [
-                                "Animated personal portfolio",
-                                "Dashboard for tracking projects"
-                            ],
-                            projects: [
-                                "This portfolio."
-                            ]
-                        },
-                        {
-                            name: "C",
-                            icon: "⚙️",
-                            status: "Learning",
-                            class: "learn",
-                            strengths: [
-                                "Learning low-level systems and memory.",
-                                "Tinker with small utilities.",
-                                "Debug basic C apps."
-                            ],
-                            pros: [
-                                "Understand systems well.",
-                                "Can troubleshoot simple bugs.",
-                                "Learning to handle pointers/arrays."
-                            ],
-                            cons: [
-                                "Still slow with big C projects.",
-                                "Need docs open for syntax.",
-                                "Prefer scripting for rapid tasks."
-                            ],
-                            make: [
-                                "Small utilities",
-                                "Simple file tools"
-                            ],
-                            future: [
-                                "C-based file parser",
-                                "Tiny CLI encryption tool"
-                            ],
-                            projects: [
-                                "Will be released soon: C utilities"
-                            ]
-                        },
-                        {
-                            name: "C#",
-                            icon: "🧩",
-                            status: "Decent",
-                            class: "know",
-                            strengths: [
-                                "Build basic Windows utilities.",
-                                "Make simple GUIs.",
-                                "Debug C# apps."
-                            ],
-                            pros: [
-                                "Can make small Windows tools.",
-                                "Decent at scripting in C#.",
-                                "Quick at debugging simple C# code."
-                            ],
-                            cons: [
-                                "Learning advanced C# patterns.",
-                                "Still new to .NET libraries.",
-                                "GUIs are simple."
-                            ],
-                            make: [
-                                "Windows utilities",
-                                "Simple GUI apps",
-                                "Scripts"
-                            ],
-                            future: [
-                                "C# dashboard app",
-                                "Simple file manager"
-                            ],
-                            projects: [
-                                "Will be released soon: C# utilities"
-                            ]
-                        },
-                        {
-                            name: "Lua",
-                            icon: "🦎",
-                            status: "Learning",
-                            class: "learn",
-                            strengths: [
-                                "Game mods, scripts, and automation.",
-                                "Easy to embed in other tools."
-                            ],
-                            pros: [
-                                "Game mods quick.",
-                                "Great for scripting.",
-                                "Simple syntax."
-                            ],
-                            cons: [
-                                "Limited for big projects.",
-                                "Mix up Lua/Python sometimes.",
-                                "Not ideal standalone."
-                            ],
-                            make: [
-                                "Game mods",
-                                "Scripts and automations"
-                            ],
-                            future: [
-                                "Lua-based mod loader",
-                                "Automation script suite"
-                            ],
-                            projects: [
-                                "Will be released soon: Lua game mod"
-                            ]
-                        },
-                        {
-                            name: "Haskell",
-                            icon: "🔗",
-                            status: "Learning",
-                            class: "learn",
-                            strengths: [
-                                "Pure function demos, logic puzzles.",
-                                "Learning functional paradigms."
-                            ],
-                            pros: [
-                                "Fun for code puzzles.",
-                                "Type-safe code.",
-                                "Functional brain teasers."
-                            ],
-                            cons: [
-                                "Learning advanced patterns.",
-                                "Prototyping takes longer.",
-                                "Smaller community."
-                            ],
-                            make: [
-                                "Pure function demos",
-                                "Logic puzzles"
-                            ],
-                            future: [
-                                "Haskell puzzle generator"
-                            ],
-                            projects: [
-                                "Will be released soon: Haskell puzzles"
-                            ]
-                        }
-                    ];
-const grid = document.getElementById("langSkillsGrid");
-langs.forEach((lang, i) => {
-    const card = document.createElement("div");
-    card.className = `lang-card ${lang.class}`;
-    card.style.animationDelay = (i * 0.13 + 0.25) + "s";
-    card.innerHTML = `
+                    {
+                        name: "R",
+                        icon: "📊",
+                        status: "Decent",
+                        class: "know",
+                        strengths: [
+                            "Solid at building data analysis scripts and statistical visualizations.",
+                            "Use R for quick data wrangling, graphing, and exploratory analysis.",
+                            "Comfortable with dplyr, ggplot2, tidyverse, and basic modeling."
+                        ],
+                        pros: [
+                            "Great for plotting and statistical summaries.",
+                            "Can automate CSV and Excel workflows.",
+                            "Quick at making custom data reports."
+                        ],
+                        cons: [
+                            "Learning advanced packages.",
+                            "Not as fast as Python for big datasets.",
+                            "GUIs are minimalistic."
+                        ],
+                        make: [
+                            "Statistical dashboards",
+                            "Data visualization scripts",
+                            "Automated data pipeline utilities"
+                        ],
+                        future: [
+                            "Advanced plotting tool",
+                            "R-powered reporting suite"
+                        ],
+                        projects: [
+                            "Will be released soon: R graphing utility"
+                        ]
+                    },
+                    {
+                        name: "Java",
+                        icon: "☕",
+                        status: "Learning",
+                        class: "learn",
+                        strengths: [
+                            "Learning object-oriented patterns and Java libraries.",
+                            "Can write basic CLI and GUI apps.",
+                            "Comfortable with basic JDBC, Swing, and simple multithreading."
+                        ],
+                        pros: [
+                            "Understand core Java syntax.",
+                            "Can debug simple Java programs.",
+                            "Learning to build more robust desktop tools."
+                        ],
+                        cons: [
+                            "Still learning complex frameworks.",
+                            "Prefer scripting for rapid tasks.",
+                            "GUI design is basic."
+                        ],
+                        make: [
+                            "Simple CLI utilities",
+                            "Basic desktop apps"
+                        ],
+                        future: [
+                            "Java-powered dashboard",
+                            "Multi-threaded tool"
+                        ],
+                        projects: [
+                            "Will be released soon: Java CLI app"
+                        ]
+                    },
+                    {
+                        name: "x64 Assembly",
+                        icon: "🧵",
+                        status: "Decent",
+                        class: "know",
+                        strengths: [
+                            "Can reverse engineer and debug binary instructions.",
+                            "Write simple assembly utilities for educational demos.",
+                            "Decent at analyzing malware samples and shellcode."
+                        ],
+                        pros: [
+                            "Good for binary analysis.",
+                            "Fun for reverse engineering puzzles.",
+                            "Can optimize for tiny utilities."
+                        ],
+                        cons: [
+                            "Advanced assembly projects take longer.",
+                            "Debugging is slow.",
+                            "Documentation is sparse."
+                        ],
+                        make: [
+                            "Tiny utilities",
+                            "RE and malware demo tools"
+                        ],
+                        future: [
+                            "Assembly-based puzzle generator"
+                        ],
+                        projects: [
+                            "Will be released soon: Assembly malware analysis demo"
+                        ]
+                    },
+                    {
+                        name: "Nim",
+                        icon: "⚡",
+                        status: "Learning",
+                        class: "learn",
+                        strengths: [
+                            "Learning fast scripting and native code generation.",
+                            "Playing with Nim for web and CLI utilities."
+                        ],
+                        pros: [
+                            "Easy syntax for quick utilities.",
+                            "Compiles to native binaries."
+                        ],
+                        cons: [
+                            "Still learning the ecosystem.",
+                            "Limited package experience."
+                        ],
+                        make: [
+                            "Small CLI tools",
+                            "Web API demos"
+                        ],
+                        future: [
+                            "Nim-based dashboard"
+                        ],
+                        projects: [
+                            "Will be released soon: Nim CLI tool"
+                        ]
+                    },
+                    {
+                        name: "Zig",
+                        icon: "🦓",
+                        status: "Learning",
+                        class: "learn",
+                        strengths: [
+                            "Learning low-level systems and memory management.",
+                            "Tinkering with Zig for fast, safe utilities."
+                        ],
+                        pros: [
+                            "Compiles to ultra-fast binaries.",
+                            "Good for experimenting with system utilities."
+                        ],
+                        cons: [
+                            "Still picking up Zig syntax.",
+                            "Limited real-world experience."
+                        ],
+                        make: [
+                            "Tiny CLI utilities",
+                            "System demos"
+                        ],
+                        future: [
+                            "Zig-powered OS tool"
+                        ],
+                        projects: [
+                            "Will be released soon: Zig system utility"
+                        ]
+                    },
+                    {
+                        name: "Python",
+                        icon: "🐍",
+                        status: "Expert",
+                        class: "know",
+                        strengths: [
+                            "Super fast at scripting, automating, and debugging.",
+                            "Built Discord bots, web scrapers, OSINT tools, and metadata utilities.",
+                            "Expert in requests, aiohttp, discord.py, pillow, numpy, pandas, flask, selenium, matplotlib.",
+                            "Love making CLI tools, automation, and rapid prototypes."
+                        ],
+                        pros: [
+                            "Can make Discord bots and web scrapers in hours.",
+                            "Rapid prototyping and debugging.",
+                            "Expert in Python libraries (see above!).",
+                            "Can automate nearly anything, including your homework."
+                        ],
+                        cons: [
+                            "My GUIs are basic.",
+                            "Overuse list comprehensions.",
+                            "Can't do mobile apps (yet!).",
+                            "Sometimes get bored by repetitive scripts."
+                        ],
+                        make: [
+                            "Discord bots (1-3 days)",
+                            "Automation scripts (hours to days)",
+                            "Web scrapers & OSINT tools",
+                            "Flask web servers",
+                            "Image/video tools",
+                            "Data manipulation scripts",
+                            "Custom utilities/calculators"
+                        ],
+                        future: [
+                            "AI-powered Discord bot",
+                            "Advanced OSINT suite",
+                            "Graphing tool with matplotlib",
+                            "Automated web dashboard"
+                        ],
+                        projects: [
+                            "shadowexif (EXIF remover)",
+                            "Ip-Info-Toolkit",
+                            "Proxy-Verifier-Scraper",
+                            "Exifrecover",
+                            "Webhook-spammer"
+                        ]
+                    },
+                    {
+                        name: "Rust",
+                        icon: "🦀",
+                        status: "Proficient (recently learned!)",
+                        class: "rust",
+                        strengths: [
+                            "Build safe, fast CLI tools and web services.",
+                            "Troubleshoot Rust errors quickly.",
+                            "Enjoy using crates for HTTP, CLI, async.",
+                            "Great for anything needing speed/safety."
+                        ],
+                        pros: [
+                            "Secure tools, no segfaults.",
+                            "Efficient OSINT/encryption programs.",
+                            "Fast CLI tools.",
+                            "Learn new crates quickly."
+                        ],
+                        cons: [
+                            "UI still learning.",
+                            "Advanced async still learning.",
+                            "Over-comment for clarity.",
+                            "Obsess over warnings."
+                        ],
+                        make: [
+                            "Fast CLI apps",
+                            "Small web servers/APIs",
+                            "Encryption/OSINT utilities",
+                            "Script-like Linux/Windows tools"
+                        ],
+                        future: [
+                            "Terminal-based game",
+                            "Rust-based file analyzer",
+                            "Async web scraper",
+                            "Secure messaging CLI"
+                        ],
+                        projects: [
+                            "Will be released soon: Secure file tool, async CLI dashboard"
+                        ]
+                    },
+                    {
+                        name: "Go",
+                        icon: "🐹",
+                        status: "Expert",
+                        class: "go",
+                        strengths: [
+                            "Expert at web servers, scrapers, and concurrent tools.",
+                            "Use Go's concurrency for bots, monitoring.",
+                            "Fast, reliable APIs & utilities.",
+                            "Master of goroutines, channels, and Go's ecosystem."
+                        ],
+                        pros: [
+                            "Web servers in <b>hours</b>.",
+                            "Concurrent apps, monitoring bots.",
+                            "Easy deployment, static binaries.",
+                            "Can build scalable APIs, bots, dashboards."
+                        ],
+                        cons: [
+                            "Error handling can slow me down.",
+                            "Minimalistic, so I invent my own patterns.",
+                            "Avoid huge Go monoliths."
+                        ],
+                        make: [
+                            "Web servers/APIs",
+                            "Scrapers",
+                            "Concurrent tools",
+                            "Bots/automations",
+                            "Monitoring utilities",
+                            "Custom dashboards"
+                        ],
+                        future: [
+                            "Real-time dashboard app",
+                            "Go-based OSINT tool",
+                            "Concurrent Discord bot",
+                            "Live site health monitor"
+                        ],
+                        projects: [
+                            "Quotemaker",
+                            "Will be released soon: Go dashboard, real-time scraper"
+                        ]
+                    },
+                    {
+                        name: "Node.js",
+                        icon: "🟩",
+                        status: "Expert",
+                        class: "know",
+                        strengths: [
+                            "Expert in Node.js scripting, automation, and bots.",
+                            "Build web servers, APIs, and Discord bots.",
+                            "Work with Express, Discord.js, Puppeteer, Axios."
+                        ],
+                        pros: [
+                            "Can create Discord bots and APIs quickly.",
+                            "Good at browser automation and scraping.",
+                            "Quick with async and event-driven code."
+                        ],
+                        cons: [
+                            "My frontend styling is minimal.",
+                            "Async bugs occasionally slow me.",
+                            "Not a React/Angular expert."
+                        ],
+                        make: [
+                            "Discord bots",
+                            "Web servers/APIs",
+                            "Automation scripts",
+                            "Browser automation tools"
+                        ],
+                        future: [
+                            "Node.js real-time chat",
+                            "Discord bot with dashboard",
+                            "Automated browser scraper"
+                        ],
+                        projects: [
+                            "Will be released soon: Discord.js bots, Express APIs"
+                        ]
+                    },
+                    {
+                        name: "D",
+                        icon: "🦑",
+                        status: "Advanced",
+                        class: "know",
+                        strengths: [
+                            "Bluetooth scanners, file encryption tools, system utilities.",
+                            "Tinker with performance and native APIs.",
+                            "Experimental security projects.",
+                            "Debug D code efficiently."
+                        ],
+                        pros: [
+                            "System utilities built quickly.",
+                            "File encryption, Bluetooth tools.",
+                            "Use D's metaprogramming."
+                        ],
+                        cons: [
+                            "Docs sparse—sometimes improvise.",
+                            "Less library support.",
+                            "Debugging takes longer."
+                        ],
+                        make: [
+                            "System utilities",
+                            "Bluetooth tools",
+                            "File encryption/analysis",
+                            "Custom CLI programs"
+                        ],
+                        future: [
+                            "Advanced Bluetooth scanner",
+                            "D-based encryption suite",
+                            "System monitoring CLI"
+                        ],
+                        projects: [
+                            "Bluetooth-Scanner",
+                            "DLang-file-encryptor"
+                        ]
+                    },
+                    {
+                        name: "C++",
+                        icon: "💻",
+                        status: "Expert",
+                        class: "know",
+                        strengths: [
+                            "Calculators, word games, terminal tools.",
+                            "Prototype algorithms and puzzles.",
+                            "Pointers, classes, memory management.",
+                            "Educational demos."
+                        ],
+                        pros: [
+                            "Terminal tools made fast.",
+                            "Optimized for speed/memory.",
+                            "Debugging/fixing bugs efficiently."
+                        ],
+                        cons: [
+                            "GUIs basic.",
+                            "Spend time optimizing.",
+                            "Manual memory tedious."
+                        ],
+                        make: [
+                            "Simple games",
+                            "Calculators & math tools",
+                            "Terminal utilities",
+                            "Algorithmic scripts"
+                        ],
+                        future: [
+                            "C++ puzzle game",
+                            "Math solver tool",
+                            "Terminal-based chat app"
+                        ],
+                        projects: [
+                            "terminal-cpp-calculator",
+                            "word-guess-game"
+                        ]
+                    },
+                    {
+                        name: "JavaScript",
+                        icon: "🌐",
+                        status: "Competent",
+                        class: "know",
+                        strengths: [
+                            "Web experiments, browser games, Node.js scripts.",
+                            "DOM manipulation, automation.",
+                            "Dashboards and widgets."
+                        ],
+                        pros: [
+                            "Browser tools in a day.",
+                            "Node.js quick scripts.",
+                            "Automate browser tasks."
+                        ],
+                        cons: [
+                            "Styling minimal.",
+                            "Async bugs happen.",
+                            "Avoid full-stack JS for now."
+                        ],
+                        make: [
+                            "Browser tools",
+                            "Node.js scripts",
+                            "Web dashboards",
+                            "Automation bots"
+                        ],
+                        future: [
+                            "JS game/animation",
+                            "Node.js site health monitor",
+                            "Interactive dashboard"
+                        ],
+                        projects: [
+                            "Will be released soon: Animated JS dashboard"
+                        ]
+                    },
+                    {
+                        name: "HTML/CSS",
+                        icon: "🎨",
+                        status: "Intermediate",
+                        class: "know",
+                        strengths: [
+                            "Clean landing pages and dashboards.",
+                            "Responsive layouts, custom portfolios.",
+                            "Structure and style sites quickly."
+                        ],
+                        pros: [
+                            "Functional sites fast.",
+                            "Mobile-friendly layouts.",
+                            "Portfolio/dashboard sites."
+                        ],
+                        cons: [
+                            "Keep CSS simple/readable.",
+                            "Advanced animations take longer.",
+                            "Avoid heavy frameworks."
+                        ],
+                        make: [
+                            "Landing pages",
+                            "Dashboards/portfolios",
+                            "Web apps"
+                        ],
+                        future: [
+                            "Animated personal portfolio",
+                            "Dashboard for tracking projects"
+                        ],
+                        projects: [
+                            "This portfolio."
+                        ]
+                    },
+                    {
+                        name: "C",
+                        icon: "⚙️",
+                        status: "Learning",
+                        class: "learn",
+                        strengths: [
+                            "Learning low-level systems and memory.",
+                            "Tinker with small utilities.",
+                            "Debug basic C apps."
+                        ],
+                        pros: [
+                            "Understand systems well.",
+                            "Can troubleshoot simple bugs.",
+                            "Learning to handle pointers/arrays."
+                        ],
+                        cons: [
+                            "Still slow with big C projects.",
+                            "Need docs open for syntax.",
+                            "Prefer scripting for rapid tasks."
+                        ],
+                        make: [
+                            "Small utilities",
+                            "Simple file tools"
+                        ],
+                        future: [
+                            "C-based file parser",
+                            "Tiny CLI encryption tool"
+                        ],
+                        projects: [
+                            "Will be released soon: C utilities"
+                        ]
+                    },
+                    {
+                        name: "C#",
+                        icon: "🧩",
+                        status: "Decent",
+                        class: "know",
+                        strengths: [
+                            "Build basic Windows utilities.",
+                            "Make simple GUIs.",
+                            "Debug C# apps."
+                        ],
+                        pros: [
+                            "Can make small Windows tools.",
+                            "Decent at scripting in C#.",
+                            "Quick at debugging simple C# code."
+                        ],
+                        cons: [
+                            "Learning advanced C# patterns.",
+                            "Still new to .NET libraries.",
+                            "GUIs are simple."
+                        ],
+                        make: [
+                            "Windows utilities",
+                            "Simple GUI apps",
+                            "Scripts"
+                        ],
+                        future: [
+                            "C# dashboard app",
+                            "Simple file manager"
+                        ],
+                        projects: [
+                            "Will be released soon: C# utilities"
+                        ]
+                    },
+                    {
+                        name: "Lua",
+                        icon: "🦎",
+                        status: "Learning",
+                        class: "learn",
+                        strengths: [
+                            "Game mods, scripts, and automation.",
+                            "Easy to embed in other tools."
+                        ],
+                        pros: [
+                            "Game mods quick.",
+                            "Great for scripting.",
+                            "Simple syntax."
+                        ],
+                        cons: [
+                            "Limited for big projects.",
+                            "Mix up Lua/Python sometimes.",
+                            "Not ideal standalone."
+                        ],
+                        make: [
+                            "Game mods",
+                            "Scripts and automations"
+                        ],
+                        future: [
+                            "Lua-based mod loader",
+                            "Automation script suite"
+                        ],
+                        projects: [
+                            "Will be released soon: Lua game mod"
+                        ]
+                    },
+                    {
+                        name: "Haskell",
+                        icon: "🔗",
+                        status: "Learning",
+                        class: "learn",
+                        strengths: [
+                            "Pure function demos, logic puzzles.",
+                            "Learning functional paradigms."
+                        ],
+                        pros: [
+                            "Fun for code puzzles.",
+                            "Type-safe code.",
+                            "Functional brain teasers."
+                        ],
+                        cons: [
+                            "Learning advanced patterns.",
+                            "Prototyping takes longer.",
+                            "Smaller community."
+                        ],
+                        make: [
+                            "Pure function demos",
+                            "Logic puzzles"
+                        ],
+                        future: [
+                            "Haskell puzzle generator"
+                        ],
+                        projects: [
+                            "Will be released soon: Haskell puzzles"
+                        ]
+                    }
+                ];
+                const grid = document.getElementById("langSkillsGrid");
+                langs.forEach((lang, i) => {
+                    const card = document.createElement("div");
+                    card.className = `lang-card ${lang.class}`;
+                    card.style.animationDelay = (i * 0.13 + 0.25) + "s";
+                    card.innerHTML = `
         <div class="lang-title">
             <span>${lang.icon}</span>
             ${lang.name}
@@ -1188,9 +1389,9 @@ langs.forEach((lang, i) => {
             </ul>
         </div>
     `;
-    grid.appendChild(card);
-    setTimeout(() => card.classList.add("animate"), (i * 130 + 250));
-});
+                    grid.appendChild(card);
+                    setTimeout(() => card.classList.add("animate"), (i * 130 + 250));
+                });
             </script>
         </section>
 
