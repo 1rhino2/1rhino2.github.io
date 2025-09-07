@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Hi... Oh btw, check your RAM</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>1rhino2 | Projects</title>
   <style>
     body {
       background: #070b0c;
@@ -10,55 +11,37 @@
       font-family: 'Montserrat', 'Roboto', sans-serif;
       text-align: center;
       margin: 0;
-      padding-top: 18vh;
-      font-size: 2.5rem;
-      user-select: none;
-      overflow: hidden;
-    }
-    #hi { 
-      font-size: 3.5rem;
-      font-weight: 900;
-      color: #3fb950;
-      margin-bottom: .26em;
-      text-shadow: 0 0 18px #3fb950, 0 0 30px #191;
-      font-family: 'Montserrat', sans-serif;
-    }
-    #btw {
-      font-size: 1.6rem;
-      color: #e74c3c;
-      margin-bottom: 1.5em;
-      font-family: 'Roboto', sans-serif;
-      font-weight: 700;
-      text-shadow: 0 0 5px #e74c3c;
-    }
-    #ramuse {
+      padding: 2rem;
       font-size: 1.2rem;
-      margin-top: 2.3em;
-      color: #f1c40f;
-      font-family: 'Roboto', sans-serif;
-      font-weight: 800;
-      text-shadow: 0 0 8px #f1c40f;
+    }
+    h1 { 
+      font-size: 2.5rem;
+      color: #3fb950;
+      margin-bottom: 1rem;
+    }
+    p {
+      max-width: 600px;
+      margin: 0 auto 2rem auto;
+      line-height: 1.6;
+    }
+    a {
+      color: #58a6ff;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    a:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
 <body>
-  <div id="hi">Hi.</div>
-  <div id="btw">Oh btw, check your RAM.</div>
-  <div id="ramuse"></div>
-  <script>
-    let arrs = [];
-    let totalAlloc = 0;
-    let domCount = 0;
-    let workers = [];
-    let workerCount = 0;
-    let ramDiv = document.getElementById('ramuse');
-    function updateRam() {
-      let mb = Math.round(totalAlloc / (1024*1024));
-      ramDiv.textContent = `RAM: ${mb} MB | Arrays: ${arrs.length} | DOM: ${domCount} | Workers: ${workerCount}`;
-    }
-    function allocLoop() {
-      if (arrs.length > 60) return; // cap arrays
-      for (let i = 0; i < 2; i++) {
-        let arr = new Array(1e6).fill(Math.random());
-        arrs.push(arr);
-        totalAlloc += arr.length *
+  <h1>Projects & Code</h1>
+  <p>
+    Welcome! This page is currently under development. For now, you can check out my projects on GitHub.
+  </p>
+  <p>
+    <a href="/">← Back to main site</a> | 
+    <a href="https://github.com/1rhino2?tab=repositories" target="_blank">View GitHub Repositories</a>
+  </p>
+</body>
+</html>
