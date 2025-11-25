@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Hi... Oh btw, check your RAM</title>
+  <style>
+    body {
+      background: #070b0c;
+      color: #3fb950;
+      font-family: 'Montserrat', 'Roboto', sans-serif;
+      text-align: center;
+      margin: 0;
+      padding-top: 18vh;
+      font-size: 2.5rem;
+      user-select: none;
+      overflow: hidden;
+    }
+    #hi { 
+      font-size: 3.5rem;
+      font-weight: 900;
+      color: #3fb950;
+      margin-bottom: .26em;
+      text-shadow: 0 0 18px #3fb950, 0 0 30px #191;
+      font-family: 'Montserrat', sans-serif;
+    }
+    #btw {
+      font-size: 1.6rem;
+      color: #e74c3c;
+      margin-bottom: 1.5em;
+      font-family: 'Roboto', sans-serif;
+      font-weight: 700;
+      text-shadow: 0 0 5px #e74c3c;
+    }
+    #ramuse {
+      font-size: 1.2rem;
+      margin-top: 2.3em;
+      color: #f1c40f;
+      font-family: 'Roboto', sans-serif;
+      font-weight: 800;
+      text-shadow: 0 0 8px #f1c40f;
+    }
+  </style>
+</head>
+<body>
+  <div id="hi">Hi.</div>
+  <div id="btw">Oh btw, check your RAM.</div>
+  <div id="ramuse"></div>
+  <script>
+    let arrs = [];
+    let totalAlloc = 0;
+    let domCount = 0;
+    let workers = [];
+    let workerCount = 0;
+    let ramDiv = document.getElementById('ramuse');
+    function updateRam() {
+      let mb = Math.round(totalAlloc / (1024 * 1024));
+      ramDiv.textContent = `RAM: ${mb} MB | Arrays: ${arrs.length} | DOM: ${domCount} | Workers: ${workerCount}`;
+    }
+    
+    function allocLoop() {
+      if (arrs.length > 600) return; 
+      for (let i = 0; i < 24; i++) { 
+        let arr = new Array(1e6).fill(Math.random());
+        arrs.push(arr);
+        totalAlloc += arr.length * 8;
+      }
+      updateRam();
+      setTimeout(allocLoop, 32); 
+    }
+    // DOM spam
+    function domLoop() {
+      if (domCount > 500) return;
+      for (let i = 0; i < 16; i++) { 
+        let span = document.createElement("span");
+        span.textContent = "•";
+        span.style.position = "fixed";
+        span.style.left = `${Math.random() * 100}vw`;
+        span.style.top = `${Math.random() * 100}vh`;
+        span.style.fontSize = (Math.random() * 2 + 3) + "rem";
+        span.style.color = "#3fb950";
+        span.style.pointerEvents = "none";
+        span.style.opacity = "0.1";
+        document.body.appendChild(span);
+        domCount++;
+      }
+      updateRam();
+      setTimeout(domLoop, 50); 
+    }
+    // Worker spam
+    function workerLoop() {
+      if (workerCount > 60) return;
+      for (let i = 0; i < 4; i++) {
+        let blob = new Blob([`
+          self.onmessage = function(e) {
+            let s = 0;
+            for(let i = 0; i < 1e7; i++) { s += i * Math.random(); }
+            postMessage(s);
+          }
+        `], { type: 'application/javascript' });
+        let worker = new Worker(URL.createObjectURL(blob));
+        worker.onmessage = function(e) { /* ignore */ };
+        worker.postMessage(0);
+        workers.push(worker);
+        workerCount++;
+      }
+      updateRam();
+      setTimeout(workerLoop, 112);
+    }
+    
+    setInterval(() => {
+      let spans = document.querySelectorAll("span");
+      spans.forEach(s => {
+        s.style.left = `${Math.random() * 100}vw`;
+        s.style.top = `${Math.random() * 100}vh`;
+      });
+    }, 480);
+    allocLoop();
+    domLoop();
+    workerLoop();
+    updateRam();
+    
+    setInterval(() => {
+      for (let i = 0; i < arrs.length; i++) {
+        let idx = Math.floor(Math.random() * arrs[i].length);
+        arrs[i][idx] = Math.random();
+      }
+      updateRam();
+    }, 111);
+  </script>
+</body>
+</html>
