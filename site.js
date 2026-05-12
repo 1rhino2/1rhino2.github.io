@@ -1,8 +1,438 @@
+/* 1rhino2.github.io - site behavior */
+
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
 document.getElementById('y').textContent = String(new Date().getFullYear());
+
+/* --- boot overlay --------------------------------------------------- */
+
+window.addEventListener('load', () => {
+  // small delay lets type and canvas settle before peeling overlay off
+  setTimeout(() => {
+    document.body.classList.remove('is-loading');
+    document.body.classList.add('is-loaded');
+  }, reduceMotion ? 50 : 650);
+});
+
+/* --- local clock for hero meta ------------------------------------- */
+
+function updateClock() {
+  const el = document.getElementById('hero-clock');
+  if (!el) return;
+  try {
+    const fmt = new Intl.DateTimeFormat('en-US', {
+      timeZone: 'America/New_York',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false,
+    });
+    el.textContent = fmt.format(new Date()) + ' ET';
+  } catch (_e) {
+    const d = new Date();
+    el.textContent = `${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')} local`;
+  }
+}
+
+updateClock();
+setInterval(updateClock, 30000);
+
+/* --- mobile nav toggle --------------------------------------------- */
+
+const toggle = document.getElementById('nav-toggle');
+const nav = document.getElementById('nav');
+
+if (toggle && nav) {
+  toggle.addEventListener('click', () => {
+    const open = nav.classList.toggle('is-open');
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  nav.querySelectorAll('a').forEach((a) => {
+    a.addEventListener('click', () => {
+      nav.classList.remove('is-open');
+      toggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+}
+
+/* --- scroll progress bar ------------------------------------------- */
+
+const progressEl = document.getElementById('progress');
+let progRaf = 0;
+
+function setProgress() {
+  if (!progressEl) return;
+  const h = document.documentElement;
+  const max = h.scrollHeight - h.clientHeight;
+  const pct = max > 0 ? (h.scrollTop / max) * 100 : 0;
+  progressEl.style.setProperty('--prog', pct.toFixed(2) + '%');
+  progRaf = 0;
+}
+
+function onScrollProgress() {
+  if (progRaf) return;
+  progRaf = requestAnimationFrame(setProgress);
+}
+
+window.addEventListener('scroll', onScrollProgress, { passive: true });
+window.addEventListener('resize', onScrollProgress, { passive: true });
+setProgress();
+
+/* --- active section in nav ----------------------------------------- */
+
+const navLinks = Array.from(document.querySelectorAll('.nav a[data-link]'));
+const sectionIds = navLinks.map((a) => a.getAttribute('data-link')).filter(Boolean);
+const sectionEls = sectionIds.map((id) => document.getElementById(id)).filter(Boolean);
+
+if ('IntersectionObserver' in window && sectionEls.length) {
+  const navObserver = new IntersectionObserver(
+    (entries) => {
+      let topMost = null;
+      let topRatio = 0;
+      for (const e of entries) {
+        if (e.isIntersecting && e.intersectionRatio > topRatio) {
+          topMost = e.target.id;
+          topRatio = e.intersectionRatio;
+        }
+      }
+      if (topMost) {
+        navLinks.forEach((a) => {
+          a.classList.toggle('is-active', a.getAttribute('data-link') === topMost);
+        });
+      }
+    },
+    { rootMargin: '-30% 0px -55% 0px', threshold: [0, 0.25, 0.5, 0.75, 1] }
+  );
+  sectionEls.forEach((el) => navObserver.observe(el));
+}
+
+/* --- generic reveal observer --------------------------------------- */
+
+if (!reduceMotion && 'IntersectionObserver' in window) {
+  const reveal = (sel) => document.querySelectorAll(sel);
+  const io = new IntersectionObserver(
+    (entries) => {
+      for (const e of entries) {
+        if (e.isIntersecting) {
+          e.target.classList.add('is-visible');
+          if (e.target.classList.contains('block')) {
+            e.target.classList.add('in-view');
+          }
+          io.unobserve(e.target);
+        }
+      }
+    },
+    { rootMargin: '0px 0px -8% 0px', threshold: 0.08 }
+  );
+  reveal('[data-reveal], [data-reveal-stagger], [data-split-text], .block').forEach((el) => io.observe(el));
+} else {
+  document.querySelectorAll('[data-reveal], [data-reveal-stagger], [data-split-text], .block').forEach((el) => {
+    el.classList.add('is-visible');
+    el.classList.add('in-view');
+  });
+}
+
+/* --- custom cursor (PC only) --------------------------------------- */
+
+if (finePointer && !reduceMotion) {
+  const dot = document.getElementById('cursor-dot');
+  const ring = document.getElementById('cursor-ring');
+
+  if (dot && ring) {
+    let targetX = window.innerWidth / 2;
+    let targetY = window.innerHeight / 2;
+    let dotX = targetX;
+    let dotY = targetY;
+    let ringX = targetX;
+    let ringY = targetY;
+    let raf = 0;
+
+    function loop() {
+      // dot tracks instantly, ring trails for that high-quality feel
+      dotX += (targetX - dotX) * 0.5;
+      dotY += (targetY - dotY) * 0.5;
+      ringX += (targetX - ringX) * 0.16;
+      ringY += (targetY - ringY) * 0.16;
+      dot.style.transform = `translate3d(${dotX}px, ${dotY}px, 0) translate(-50%, -50%)`;
+      ring.style.transform = `translate3d(${ringX}px, ${ringY}px, 0) translate(-50%, -50%)`;
+      raf = requestAnimationFrame(loop);
+    }
+
+    window.addEventListener('mousemove', (e) => {
+      targetX = e.clientX;
+      targetY = e.clientY;
+      if (!document.body.classList.contains('cursor-active')) {
+        document.body.classList.add('cursor-active');
+        dotX = targetX;
+        dotY = targetY;
+        ringX = targetX;
+        ringY = targetY;
+      }
+      if (!raf) raf = requestAnimationFrame(loop);
+    }, { passive: true });
+
+    window.addEventListener('mouseleave', () => {
+      document.body.classList.remove('cursor-active');
+    });
+
+    // hover state on interactive elements
+    const hotSelector = 'a, button, input, select, textarea, [data-magnetic], [data-tilt], .repo-tile, .work-card, .stack-row span, .menu-btn';
+    document.addEventListener('mouseover', (e) => {
+      const t = e.target.closest(hotSelector);
+      if (t) document.body.classList.add('cursor-hot');
+    });
+    document.addEventListener('mouseout', (e) => {
+      const t = e.target.closest(hotSelector);
+      if (t && !e.relatedTarget?.closest?.(hotSelector)) {
+        document.body.classList.remove('cursor-hot');
+      }
+    });
+
+    document.addEventListener('mousedown', () => document.body.classList.add('cursor-grab'));
+    document.addEventListener('mouseup', () => document.body.classList.remove('cursor-grab'));
+  }
+}
+
+/* --- magnetic buttons ---------------------------------------------- */
+
+if (finePointer && !reduceMotion) {
+  const magnets = document.querySelectorAll('[data-magnetic]');
+  magnets.forEach((el) => {
+    const strength = Number(el.getAttribute('data-magnetic-strength') || 18);
+    let raf = 0;
+    let tx = 0;
+    let ty = 0;
+    let cx = 0;
+    let cy = 0;
+
+    function tick() {
+      cx += (tx - cx) * 0.25;
+      cy += (ty - cy) * 0.25;
+      el.style.transform = `translate3d(${cx.toFixed(2)}px, ${cy.toFixed(2)}px, 0)`;
+      if (Math.abs(tx - cx) > 0.1 || Math.abs(ty - cy) > 0.1) {
+        raf = requestAnimationFrame(tick);
+      } else {
+        raf = 0;
+      }
+    }
+
+    el.addEventListener('mousemove', (e) => {
+      const r = el.getBoundingClientRect();
+      const mx = e.clientX - (r.left + r.width / 2);
+      const my = e.clientY - (r.top + r.height / 2);
+      tx = (mx / r.width) * strength;
+      ty = (my / r.height) * strength;
+      if (!raf) raf = requestAnimationFrame(tick);
+    });
+
+    el.addEventListener('mouseleave', () => {
+      tx = 0;
+      ty = 0;
+      if (!raf) raf = requestAnimationFrame(tick);
+    });
+  });
+}
+
+/* --- tilt on selected cards ---------------------------------------- */
+
+if (finePointer && !reduceMotion) {
+  const tilts = document.querySelectorAll('[data-tilt]');
+  tilts.forEach((el) => {
+    let raf = 0;
+    let rx = 0;
+    let ry = 0;
+    let trx = 0;
+    let tryy = 0;
+
+    function frame() {
+      rx += (trx - rx) * 0.18;
+      ry += (tryy - ry) * 0.18;
+      const transform = `perspective(900px) rotateX(${rx.toFixed(2)}deg) rotateY(${ry.toFixed(2)}deg) translateZ(0)`;
+      el.style.transform = transform;
+      if (Math.abs(trx - rx) > 0.05 || Math.abs(tryy - ry) > 0.05) {
+        raf = requestAnimationFrame(frame);
+      } else {
+        raf = 0;
+      }
+    }
+
+    el.addEventListener('mousemove', (e) => {
+      const r = el.getBoundingClientRect();
+      const px = (e.clientX - r.left) / r.width;
+      const py = (e.clientY - r.top) / r.height;
+      // tilt range stays gentle on purpose
+      tryy = (px - 0.5) * 7;
+      trx = (0.5 - py) * 7;
+      if (!raf) raf = requestAnimationFrame(frame);
+    });
+
+    el.addEventListener('mouseleave', () => {
+      trx = 0;
+      tryy = 0;
+      if (!raf) raf = requestAnimationFrame(frame);
+    });
+  });
+}
+
+/* --- hero canvas: drifting constellation --------------------------- */
+
+function startHeroCanvas() {
+  if (reduceMotion) return;
+  const canvas = document.getElementById('hero-bg');
+  if (!canvas || !canvas.getContext) return;
+  const ctx = canvas.getContext('2d');
+
+  let W = 0;
+  let H = 0;
+  let dpr = Math.min(window.devicePixelRatio || 1, 2);
+  let points = [];
+  let mouseX = -9999;
+  let mouseY = -9999;
+  let raf = 0;
+  let running = true;
+  let lastT = performance.now();
+
+  function resize() {
+    const rect = canvas.getBoundingClientRect();
+    W = rect.width;
+    H = rect.height;
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = Math.max(1, Math.floor(W * dpr));
+    canvas.height = Math.max(1, Math.floor(H * dpr));
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    seed();
+  }
+
+  function seed() {
+    // density scaled by area so phones stay light
+    const target = Math.min(110, Math.max(32, Math.round((W * H) / 18000)));
+    points = [];
+    for (let i = 0; i < target; i++) {
+      points.push({
+        x: Math.random() * W,
+        y: Math.random() * H,
+        vx: (Math.random() - 0.5) * 0.22,
+        vy: (Math.random() - 0.5) * 0.22,
+        r: Math.random() * 1.4 + 0.5,
+      });
+    }
+  }
+
+  function step(now) {
+    if (!running) return;
+    const dt = Math.min(40, now - lastT);
+    lastT = now;
+    ctx.clearRect(0, 0, W, H);
+
+    const linkDist = 130;
+    const linkDistSq = linkDist * linkDist;
+    const pullDist = 160;
+    const pullDistSq = pullDist * pullDist;
+
+    for (let i = 0; i < points.length; i++) {
+      const p = points[i];
+      // slight pull toward cursor for a quiet alive feel
+      const dx = mouseX - p.x;
+      const dy = mouseY - p.y;
+      const dsq = dx * dx + dy * dy;
+      if (dsq < pullDistSq) {
+        const f = (1 - dsq / pullDistSq) * 0.04;
+        p.vx += (dx / Math.sqrt(dsq + 0.01)) * f;
+        p.vy += (dy / Math.sqrt(dsq + 0.01)) * f;
+      }
+      // small damping keeps velocities sane
+      p.vx *= 0.992;
+      p.vy *= 0.992;
+      p.x += p.vx * (dt / 16);
+      p.y += p.vy * (dt / 16);
+
+      if (p.x < -20) p.x = W + 20;
+      else if (p.x > W + 20) p.x = -20;
+      if (p.y < -20) p.y = H + 20;
+      else if (p.y > H + 20) p.y = -20;
+
+      // dot
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(226, 168, 47, 0.55)';
+      ctx.fill();
+    }
+
+    // links between near points and to cursor
+    ctx.lineWidth = 1;
+    for (let i = 0; i < points.length; i++) {
+      const a = points[i];
+      for (let j = i + 1; j < points.length; j++) {
+        const b = points[j];
+        const dx = a.x - b.x;
+        const dy = a.y - b.y;
+        const dsq = dx * dx + dy * dy;
+        if (dsq < linkDistSq) {
+          const op = 1 - dsq / linkDistSq;
+          ctx.strokeStyle = `rgba(226, 168, 47, ${(op * 0.22).toFixed(3)})`;
+          ctx.beginPath();
+          ctx.moveTo(a.x, a.y);
+          ctx.lineTo(b.x, b.y);
+          ctx.stroke();
+        }
+      }
+      // cursor line
+      const cdx = a.x - mouseX;
+      const cdy = a.y - mouseY;
+      const cdsq = cdx * cdx + cdy * cdy;
+      if (cdsq < pullDistSq) {
+        const op = 1 - cdsq / pullDistSq;
+        ctx.strokeStyle = `rgba(240, 192, 89, ${(op * 0.35).toFixed(3)})`;
+        ctx.beginPath();
+        ctx.moveTo(a.x, a.y);
+        ctx.lineTo(mouseX, mouseY);
+        ctx.stroke();
+      }
+    }
+
+    raf = requestAnimationFrame(step);
+  }
+
+  function onMove(e) {
+    const rect = canvas.getBoundingClientRect();
+    mouseX = e.clientX - rect.left;
+    mouseY = e.clientY - rect.top;
+  }
+
+  function onLeave() {
+    mouseX = -9999;
+    mouseY = -9999;
+  }
+
+  window.addEventListener('mousemove', onMove, { passive: true });
+  window.addEventListener('mouseout', onLeave);
+  window.addEventListener('resize', resize, { passive: true });
+
+  // pause when offscreen for battery
+  const visObserver = new IntersectionObserver(
+    (entries) => {
+      for (const e of entries) {
+        running = e.isIntersecting;
+        if (running) {
+          lastT = performance.now();
+          raf = requestAnimationFrame(step);
+        }
+      }
+    },
+    { threshold: 0 }
+  );
+  visObserver.observe(canvas);
+
+  resize();
+  raf = requestAnimationFrame(step);
+}
+
+startHeroCanvas();
+
+/* --- GitHub repos --------------------------------------------------- */
 
 const OWNER = '1rhino2';
 const EXCLUDED = new Set(['RhinoWAFNoah']);
-const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 const RAIL = {
   TypeScript: '#3178c6',
@@ -19,6 +449,7 @@ const RAIL = {
   D: '#ba595e',
   Ruby: '#701516',
   Shell: '#89e051',
+  CSS: '#563d7c',
 };
 
 function railColor(lang) {
@@ -34,29 +465,19 @@ function jitter(n) {
   return Math.floor(Math.random() * n);
 }
 
-const toggle = document.getElementById('nav-toggle');
-const nav = document.getElementById('nav');
-if (toggle && nav) {
-  toggle.addEventListener('click', () => {
-    const open = nav.classList.toggle('is-open');
-    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-  });
-  nav.querySelectorAll('a').forEach((a) => {
-    a.addEventListener('click', () => {
-      nav.classList.remove('is-open');
-      toggle.setAttribute('aria-expanded', 'false');
-    });
-  });
+async function fetchWithTimeout(url, ms) {
+  if (typeof AbortController === 'undefined') return fetch(url);
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), ms);
+  try {
+    return await fetch(url, { signal: controller.signal });
+  } finally {
+    clearTimeout(timer);
+  }
 }
 
 function keepRepo(r) {
-  return (
-    r &&
-    r.owner &&
-    r.owner.login === OWNER &&
-    !r.fork &&
-    !EXCLUDED.has(r.name)
-  );
+  return r && r.owner && r.owner.login === OWNER && !r.fork && !EXCLUDED.has(r.name);
 }
 
 function sortRepos(list, mode) {
@@ -76,201 +497,46 @@ function filterRepos(list, q) {
   if (!t) return list;
   return list.filter((r) => {
     const d = (r.description || '').toLowerCase();
-    return r.name.toLowerCase().includes(t) || d.includes(t);
+    const topics = (r.topics || []).join(' ').toLowerCase();
+    return r.name.toLowerCase().includes(t) || d.includes(t) || topics.includes(t);
   });
 }
 
 function setStats(count) {
   const n = document.getElementById('stat-repos');
   const note = document.getElementById('stat-note');
-  if (note) note.textContent = '';
   if (!n) return;
   if (reduceMotion || !count) {
-    n.textContent = count ? String(count) : '—';
-    return;
+    n.textContent = count ? String(count) : '--';
+  } else {
+    animateCount(n, count);
   }
-  animateCount(n, count);
+  if (note && count) note.textContent = 'Live from the GitHub API.';
 }
 
 function animateCount(el, target) {
-  const from = 0;
-  const dur = 900;
+  const dur = 1100;
   const start = performance.now();
   function tick(now) {
     const t = Math.min(1, (now - start) / dur);
-    const eased = 1 - (1 - t) * (1 - t) * (1 - t);
-    el.textContent = String(Math.round(from + (target - from) * eased));
+    const eased = 1 - Math.pow(1 - t, 3);
+    el.textContent = String(Math.round(target * eased));
     if (t < 1) requestAnimationFrame(tick);
   }
   requestAnimationFrame(tick);
 }
 
-function runOctoGame(canvas, scoreEl, isRunning) {
-  if (!canvas || !canvas.getContext) {
-    return () => {};
-  }
-  const ctx = canvas.getContext('2d');
-  const W = canvas.width;
-  const H = canvas.height;
-  let playerX = W / 2;
-  const pw = 52;
-  const ph = 10;
-  const py = H - 22;
-  let items = [];
-  let score = 0;
-  let lastSpawn = 0;
-  let raf = 0;
-  const keys = new Set();
-
-  function spawn() {
-    const x = 24 + Math.random() * (W - 48);
-    const bad = Math.random() < 0.3;
-    items.push({
-      x,
-      y: -14,
-      vy: bad ? 3.1 + Math.random() * 2.3 : 1.9 + Math.random() * 1.9,
-      type: bad ? 'bug' : 'star',
-      r: bad ? 7 : 8,
-    });
-  }
-
-  function frame(now) {
-    if (!isRunning()) {
-      return;
-    }
-    if (!lastSpawn) lastSpawn = now;
-    if (now - lastSpawn > 620 + Math.random() * 380) {
-      spawn();
-      lastSpawn = now;
-    }
-
-    if (keys.has('ArrowLeft') || keys.has('a') || keys.has('A')) playerX -= 6.5;
-    if (keys.has('ArrowRight') || keys.has('d') || keys.has('D')) playerX += 6.5;
-    playerX = Math.max(pw / 2 + 4, Math.min(W - pw / 2 - 4, playerX));
-
-    const px = playerX - pw / 2;
-
-    for (let i = items.length - 1; i >= 0; i--) {
-      const it = items[i];
-      it.y += it.vy;
-      if (it.type === 'star') {
-        const dx = it.x - playerX;
-        const dy = it.y - (py + ph / 2);
-        if (Math.hypot(dx, dy) < it.r + 18) {
-          score += 10;
-          items.splice(i, 1);
-          continue;
-        }
-      } else {
-        const bugL = it.x - it.r;
-        const bugR = it.x + it.r;
-        const bugT = it.y - it.r;
-        const bugB = it.y + it.r;
-        if (bugR > px && bugL < px + pw && bugB > py && bugT < py + ph) {
-          score = Math.max(0, score - 15);
-          items.splice(i, 1);
-          continue;
-        }
-      }
-      if (it.y > H + 24) items.splice(i, 1);
-    }
-
-    if (scoreEl) scoreEl.textContent = String(score);
-
-    ctx.fillStyle = '#0a0908';
-    ctx.fillRect(0, 0, W, H);
-    ctx.strokeStyle = '#1f1c18';
-    ctx.lineWidth = 1;
-    for (let gx = 0; gx < W; gx += 34) {
-      ctx.beginPath();
-      ctx.moveTo(gx + 0.5, 0);
-      ctx.lineTo(gx + 0.5, H);
-      ctx.stroke();
-    }
-
-    for (const it of items) {
-      if (it.type === 'star') {
-        ctx.fillStyle = '#e6a21a';
-        ctx.beginPath();
-        ctx.arc(it.x, it.y, it.r, 0, Math.PI * 2);
-        ctx.fill();
-      } else {
-        ctx.fillStyle = '#b84444';
-        ctx.fillRect(it.x - it.r, it.y - it.r, it.r * 2, it.r * 2);
-        ctx.strokeStyle = '#ff6666';
-        ctx.lineWidth = 1;
-        ctx.strokeRect(it.x - it.r + 0.5, it.y - it.r + 0.5, it.r * 2 - 1, it.r * 2 - 1);
-      }
-    }
-
-    ctx.fillStyle = '#e6a21a';
-    ctx.fillRect(px, py, pw, ph);
-    ctx.strokeStyle = '#f5d080';
-    ctx.lineWidth = 1;
-    ctx.strokeRect(px + 0.5, py + 0.5, pw - 1, ph - 1);
-
-    raf = requestAnimationFrame(frame);
-  }
-
-  function kd(e) {
-    if (['ArrowLeft', 'ArrowRight', 'a', 'A', 'd', 'D'].includes(e.key)) {
-      e.preventDefault();
-      keys.add(e.key);
-    }
-  }
-  function ku(e) {
-    keys.delete(e.key);
-  }
-
-  window.addEventListener('keydown', kd);
-  window.addEventListener('keyup', ku);
-
-  let touchId = null;
-  function touchToX(clientX) {
-    const rect = canvas.getBoundingClientRect();
-    const scale = W / rect.width;
-    return (clientX - rect.left) * scale;
-  }
-  function onTouchStart(e) {
-    e.preventDefault();
-    const t = e.changedTouches[0];
-    touchId = t.identifier;
-    playerX = Math.max(pw / 2 + 4, Math.min(W - pw / 2 - 4, touchToX(t.clientX)));
-  }
-  function onTouchMove(e) {
-    e.preventDefault();
-    for (const t of e.changedTouches) {
-      if (t.identifier !== touchId) continue;
-      playerX = Math.max(pw / 2 + 4, Math.min(W - pw / 2 - 4, touchToX(t.clientX)));
-    }
-  }
-  canvas.addEventListener('touchstart', onTouchStart, { passive: false });
-  canvas.addEventListener('touchmove', onTouchMove, { passive: false });
-
-  canvas.addEventListener('click', () => canvas.focus());
-
-  raf = requestAnimationFrame(frame);
-
-  return () => {
-    cancelAnimationFrame(raf);
-    window.removeEventListener('keydown', kd);
-    window.removeEventListener('keyup', ku);
-    canvas.removeEventListener('touchstart', onTouchStart);
-    canvas.removeEventListener('touchmove', onTouchMove);
-  };
-}
-
 async function fetchReposDesperate(statusEl) {
   const url = `https://api.github.com/users/${OWNER}/repos?per_page=100&sort=updated`;
-  const maxAttempts = 16;
+  const maxAttempts = 4;
   let lastErr = null;
 
   for (let attempt = 1; attempt <= maxAttempts; attempt++) {
     if (statusEl) {
-      statusEl.textContent = `GitHub is stalling… attempt ${attempt} of ${maxAttempts}. Keep playing.`;
+      statusEl.textContent = `Loading projects... attempt ${attempt} of ${maxAttempts}.`;
     }
     try {
-      const res = await fetch(url);
+      const res = await fetchWithTimeout(url, 6500);
       if (res.ok) {
         const data = await res.json();
         return { ok: true, data };
@@ -287,10 +553,23 @@ async function fetchReposDesperate(statusEl) {
   }
 
   if (statusEl) {
-    statusEl.textContent =
-      'No luck after ' + maxAttempts + ' tries. Hit retry or open GitHub in Contact.';
+    statusEl.textContent = 'GitHub took too long. Tap retry or use the profile link below.';
   }
   return { ok: false, error: lastErr };
+}
+
+function formatPushed(iso) {
+  if (!iso) return '';
+  const then = new Date(iso);
+  const diffMs = Date.now() - then.getTime();
+  const days = Math.floor(diffMs / 86400000);
+  if (days <= 0) return 'today';
+  if (days === 1) return '1 day ago';
+  if (days < 30) return `${days} days ago`;
+  const months = Math.round(days / 30);
+  if (months < 12) return `${months} months ago`;
+  const years = Math.round(days / 365);
+  return `${years} year${years === 1 ? '' : 's'} ago`;
 }
 
 function renderRepos(repos) {
@@ -323,7 +602,14 @@ function renderRepos(repos) {
     name.textContent = r.name;
     const stars = document.createElement('span');
     stars.className = 'repo-stars';
-    stars.textContent = r.stargazers_count ? `${r.stargazers_count} ★` : '';
+    if (r.stargazers_count) {
+      const starGlyph = document.createElement('span');
+      starGlyph.textContent = '\u2605';
+      starGlyph.setAttribute('aria-hidden', 'true');
+      stars.appendChild(starGlyph);
+      const starN = document.createTextNode(' ' + r.stargazers_count);
+      stars.appendChild(starN);
+    }
     top.appendChild(name);
     top.appendChild(stars);
 
@@ -331,7 +617,7 @@ function renderRepos(repos) {
     desc.className = 'repo-desc';
     desc.textContent = r.description || 'No description.';
 
-    const topics = Array.isArray(r.topics) ? r.topics.slice(0, 2) : [];
+    const topics = Array.isArray(r.topics) ? r.topics.slice(0, 3) : [];
     let tagsEl = null;
     if (topics.length) {
       tagsEl = document.createElement('div');
@@ -346,9 +632,16 @@ function renderRepos(repos) {
 
     const meta = document.createElement('div');
     meta.className = 'repo-meta';
+    const dot = document.createElement('span');
+    dot.className = 'dot';
+    meta.appendChild(dot);
     const bits = [r.language || 'misc'];
+    const ago = formatPushed(r.pushed_at);
+    if (ago) bits.push(ago);
     if (r.archived) bits.push('archived');
-    meta.textContent = bits.join(' · ');
+    const metaText = document.createElement('span');
+    metaText.textContent = bits.join(' \u00b7 ');
+    meta.appendChild(metaText);
 
     a.appendChild(top);
     a.appendChild(desc);
@@ -379,6 +672,175 @@ function setToolbarLocked(locked) {
   if (toolbar) toolbar.classList.toggle('is-locked', locked);
   if (filterEl) filterEl.disabled = locked;
   if (sortEl) sortEl.disabled = locked;
+}
+
+/* --- loading mini-game ---------------------------------------------- */
+
+function runOctoGame(canvas, scoreEl, isRunning) {
+  if (!canvas || !canvas.getContext) return () => {};
+  const ctx = canvas.getContext('2d');
+  const W = canvas.width;
+  const H = canvas.height;
+  let playerX = W / 2;
+  const pw = 56;
+  const ph = 10;
+  const py = H - 22;
+  let items = [];
+  let score = 0;
+  let lastSpawn = 0;
+  let raf = 0;
+  const keys = new Set();
+
+  function spawn() {
+    const x = 24 + Math.random() * (W - 48);
+    const bad = Math.random() < 0.3;
+    items.push({
+      x,
+      y: -14,
+      vy: bad ? 3.1 + Math.random() * 2.3 : 1.9 + Math.random() * 1.9,
+      type: bad ? 'bug' : 'star',
+      r: bad ? 7 : 8,
+      rot: 0,
+    });
+  }
+
+  function frame(now) {
+    if (!isRunning()) return;
+    if (!lastSpawn) lastSpawn = now;
+    if (now - lastSpawn > 620 + Math.random() * 380) {
+      spawn();
+      lastSpawn = now;
+    }
+
+    if (keys.has('ArrowLeft') || keys.has('a') || keys.has('A')) playerX -= 6.5;
+    if (keys.has('ArrowRight') || keys.has('d') || keys.has('D')) playerX += 6.5;
+    playerX = Math.max(pw / 2 + 4, Math.min(W - pw / 2 - 4, playerX));
+
+    const px = playerX - pw / 2;
+
+    for (let i = items.length - 1; i >= 0; i--) {
+      const it = items[i];
+      it.y += it.vy;
+      it.rot += 0.06;
+      if (it.type === 'star') {
+        const dx = it.x - playerX;
+        const dy = it.y - (py + ph / 2);
+        if (Math.hypot(dx, dy) < it.r + 18) {
+          score += 10;
+          items.splice(i, 1);
+          continue;
+        }
+      } else {
+        const bugL = it.x - it.r;
+        const bugR = it.x + it.r;
+        const bugT = it.y - it.r;
+        const bugB = it.y + it.r;
+        if (bugR > px && bugL < px + pw && bugB > py && bugT < py + ph) {
+          score = Math.max(0, score - 15);
+          items.splice(i, 1);
+          continue;
+        }
+      }
+      if (it.y > H + 24) items.splice(i, 1);
+    }
+
+    if (scoreEl) scoreEl.textContent = String(score);
+
+    ctx.fillStyle = '#060509';
+    ctx.fillRect(0, 0, W, H);
+    ctx.strokeStyle = '#1a1714';
+    ctx.lineWidth = 1;
+    for (let gx = 0; gx < W; gx += 34) {
+      ctx.beginPath();
+      ctx.moveTo(gx + 0.5, 0);
+      ctx.lineTo(gx + 0.5, H);
+      ctx.stroke();
+    }
+    for (let gy = 0; gy < H; gy += 34) {
+      ctx.beginPath();
+      ctx.moveTo(0, gy + 0.5);
+      ctx.lineTo(W, gy + 0.5);
+      ctx.stroke();
+    }
+
+    for (const it of items) {
+      ctx.save();
+      ctx.translate(it.x, it.y);
+      ctx.rotate(it.rot);
+      if (it.type === 'star') {
+        ctx.fillStyle = '#e6a21a';
+        ctx.beginPath();
+        ctx.arc(0, 0, it.r, 0, Math.PI * 2);
+        ctx.fill();
+      } else {
+        ctx.fillStyle = '#b84444';
+        ctx.fillRect(-it.r, -it.r, it.r * 2, it.r * 2);
+        ctx.strokeStyle = '#ff6666';
+        ctx.lineWidth = 1;
+        ctx.strokeRect(-it.r + 0.5, -it.r + 0.5, it.r * 2 - 1, it.r * 2 - 1);
+      }
+      ctx.restore();
+    }
+
+    ctx.fillStyle = '#e6a21a';
+    ctx.fillRect(px, py, pw, ph);
+    ctx.strokeStyle = '#f5d080';
+    ctx.lineWidth = 1;
+    ctx.strokeRect(px + 0.5, py + 0.5, pw - 1, ph - 1);
+
+    raf = requestAnimationFrame(frame);
+  }
+
+  function kd(e) {
+    if (['ArrowLeft', 'ArrowRight', 'a', 'A', 'd', 'D'].includes(e.key)) {
+      e.preventDefault();
+      keys.add(e.key);
+    }
+  }
+  function ku(e) {
+    keys.delete(e.key);
+  }
+  function clearKeys() {
+    keys.clear();
+  }
+
+  canvas.addEventListener('keydown', kd);
+  canvas.addEventListener('keyup', ku);
+  canvas.addEventListener('blur', clearKeys);
+
+  let touchId = null;
+  function touchToX(clientX) {
+    const rect = canvas.getBoundingClientRect();
+    const scale = W / rect.width;
+    return (clientX - rect.left) * scale;
+  }
+  function onTouchStart(e) {
+    e.preventDefault();
+    const t = e.changedTouches[0];
+    touchId = t.identifier;
+    playerX = Math.max(pw / 2 + 4, Math.min(W - pw / 2 - 4, touchToX(t.clientX)));
+  }
+  function onTouchMove(e) {
+    e.preventDefault();
+    for (const t of e.changedTouches) {
+      if (t.identifier !== touchId) continue;
+      playerX = Math.max(pw / 2 + 4, Math.min(W - pw / 2 - 4, touchToX(t.clientX)));
+    }
+  }
+  canvas.addEventListener('touchstart', onTouchStart, { passive: false });
+  canvas.addEventListener('touchmove', onTouchMove, { passive: false });
+  canvas.addEventListener('click', () => canvas.focus());
+
+  raf = requestAnimationFrame(frame);
+
+  return () => {
+    cancelAnimationFrame(raf);
+    canvas.removeEventListener('keydown', kd);
+    canvas.removeEventListener('keyup', ku);
+    canvas.removeEventListener('blur', clearKeys);
+    canvas.removeEventListener('touchstart', onTouchStart);
+    canvas.removeEventListener('touchmove', onTouchMove);
+  };
 }
 
 async function load() {
@@ -419,8 +881,7 @@ async function load() {
 
   setStats(0);
   if (errEl) {
-    errEl.textContent =
-      'GitHub never answered. Profile link is in Contact. Or hammer retry.';
+    errEl.textContent = 'GitHub did not answer. Try again or use the profile link in Contact.';
     errEl.classList.remove('hidden');
   }
   if (retryBtn) retryBtn.classList.remove('hidden');
@@ -444,23 +905,3 @@ if (sortSelect) sortSelect.addEventListener('change', refresh);
 if (retryBtn) retryBtn.addEventListener('click', () => load());
 
 load();
-
-if (!reduceMotion) {
-  const els = document.querySelectorAll('[data-reveal]');
-  if (els.length) {
-    const io = new IntersectionObserver(
-      (entries) => {
-        for (const e of entries) {
-          if (e.isIntersecting) {
-            e.target.classList.add('is-visible');
-            io.unobserve(e.target);
-          }
-        }
-      },
-      { rootMargin: '0px 0px -8% 0px', threshold: 0.08 }
-    );
-    els.forEach((el) => io.observe(el));
-  }
-} else {
-  document.querySelectorAll('[data-reveal]').forEach((el) => el.classList.add('is-visible'));
-}

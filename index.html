@@ -1,214 +1,377 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang='en'>
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta name="description" content="Rhino / 1rhino2. Backend, tools, Go, Python. New England."/>
-  <meta name="color-scheme" content="dark"/>
-  <meta name="theme-color" content="#060504"/>
-  <title>Rhino · 1rhino2</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=IBM+Plex+Mono:wght@400;500&family=Syne:wght@600;700;800&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="styles.css"/>
+  <meta charset='utf-8'/>
+  <meta name='viewport' content='width=device-width, initial-scale=1'/>
+  <meta name='description' content='Rhino / 1rhino2. Backend engineering, Discord bots, APIs, automation, scrapers, and CLI tools built to stay up.'/>
+  <meta name='color-scheme' content='dark'/>
+  <meta name='theme-color' content='#08070a'/>
+  <meta property='og:title' content='Rhino / 1rhino2 - Backend engineer'/>
+  <meta property='og:description' content='Backend engineering, Discord bots, APIs, automation, scrapers, and CLI tools built to stay up.'/>
+  <meta property='og:type' content='website'/>
+  <title>Rhino / 1rhino2 - Backend, bots, tools</title>
+  <link rel='preconnect' href='https://fonts.googleapis.com'/>
+  <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin/>
+  <link href='https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,650;0,9..40,800;1,9..40,400&family=IBM+Plex+Mono:wght@400;500;600&family=Syne:wght@700;800&display=swap' rel='stylesheet'/>
+  <link rel='stylesheet' href='styles.css'/>
 </head>
-<body>
-  <a class="skip" href="#main">Skip to content</a>
-  <div class="page-vignette" aria-hidden="true"></div>
-  <div class="page-noise" aria-hidden="true"></div>
-  <div class="page-grid" aria-hidden="true"></div>
+<body class='is-loading'>
 
-  <header class="header">
-    <a class="brand" href="#">
-      <span class="brand-dot" aria-hidden="true"></span>
-      1rhino2
+  <a class='skip' href='#main'>Skip to content</a>
+
+  <div class='boot' id='boot' aria-hidden='true'>
+    <div class='boot-inner'>
+      <div class='boot-mark'>R</div>
+      <p class='boot-text'>booting<span class='dot'>.</span><span class='dot'>.</span><span class='dot'>.</span></p>
+    </div>
+  </div>
+
+  <div class='cursor-ring' id='cursor-ring' aria-hidden='true'></div>
+  <div class='cursor-dot' id='cursor-dot' aria-hidden='true'></div>
+
+  <div class='progress' id='progress' aria-hidden='true'></div>
+  <div class='page-shell' aria-hidden='true'></div>
+
+  <header class='header' id='site-header'>
+    <a class='brand' href='#'>
+      <span class='brand-mark' aria-hidden='true'>R</span>
+      <span>
+        <span class='brand-name'>1rhino2</span>
+        <span class='brand-role'>backend systems</span>
+      </span>
     </a>
-    <button type="button" class="menu-btn" id="nav-toggle" aria-expanded="false" aria-controls="nav" aria-label="Menu">
+    <button type='button' class='menu-btn' id='nav-toggle' aria-expanded='false' aria-controls='nav' aria-label='Menu'>
       <span></span><span></span>
     </button>
-    <nav class="nav" id="nav">
-      <a href="#work">Work</a>
-      <a href="#stack">Stack</a>
-      <a href="#featured">Featured</a>
-      <a href="#repos">Projects</a>
-      <a href="#contact">Contact</a>
+    <nav class='nav' id='nav' aria-label='Section nav'>
+      <a href='#work' data-link='work'>Work</a>
+      <a href='#stack' data-link='stack'>Stack</a>
+      <a href='#featured' data-link='featured'>Featured</a>
+      <a href='#repos' data-link='repos'>Projects</a>
+      <a href='#contact' data-link='contact'>Contact</a>
     </nav>
   </header>
 
-  <main class="main" id="main">
-    <section class="hero">
-      <div class="hero-bg" aria-hidden="true">
-        <div class="hero-orb"></div>
+  <main class='main' id='main'>
+
+    <section class='hero' id='hero'>
+      <div class='hero-canvas' aria-hidden='true'>
+        <canvas id='hero-bg'></canvas>
       </div>
-      <div class="hero-main">
-        <p class="eyebrow">Engineer · New England</p>
-        <p class="hero-handle">@1rhino2</p>
-        <h1 class="hero-name"><span class="hero-name-inner">Rhino</span></h1>
-        <p class="hero-line">Backend, bots, CLI tools, and the odd web thing.</p>
-        <p class="hero-copy">
-          Freelance and side work: APIs, scrapers, automation, stuff that needs to stay up.
+
+      <div class='hero-main'>
+        <p class='eyebrow'>Available - New England / remote</p>
+        <h1 class='hero-name' data-hero-title>
+          <span class='word'><span class='word-inner' style='--i:0'>Backend</span></span>
+          <span class='word'><span class='word-inner' style='--i:1'>that</span></span>
+          <span class='word accent'><span class='word-inner' style='--i:2'>stays</span></span>
+          <span class='word accent'><span class='word-inner' style='--i:3'>up.</span></span>
+        </h1>
+        <p class='hero-line'>
+          Bots, APIs, scrapers, automations, and small tools with the boring parts handled properly. Built to keep running after the demo.
         </p>
-        <div class="hero-actions">
-          <a class="btn btn-solid" href="https://github.com/1rhino2" target="_blank" rel="noopener">GitHub</a>
-          <a class="btn btn-line" href="#repos">Projects</a>
-          <a class="btn btn-line" href="#contact">Contact</a>
+
+        <div class='hero-meta'>
+          <dl>
+            <div>
+              <dt>Based</dt>
+              <dd>New England, US</dd>
+            </div>
+            <div>
+              <dt>Local</dt>
+              <dd id='hero-clock'>--:-- ET</dd>
+            </div>
+            <div>
+              <dt>Lead time</dt>
+              <dd>1 to 3 weeks</dd>
+            </div>
+            <div>
+              <dt>Stack focus</dt>
+              <dd>Go, Python, TS</dd>
+            </div>
+          </dl>
+        </div>
+
+        <div class='hero-actions'>
+          <a class='btn btn-solid' href='#repos' data-magnetic>
+            <span>Browse work</span>
+            <span class='arrow' aria-hidden='true'>&#8594;</span>
+          </a>
+          <a class='btn btn-line' href='https://github.com/1rhino2' target='_blank' rel='noopener' data-magnetic>
+            <span>GitHub</span>
+          </a>
+          <a class='btn btn-ghost' href='#contact' data-magnetic>
+            <span>Start a job</span>
+          </a>
         </div>
       </div>
-      <aside class="hero-side" aria-label="Stats">
-        <div class="stat-block">
-          <span class="stat-kicker" aria-hidden="true">Live count</span>
-          <span class="stat-num" id="stat-repos">—</span>
-          <span class="stat-label">public repos<br/>in this list</span>
+
+      <aside class='hero-panel' aria-label='Profile snapshot'>
+        <div class='terminal-card' data-tilt>
+          <div class='terminal-top'>
+            <span class='terminal-dots' aria-hidden='true'><span></span><span></span><span></span></span>
+            <span>rhino.field</span>
+            <span class='terminal-status'>online</span>
+          </div>
+          <div class='terminal-body'>
+            <p><span class='tag'>&gt;</span> build --target production</p>
+            <p><span class='tag'>ok</span> slash commands, auth, workers</p>
+            <p><span class='tag'>ok</span> retries, logs, deploy notes</p>
+            <p><span class='tag'>ok</span> no fluff, just shipped<span class='caret' aria-hidden='true'></span></p>
+          </div>
         </div>
-        <p class="stat-note" id="stat-note"></p>
+
+        <div class='stat-grid'>
+          <div class='stat-block' data-tilt>
+            <span class='stat-kicker'>Live repos</span>
+            <span class='stat-num' id='stat-repos'>--</span>
+            <span class='stat-label'>Originals fetched from GitHub.</span>
+          </div>
+          <div class='stat-block stat-block-small' data-tilt>
+            <span class='stat-kicker'>Style</span>
+            <span class='stat-word'>direct</span>
+            <span class='stat-label' id='stat-note'>Plain contracts. Shipped fast.</span>
+          </div>
+        </div>
       </aside>
     </section>
 
-    <div class="rule" aria-hidden="true"><span class="rule-dot"></span></div>
-
-    <section class="block" id="work" data-reveal>
-      <span class="watermark" aria-hidden="true">01</span>
-      <header class="block-head">
-        <h2 class="block-title">What I build</h2>
-        <p class="block-lead">Typical engagements</p>
-      </header>
-      <ul class="work-bento">
-        <li class="work-card work-card--lead">
-          <h3>Discord bots</h3>
-          <p>Slash commands, databases, moderation, integrations.</p>
-        </li>
-        <li class="work-card">
-          <h3>APIs</h3>
-          <p>Auth, rate limits, sane errors.</p>
-        </li>
-        <li class="work-card">
-          <h3>Scraping</h3>
-          <p>Retries, backoff, not nuking targets.</p>
-        </li>
-        <li class="work-card">
-          <h3>Automation</h3>
-          <p>Cron jobs, glue between services.</p>
-        </li>
-        <li class="work-card">
-          <h3>Data / ETL</h3>
-          <p>Batch pipelines.</p>
-        </li>
-        <li class="work-card">
-          <h3>CLIs &amp; services</h3>
-          <p>Internal tools, security-adjacent utilities.</p>
-        </li>
-      </ul>
-      <p class="fineprint">Game dev is a no for now. Everything else, ask.</p>
-    </section>
-
-    <section class="block block-stack" id="stack" data-reveal>
-      <span class="watermark" aria-hidden="true">02</span>
-      <header class="block-head block-head--center">
-        <h2 class="block-title">Stack</h2>
-        <p class="block-lead">Whatever the problem wants</p>
-      </header>
-      <div class="stack-row">
-        <span>Python</span><span>Go</span><span>Rust</span><span>C++</span><span>C</span><span>D</span>
-        <span>Node</span><span>JavaScript</span><span>TypeScript</span><span>Java</span><span>C#</span><span>Lua</span><span>R</span>
+    <section class='marquee' aria-hidden='true'>
+      <div class='marquee-track' id='marquee'>
+        <span>Backend</span><span class='ghost'>Bots</span>
+        <span>APIs</span><span class='ghost'>Scrapers</span>
+        <span>Automations</span><span class='ghost'>Pipelines</span>
+        <span>CLI tools</span><span class='ghost'>Internals</span>
+        <span>Backend</span><span class='ghost'>Bots</span>
+        <span>APIs</span><span class='ghost'>Scrapers</span>
+        <span>Automations</span><span class='ghost'>Pipelines</span>
+        <span>CLI tools</span><span class='ghost'>Internals</span>
       </div>
     </section>
 
-    <section class="block" id="featured" data-reveal>
-      <span class="watermark" aria-hidden="true">03</span>
-      <header class="block-head">
-        <h2 class="block-title">Featured</h2>
-        <p class="block-lead">Shipped in the browser</p>
+    <section class='proof-strip' aria-label='Working principles'>
+      <div>
+        <span class='label'>01 / contracts</span>
+        <span class='value'>Plain</span>
+      </div>
+      <div>
+        <span class='label'>02 / services</span>
+        <span class='value'>Small</span>
+      </div>
+      <div>
+        <span class='label'>03 / feedback</span>
+        <span class='value'>Fast</span>
+      </div>
+      <div>
+        <span class='label'>04 / logs</span>
+        <span class='value'>Useful</span>
+      </div>
+    </section>
+
+    <section class='block' id='work' data-reveal>
+      <header class='block-head block-head--split'>
+        <div>
+          <p class='section-num'>01 / work</p>
+          <h2 class='block-title' data-split-text>
+            <span class='line'><span class='line-inner'>What</span></span>
+            <span class='line'><span class='line-inner'>gets built</span></span>
+          </h2>
+        </div>
+        <p class='block-lead'>A practical menu for people who need working software, not a pitch deck. Pick what fits, scope the rest in a call.</p>
       </header>
-      <a class="feature" href="https://ryoki-tenkai.vercel.app/" target="_blank" rel="noopener">
-        <div class="feature-chrome" aria-hidden="true">
-          <span></span><span></span><span></span>
-          <span class="feature-url">ryoki-tenkai.vercel.app</span>
+
+      <ul class='work-bento' data-reveal-stagger>
+        <li class='work-card work-card--lead' data-tilt>
+          <span class='card-index'>01</span>
+          <span class='card-arrow' aria-hidden='true'>+</span>
+          <h3>Discord bots that feel native</h3>
+          <p>Slash commands, moderation, persistence, dashboards, and integrations that do not crumble after the first busy night.</p>
+        </li>
+        <li class='work-card'>
+          <span class='card-index'>02</span>
+          <span class='card-arrow' aria-hidden='true'>+</span>
+          <h3>APIs</h3>
+          <p>Auth, rate limits, validation, clear errors, and endpoints that are easy to consume.</p>
+        </li>
+        <li class='work-card'>
+          <span class='card-index'>03</span>
+          <span class='card-arrow' aria-hidden='true'>+</span>
+          <h3>Scrapers</h3>
+          <p>Retries, backoff, scheduling, data cleanup, and target friendly behavior.</p>
+        </li>
+        <li class='work-card'>
+          <span class='card-index'>04</span>
+          <span class='card-arrow' aria-hidden='true'>+</span>
+          <h3>Automation</h3>
+          <p>Cron jobs, bots between services, reports, alerts, and cleanup scripts.</p>
+        </li>
+        <li class='work-card'>
+          <span class='card-index'>05</span>
+          <span class='card-arrow' aria-hidden='true'>+</span>
+          <h3>Data pipelines</h3>
+          <p>Batch ETL, transforms, exports, and small systems for keeping data usable.</p>
+        </li>
+        <li class='work-card'>
+          <span class='card-index'>06</span>
+          <span class='card-arrow' aria-hidden='true'>+</span>
+          <h3>CLI tools</h3>
+          <p>Fast terminal utilities, internal tools, scanners, and security adjacent helpers.</p>
+        </li>
+      </ul>
+    </section>
+
+    <section class='block block-stack' id='stack' data-reveal>
+      <header class='block-head block-head--split'>
+        <div>
+          <p class='section-num'>02 / stack</p>
+          <h2 class='block-title' data-split-text>
+            <span class='line'><span class='line-inner'>Toolbox</span></span>
+            <span class='line'><span class='line-inner'>without ceremony</span></span>
+          </h2>
         </div>
-        <div class="feature-body">
-          <div class="feature-inner">
-            <span class="feature-tag">Live</span>
-            <h3 class="feature-name">Ryōiki Tenkai</h3>
-            <p class="feature-desc">Sound, type, scroll. Hosted on Vercel.</p>
-            <span class="feature-go">Open site <span aria-hidden="true">→</span></span>
+        <p class='block-lead'>Pick the language that fits the job. Keep the shape of the system simple. Boring tech wins.</p>
+      </header>
+
+      <div class='stack-layout'>
+        <div class='stack-callout' data-tilt>
+          <p class='stack-kicker'>Primary lane</p>
+          <h3>Go, Python, TypeScript, and whatever ships the service cleanly.</h3>
+        </div>
+        <div class='stack-row' data-reveal-stagger>
+          <span>Python</span><span>Go</span><span>Rust</span><span>C++</span><span>C</span><span>D</span>
+          <span>Node</span><span>JavaScript</span><span>TypeScript</span><span>Java</span><span>C#</span><span>Lua</span><span>R</span>
+        </div>
+      </div>
+    </section>
+
+    <section class='block' id='featured' data-reveal>
+      <header class='block-head block-head--split'>
+        <div>
+          <p class='section-num'>03 / featured</p>
+          <h2 class='block-title' data-split-text>
+            <span class='line'><span class='line-inner'>Featured</span></span>
+            <span class='line'><span class='line-inner'>build</span></span>
+          </h2>
+        </div>
+        <p class='block-lead'>One live thing with enough personality to prove the browser is not an afterthought.</p>
+      </header>
+
+      <a class='feature' href='https://ryoki-tenkai.vercel.app/' target='_blank' rel='noopener' data-tilt data-magnetic-strength='8'>
+        <div class='feature-meta'>
+          <span class='feature-meta-left'>
+            <span class='dots' aria-hidden='true'><span></span><span></span><span></span></span>
+            <span>Live site</span>
+          </span>
+          <span>ryoki-tenkai.vercel.app</span>
+        </div>
+        <div class='feature-body'>
+          <div class='feature-copy'>
+            <span class='feature-tag'>Browser experiment</span>
+            <h3 class='feature-name'>Ryōiki Tenkai</h3>
+            <p class='feature-desc'>Sound, type, scroll, timing, and mood. A project meant to be felt, not filed away.</p>
+            <ul class='feature-stats'>
+              <li><span class='num'>~60</span><span class='label'>fps target</span></li>
+              <li><span class='num'>0</span><span class='label'>third party UI</span></li>
+              <li><span class='num'>vercel</span><span class='label'>hosting</span></li>
+            </ul>
+            <span class='feature-go'>Open project <span aria-hidden='true'>&#8594;</span></span>
           </div>
-          <div class="feature-preview" aria-hidden="true">
-            <div class="feature-preview-bar"></div>
-            <div class="feature-preview-col">
-              <span class="feature-preview-line w90"></span>
-              <span class="feature-preview-line w70"></span>
-              <span class="feature-preview-line w55"></span>
-              <span class="feature-preview-block"></span>
-              <span class="feature-preview-line w40"></span>
+          <div class='feature-preview' aria-hidden='true'>
+            <span class='preview-bar'></span>
+            <span class='preview-title'></span>
+            <span class='preview-line wide'></span>
+            <span class='preview-line mid'></span>
+            <span class='preview-block'></span>
+            <div class='chips'>
+              <span class='preview-chip'></span>
+              <span class='preview-chip'></span>
             </div>
-            <div class="feature-preview-col feature-preview-col--narrow">
-              <span class="feature-preview-chip"></span>
-              <span class="feature-preview-chip"></span>
-            </div>
+            <span class='preview-line short'></span>
           </div>
         </div>
-        <div class="feature-accent" aria-hidden="true"></div>
       </a>
     </section>
 
-    <section class="block block-projects" id="repos" data-reveal>
-      <span class="watermark" aria-hidden="true">04</span>
-      <header class="block-head">
-        <h2 class="block-title">Projects</h2>
-        <p class="block-lead">My GitHub repos (originals, no forks).</p>
+    <section class='block block-projects' id='repos' data-reveal>
+      <header class='block-head block-head--split'>
+        <div>
+          <p class='section-num'>04 / projects</p>
+          <h2 class='block-title' data-split-text>
+            <span class='line'><span class='line-inner'>The repo</span></span>
+            <span class='line'><span class='line-inner'>wall</span></span>
+          </h2>
+        </div>
+        <p class='block-lead'>Pulled live from GitHub. Originals only. Sorted however you want.</p>
       </header>
-      <div class="toolbar" id="repo-toolbar">
-        <input type="search" id="repo-filter" class="field" placeholder="Filter…" autocomplete="off" aria-label="Filter projects" disabled/>
-        <label class="field-wrap">
-          Sort
-          <select id="repo-sort" class="field field-select" disabled>
-            <option value="stars">Stars</option>
-            <option value="updated">Recent</option>
-            <option value="name">Name</option>
+
+      <div class='toolbar' id='repo-toolbar'>
+        <input type='search' id='repo-filter' class='field' placeholder='Filter projects, descriptions, topics...' autocomplete='off' aria-label='Filter projects' disabled/>
+        <label class='field-wrap'>
+          <span>Sort</span>
+          <select id='repo-sort' class='field field-select' disabled>
+            <option value='stars'>Stars</option>
+            <option value='updated'>Recently pushed</option>
+            <option value='name'>Name</option>
           </select>
         </label>
       </div>
-      <div class="wait-zone" id="repo-wait">
-        <p class="wait-status" id="repo-wait-status">Reaching GitHub…</p>
-        <div class="game-panel">
-          <div class="game-panel-head">
-            <span class="game-panel-title">Wait mode</span>
-            <span class="game-panel-pill">local only</span>
-          </div>
-          <canvas id="octo-canvas" width="340" height="260" tabindex="0" aria-label="Catch the stars mini game. Use arrow keys or A and D."></canvas>
-          <p class="game-hint">← → or A D · catch ★ · dodge the bugs</p>
-          <p class="game-score">Score <span id="octo-score">0</span></p>
+
+      <div class='wait-zone' id='repo-wait'>
+        <div>
+          <p class='wait-kicker'>Fetching live projects</p>
+          <p class='wait-status' id='repo-wait-status'>Reaching GitHub...</p>
+          <button type='button' class='btn-retry hidden' id='repo-retry'>Try GitHub again</button>
         </div>
-        <button type="button" class="btn-retry hidden" id="repo-retry">Try GitHub again</button>
+        <div class='game-panel'>
+          <div class='game-panel-head'>
+            <span class='game-panel-title'>Tiny loading game</span>
+            <span class='game-panel-pill'>local only</span>
+          </div>
+          <canvas id='octo-canvas' width='340' height='260' tabindex='0' aria-label='Catch the stars mini game. Use arrow keys or A and D.'></canvas>
+          <p class='game-hint'>Focus the board, use arrows or A/D, catch stars, dodge bugs.</p>
+          <p class='game-score'>Score <span id='octo-score'>0</span></p>
+        </div>
       </div>
-      <p class="err hidden" id="repo-error"></p>
-      <ul class="repo-grid" id="repo-grid"></ul>
-      <p class="empty hidden" id="repo-empty">No matches.</p>
+
+      <p class='err hidden' id='repo-error'></p>
+      <ul class='repo-grid' id='repo-grid'></ul>
+      <p class='empty hidden' id='repo-empty'>No matches.</p>
     </section>
 
-    <section class="block block-contact" id="contact" data-reveal>
-      <span class="watermark" aria-hidden="true">05</span>
-      <header class="block-head">
-        <h2 class="block-title">Contact</h2>
-      </header>
-      <div class="contact-cards">
-        <div class="contact-card">
-          <p><span class="contact-label">Discord</span> <code>1rhino2</code></p>
-          <p><span class="contact-label">GitHub</span> <a href="https://github.com/1rhino2" target="_blank" rel="noopener">github.com/1rhino2</a></p>
+    <section class='block block-contact' id='contact' data-reveal>
+      <div class='contact-panel'>
+        <div>
+          <p class='section-num'>05 / contact</p>
+          <h2 class='contact-title' data-split-text>
+            <span class='line'><span class='line-inner'>Bring the</span></span>
+            <span class='line'><span class='line-inner'>messy job.</span></span>
+          </h2>
+          <p class='contact-lead'>Outline what you need. I scope it, price it, build it, and keep notes you can hand to anyone after.</p>
         </div>
-        <div class="contact-card contact-card--muted">
-          <p><span class="contact-label">Pay</span> Cash App after scope and price are locked. Cashtag lives in DMs only.</p>
+        <div class='contact-cards'>
+          <div class='contact-card'>
+            <span class='contact-label'>Discord</span>
+            <code>1rhino2</code>
+          </div>
+          <div class='contact-card'>
+            <span class='contact-label'>GitHub</span>
+            <a href='https://github.com/1rhino2' target='_blank' rel='noopener'>github.com/1rhino2</a>
+          </div>
+          <div class='contact-card contact-card--wide'>
+            <span class='contact-label'>Payment</span>
+            <p>Cash App after scope and price are locked. Cashtag lives in DMs only.</p>
+          </div>
         </div>
       </div>
     </section>
+
   </main>
 
-  <footer class="footer">
-    <div class="footer-row">
-      <p>© <span id="y"></span> 1rhino2 · <span class="footer-sub">Rhino</span></p>
-      <a class="to-top" href="#">Top ↑</a>
-    </div>
+  <footer class='footer'>
+    <p>&copy; <span id='y'></span> 1rhino2 &middot; shipped from New England.</p>
+    <a class='to-top' href='#' aria-label='Back to top'>Back to top</a>
   </footer>
 
-  <script src="site.js" defer></script>
+  <script src='site.js' defer></script>
 </body>
 </html>
