@@ -1325,29 +1325,31 @@ body.is-loaded .hero-canvas {
   margin-top: 0.5rem;
 }
 
-/* Pocket Net — Y2K ISP chrome (featured) */
+/* Pocket Net — RhinoNet 2000 (featured) */
 .feature--pocket {
-  border: 2px solid #6f8fb8;
-  border-radius: 10px;
-  background: #0b1424;
-  box-shadow:
-    0 22px 50px rgba(0, 0, 0, 0.55),
-    inset 0 1px 0 rgba(255, 255, 255, 0.14),
-    inset 0 -2px 0 rgba(0, 0, 0, 0.45);
-  color: #d8e8ff;
+  --pk-bg: #0a0e12;
+  --pk-panel: #121a22;
+  --pk-border: #2a3545;
+  --pk-text: #e8eef6;
+  --pk-muted: #8b9aad;
+  --pk-accent: #3ddc84;
+  --pk-titlebar: #0c1016;
+  border: 1px solid var(--pk-border);
+  border-radius: 12px;
+  background: var(--pk-bg);
+  box-shadow: 0 24px 56px rgba(0, 0, 0, 0.5);
+  color: var(--pk-text);
+  font-family: 'IBM Plex Sans', var(--font-body);
 }
 
 .feature--pocket:hover {
-  border-color: #8ec8ff;
-  box-shadow:
-    0 28px 60px rgba(30, 90, 160, 0.35),
-    inset 0 1px 0 rgba(255, 255, 255, 0.18),
-    inset 0 -2px 0 rgba(0, 0, 0, 0.45);
+  border-color: #3d4f66;
+  box-shadow: 0 28px 64px rgba(61, 220, 132, 0.08), 0 24px 56px rgba(0, 0, 0, 0.5);
 }
 
 .pocket-chrome {
   overflow: hidden;
-  border-radius: 8px;
+  border-radius: 11px;
 }
 
 .pocket-titlebar {
@@ -1355,62 +1357,58 @@ body.is-loaded .hero-canvas {
   flex-wrap: wrap;
   align-items: center;
   gap: 0.55rem 0.85rem;
-  padding: 0.55rem 0.85rem;
-  background: #245edb;
-  border-bottom: 2px solid #0f2f6e;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  padding: 0.55rem 0.9rem;
+  background: var(--pk-titlebar);
+  border-bottom: 1px solid var(--pk-border);
   font-family: var(--font-mono);
   font-size: 0.68rem;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
 }
 
-.pocket-win-dots {
+.pocket-traffic {
   display: inline-flex;
-  gap: 0.3rem;
+  gap: 0.35rem;
 }
 
-.pocket-win-dots i {
+.pocket-traffic i {
   display: block;
-  width: 11px;
-  height: 11px;
-  border: 1px solid rgba(0, 0, 0, 0.45);
-  border-radius: 2px;
-  box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.55);
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.35);
   font-style: normal;
 }
 
-.pocket-win-dots i:nth-child(1) { background: #ff6b5a; }
-.pocket-win-dots i:nth-child(2) { background: #ffd24a; }
-.pocket-win-dots i:nth-child(3) { background: #5eea7a; }
+.pocket-traffic i:nth-child(1) { background: #c94a4a; }
+.pocket-traffic i:nth-child(2) { background: #d4a534; }
+.pocket-traffic i:nth-child(3) { background: #3d4a5c; }
 
 .pocket-titlebar-brand {
-  font-weight: 700;
-  color: #fff;
+  font-weight: 600;
+  color: var(--pk-text);
 }
 
 .pocket-titlebar-url {
-  color: rgba(255, 255, 255, 0.78);
+  color: var(--pk-muted);
   overflow-wrap: anywhere;
 }
 
 .pocket-live-pill {
   margin-left: auto;
-  padding: 0.2rem 0.55rem;
-  border: 1px solid #1a5f2c;
-  border-radius: 4px;
-  background: #1f7a38;
-  color: #b8ffc8;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  padding: 0.18rem 0.5rem;
+  border: 1px solid #1e7a4d;
+  border-radius: 6px;
+  background: #0f1f16;
+  color: var(--pk-accent);
   font-size: 0.62rem;
+  font-weight: 600;
 }
 
 .pocket-shell {
   display: grid;
   min-width: 0;
-  background:
-    #0a1220
-    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.02) 0 1px, transparent 1px 3px);
+  background: var(--pk-bg);
 }
 
 .pocket-copy {
@@ -1420,35 +1418,34 @@ body.is-loaded .hero-canvas {
 
 .pocket-era-tag {
   display: inline-flex;
-  padding: 0.35rem 0.7rem;
-  border: 1px solid #4da6ff;
-  border-radius: 4px;
-  background: #123a62;
-  color: #9fd4ff;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  padding: 0.32rem 0.65rem;
+  border: 1px solid #1e7a4d;
+  border-radius: 6px;
+  background: #0f1f16;
+  color: var(--pk-accent);
   font-family: var(--font-mono);
   font-size: 0.66rem;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 
 .pocket-name {
   margin: 1rem 0 0.65rem;
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: clamp(2.2rem, 8vw, 4.6rem);
-  line-height: 0.92;
-  letter-spacing: -0.06em;
-  color: #f2f8ff;
-  text-shadow: 0 0 24px rgba(77, 166, 255, 0.35);
+  font-family: 'IBM Plex Sans', var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2rem, 7vw, 3.6rem);
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  color: var(--pk-text);
   overflow-wrap: anywhere;
 }
 
 .pocket-desc {
   max-width: 36rem;
   margin: 0 0 1.5rem;
-  color: #9eb6d4;
-  font-size: 1.05rem;
+  color: var(--pk-muted);
+  font-size: 1.02rem;
+  line-height: 1.55;
 }
 
 .pocket-stats {
@@ -1463,21 +1460,18 @@ body.is-loaded .hero-canvas {
 .pocket-stats li {
   min-width: 5.5rem;
   padding: 0.55rem 0.7rem;
-  border: 1px solid #3d5f82;
-  border-radius: 6px;
-  background: #132238;
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.12),
-    inset 0 -2px 0 rgba(0, 0, 0, 0.35);
+  border: 1px solid var(--pk-border);
+  border-radius: 8px;
+  background: var(--pk-panel);
 }
 
 .pocket-stat-num {
   display: block;
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: 1.35rem;
-  color: #5eea7a;
-  letter-spacing: -0.03em;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 1.2rem;
+  color: var(--pk-accent);
+  letter-spacing: -0.02em;
 }
 
 .pocket-stat-label {
@@ -1487,68 +1481,62 @@ body.is-loaded .hero-canvas {
   font-size: 0.62rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: #7f9ab8;
+  color: var(--pk-muted);
 }
 
 .pocket-launch {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.55rem 1rem 0.55rem 0.85rem;
-  border: 1px solid #2a5f2c;
-  border-radius: 6px;
-  background: #2a7a3d;
-  color: #e8ffe8;
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.28),
-    inset 0 -2px 0 rgba(0, 0, 0, 0.35);
+  padding: 0.55rem 1rem;
+  border: 1px solid #1e7a4d;
+  border-radius: 8px;
+  background: #163322;
+  color: var(--pk-accent);
   font-family: var(--font-mono);
-  font-size: 0.8rem;
-  letter-spacing: 0.08em;
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
-  transition: filter 0.2s ease, transform 0.2s ease;
+  transition: background 0.2s ease, transform 0.2s ease;
 }
 
 .feature--pocket:hover .pocket-launch {
-  filter: brightness(1.08);
+  background: #1a3d28;
   transform: translateY(-1px);
 }
 
 .pocket-mock {
   padding: clamp(1rem, 3vw, 1.5rem);
-  border-top: 1px solid #1e3350;
-  background: #060c14;
+  border-top: 1px solid var(--pk-border);
+  background: #06080b;
   min-width: 0;
 }
 
 .pocket-mock-bezel {
   position: relative;
-  padding: 10px;
-  border: 2px solid #4a6078;
-  border-radius: 14px;
-  background: #1a2230;
-  box-shadow:
-    inset 0 2px 0 rgba(255, 255, 255, 0.1),
-    inset 0 -3px 0 rgba(0, 0, 0, 0.5);
+  padding: 8px;
+  border: 1px solid var(--pk-border);
+  border-radius: 10px;
+  background: var(--pk-panel);
 }
 
 .pocket-mock-scan {
   position: absolute;
-  inset: 10px;
-  border-radius: 8px;
+  inset: 8px;
+  border-radius: 7px;
   pointer-events: none;
-  opacity: 0.35;
+  opacity: 0.25;
   background: repeating-linear-gradient(
     0deg,
     transparent 0 2px,
-    rgba(94, 234, 122, 0.04) 2px 4px
+    rgba(61, 220, 132, 0.03) 2px 4px
   );
-  animation: pocket-scan 6s linear infinite;
+  animation: pocket-scan 8s linear infinite;
 }
 
 @keyframes pocket-scan {
   from { background-position: 0 0; }
-  to { background-position: 0 120px; }
+  to { background-position: 0 100px; }
 }
 
 .pocket-mock-screen {
@@ -1556,138 +1544,171 @@ body.is-loaded .hero-canvas {
   display: grid;
   grid-template-rows: auto 1fr auto;
   min-height: 220px;
-  border: 2px solid #0a2818;
-  border-radius: 8px;
-  background: #07120e;
+  border: 1px solid var(--pk-border);
+  border-radius: 7px;
+  background-color: #0b1017;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Ccircle cx='1' cy='1' r='1' fill='%23182230'/%3E%3C/svg%3E");
   overflow: hidden;
   font-family: var(--font-mono);
-  font-size: 0.62rem;
+  font-size: 0.58rem;
+  color: var(--pk-muted);
 }
 
 .pocket-mock-menubar {
   display: flex;
   align-items: center;
-  gap: 0.55rem;
-  padding: 0.35rem 0.5rem;
-  background: #0f2a1c;
-  border-bottom: 1px solid #1f4a32;
-  color: #8fd9a6;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  padding: 0.35rem 0.55rem;
+  background: var(--pk-panel);
+  border-bottom: 1px solid var(--pk-border);
+  color: var(--pk-muted);
   text-transform: uppercase;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.05em;
 }
 
 .pocket-mock-rn {
-  padding: 0.1rem 0.35rem;
-  border: 1px solid #2f6b45;
-  background: #163322;
+  padding: 0.12rem 0.4rem;
+  border: 1px solid var(--pk-border);
+  border-radius: 5px;
+  background: var(--pk-titlebar);
+  color: var(--pk-accent);
   font-weight: 700;
 }
 
 .pocket-mock-menubar-spacer {
   flex: 1;
+  min-width: 0.5rem;
 }
 
 .pocket-mock-rc {
-  color: #5eea7a;
+  padding: 0.12rem 0.4rem;
+  border: 1px solid #1e7a4d;
+  border-radius: 6px;
+  background: #0f1f16;
+  color: var(--pk-accent);
+  font-weight: 600;
 }
 
-.pocket-mock-window {
-  margin: 0.65rem;
-  border: 2px solid #3d5f82;
-  border-radius: 4px;
-  background: #0c1016;
-  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.45);
-  overflow: hidden;
+.pocket-mock-status {
+  color: var(--pk-muted);
+  font-size: 0.54rem;
 }
 
-.pocket-mock-win-title {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+.pocket-mock-desktop {
+  display: grid;
+  grid-template-columns: auto 1fr;
   gap: 0.5rem;
-  padding: 0.3rem 0.45rem;
-  background: #245edb;
-  border-bottom: 1px solid #0f2f6e;
-  color: #fff;
-  font-size: 0.58rem;
+  align-items: start;
+  padding: 0.5rem;
+  min-height: 0;
+}
+
+.pocket-mock-icons {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.pocket-mock-ico {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border: 1px solid var(--pk-border);
+  border-radius: 8px;
+  background: rgba(18, 26, 34, 0.85);
+  color: var(--pk-accent);
+}
+
+.pocket-mock-ico small {
+  font-size: 0.48rem;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
 }
 
-.pocket-mock-win-btns {
-  display: inline-flex;
-  gap: 0.2rem;
+.pocket-mock-window {
+  border: 1px solid var(--pk-border);
+  border-radius: 8px;
+  background: var(--pk-panel);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+  overflow: hidden;
 }
 
-.pocket-mock-win-btns i {
+.pocket-mock-win-head {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.35rem 0.5rem;
+  background: var(--pk-titlebar);
+  border-bottom: 1px solid var(--pk-border);
+  color: var(--pk-text);
+  font-size: 0.54rem;
+}
+
+.pocket-mock-win-lights {
+  display: inline-flex;
+  gap: 0.25rem;
+}
+
+.pocket-mock-win-lights i {
   display: block;
-  width: 9px;
-  height: 9px;
-  border: 1px solid rgba(0, 0, 0, 0.4);
-  background: #c8d4e8;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
   font-style: normal;
 }
 
+.pocket-mock-win-lights i:nth-child(1) { background: #c94a4a; }
+.pocket-mock-win-lights i:nth-child(2) { background: #d4a534; }
+.pocket-mock-win-lights i:nth-child(3) { background: #3d4a5c; }
+
 .pocket-mock-win-body {
   display: grid;
-  gap: 0.4rem;
-  padding: 0.55rem;
+  gap: 0.35rem;
+  padding: 0.5rem;
 }
 
 .pocket-mock-url {
-  color: #5eea7a;
-  font-size: 0.58rem;
+  color: var(--pk-accent);
+  font-size: 0.54rem;
 }
 
 .pocket-mock-line {
   display: block;
-  height: 6px;
-  border-radius: 2px;
-  background: rgba(94, 234, 122, 0.2);
-  border: 1px solid rgba(94, 234, 122, 0.25);
+  height: 5px;
+  border-radius: 3px;
+  background: rgba(61, 220, 132, 0.15);
+  border: 1px solid rgba(61, 220, 132, 0.2);
 }
 
 .pocket-mock-line.wide { width: 88%; }
-.pocket-mock-line.short { width: 42%; }
-
-.pocket-mock-icon-row {
-  display: flex;
-  gap: 0.35rem;
-  margin-top: 0.25rem;
-}
-
-.pocket-mock-icon-row span {
-  width: 22px;
-  height: 22px;
-  border: 1px solid rgba(94, 234, 122, 0.35);
-  border-radius: 4px;
-  background: rgba(94, 234, 122, 0.12);
-}
+.pocket-mock-line.mid { width: 62%; }
+.pocket-mock-line.short { width: 38%; }
 
 .pocket-mock-taskbar {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.35rem 0.5rem;
-  background: #1a2840;
-  border-top: 2px solid #3d5f82;
-  color: #b8cce4;
-  font-size: 0.58rem;
-  text-transform: lowercase;
+  gap: 0.45rem;
+  margin: 0.45rem;
+  padding: 0.3rem 0.45rem;
+  border: 1px solid var(--pk-border);
+  border-radius: 999px;
+  background: rgba(12, 16, 22, 0.92);
+  color: var(--pk-muted);
+  font-size: 0.52rem;
 }
 
 .pocket-mock-start {
-  padding: 0.15rem 0.45rem;
-  border: 1px solid #2a5f2c;
-  border-radius: 3px;
-  background: #2a7a3d;
-  color: #e8ffe8;
+  padding: 0.12rem 0.4rem;
+  border: 1px solid #1e7a4d;
+  border-radius: 999px;
+  background: #163322;
+  color: var(--pk-accent);
   font-weight: 700;
-  text-transform: uppercase;
 }
 
 .pocket-mock-tray {
   flex: 1;
-  color: #8fa8c4;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -1695,31 +1716,36 @@ body.is-loaded .hero-canvas {
 
 .pocket-mock-clock {
   font-variant-numeric: tabular-nums;
+  color: var(--pk-text);
 }
 
-/* Ryōiki Tenkai — domain volume chrome (featured) */
+/* Ryōiki Tenkai — ink-and-bone volume (featured) */
 .feature--tenkai {
-  border: 2px solid #6b3d4a;
-  border-radius: 10px;
-  background: #12080c;
-  box-shadow:
-    0 22px 50px rgba(0, 0, 0, 0.55),
-    inset 0 1px 0 rgba(255, 220, 190, 0.12),
-    inset 0 -2px 0 rgba(0, 0, 0, 0.5);
-  color: #f2e8de;
+  --tk-bg: #0b0907;
+  --tk-bg-2: #110d0a;
+  --tk-ink: #ede4d3;
+  --tk-ink-dim: #b9ad99;
+  --tk-ash: #5a4f43;
+  --tk-blood: #b8222b;
+  --tk-line: rgba(237, 228, 211, 0.12);
+  --tk-serif: 'Cormorant Garamond', 'Times New Roman', serif;
+  --tk-jp: 'Shippori Mincho', 'Yu Mincho', serif;
+  border: 1px solid var(--tk-line);
+  border-radius: 12px;
+  background: var(--tk-bg);
+  box-shadow: 0 24px 56px rgba(0, 0, 0, 0.55);
+  color: var(--tk-ink);
+  font-family: var(--tk-serif);
 }
 
 .feature--tenkai:hover {
-  border-color: #c9a227;
-  box-shadow:
-    0 28px 60px rgba(120, 40, 50, 0.4),
-    inset 0 1px 0 rgba(255, 220, 190, 0.16),
-    inset 0 -2px 0 rgba(0, 0, 0, 0.5);
+  border-color: rgba(237, 228, 211, 0.22);
+  box-shadow: 0 28px 64px rgba(111, 17, 24, 0.2), 0 24px 56px rgba(0, 0, 0, 0.55);
 }
 
 .tenkai-chrome {
   overflow: hidden;
-  border-radius: 8px;
+  border-radius: 11px;
 }
 
 .tenkai-titlebar {
@@ -1727,13 +1753,12 @@ body.is-loaded .hero-canvas {
   flex-wrap: wrap;
   align-items: center;
   gap: 0.55rem 0.85rem;
-  padding: 0.55rem 0.85rem;
-  background: #2a1018;
-  border-bottom: 2px solid #4a1824;
-  box-shadow: inset 0 1px 0 rgba(255, 200, 160, 0.18);
+  padding: 0.55rem 0.9rem;
+  background: var(--tk-bg-2);
+  border-bottom: 1px solid var(--tk-line);
   font-family: var(--font-mono);
-  font-size: 0.68rem;
-  letter-spacing: 0.08em;
+  font-size: 0.66rem;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
 }
 
@@ -1741,44 +1766,41 @@ body.is-loaded .hero-canvas {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 1.35rem;
-  height: 1.35rem;
-  border: 1px solid #8b3040;
-  border-radius: 3px;
-  background: #1a0810;
-  color: #e85a5a;
-  box-shadow: inset 0 1px 0 rgba(255, 180, 160, 0.2);
-  font-size: 0.85rem;
+  width: 1.4rem;
+  height: 1.4rem;
+  border: 1px solid var(--tk-blood);
+  color: var(--tk-blood);
+  font-family: var(--tk-jp);
+  font-size: 0.9rem;
   line-height: 1;
 }
 
 .tenkai-titlebar-brand {
-  font-weight: 700;
-  color: #f8efe6;
+  font-family: var(--tk-serif);
+  font-weight: 600;
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  text-transform: none;
+  color: var(--tk-ink);
 }
 
 .tenkai-titlebar-url {
-  color: rgba(240, 220, 200, 0.65);
+  color: var(--tk-ink-dim);
   overflow-wrap: anywhere;
 }
 
 .tenkai-live-pill {
   margin-left: auto;
-  padding: 0.2rem 0.55rem;
-  border: 1px solid #6b4a18;
-  border-radius: 4px;
-  background: #3d2a10;
-  color: #f0d080;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  padding: 0.18rem 0.5rem;
+  border: 1px solid var(--tk-blood);
+  color: var(--tk-blood);
   font-size: 0.62rem;
 }
 
 .tenkai-shell {
   display: grid;
   min-width: 0;
-  background:
-    #100608
-    repeating-linear-gradient(90deg, rgba(200, 80, 90, 0.03) 0 1px, transparent 1px 4px);
+  background: var(--tk-bg);
 }
 
 .tenkai-copy {
@@ -1788,35 +1810,32 @@ body.is-loaded .hero-canvas {
 
 .tenkai-era-tag {
   display: inline-flex;
-  padding: 0.35rem 0.7rem;
-  border: 1px solid #8b4050;
-  border-radius: 4px;
-  background: #2a1018;
-  color: #e8b8b0;
-  box-shadow: inset 0 1px 0 rgba(255, 220, 200, 0.15);
+  padding: 0.32rem 0.65rem;
+  border: 1px solid var(--tk-line);
+  color: var(--tk-ink-dim);
   font-family: var(--font-mono);
-  font-size: 0.66rem;
-  letter-spacing: 0.14em;
+  font-size: 0.64rem;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 
 .tenkai-name {
   margin: 1rem 0 0.65rem;
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: clamp(2.2rem, 8vw, 4.6rem);
-  line-height: 0.92;
-  letter-spacing: -0.06em;
-  color: #faf4ec;
-  text-shadow: 0 0 28px rgba(200, 80, 90, 0.35);
+  font-family: var(--tk-serif);
+  font-weight: 600;
+  font-size: clamp(2rem, 7vw, 3.4rem);
+  line-height: 1.02;
+  letter-spacing: 0.01em;
+  color: var(--tk-ink);
   overflow-wrap: anywhere;
 }
 
 .tenkai-desc {
   max-width: 36rem;
   margin: 0 0 1.5rem;
-  color: #b8a090;
+  color: var(--tk-ink-dim);
   font-size: 1.05rem;
+  line-height: 1.6;
 }
 
 .tenkai-stats {
@@ -1831,21 +1850,17 @@ body.is-loaded .hero-canvas {
 .tenkai-stats li {
   min-width: 5.5rem;
   padding: 0.55rem 0.7rem;
-  border: 1px solid #5a3040;
-  border-radius: 6px;
-  background: #1a0c12;
-  box-shadow:
-    inset 0 1px 0 rgba(255, 220, 200, 0.1),
-    inset 0 -2px 0 rgba(0, 0, 0, 0.35);
+  border: 1px solid var(--tk-line);
+  background: var(--tk-bg-2);
 }
 
 .tenkai-stat-num {
   display: block;
-  font-family: var(--font-display);
-  font-weight: 800;
+  font-family: var(--tk-serif);
+  font-weight: 600;
   font-size: 1.35rem;
-  color: var(--accent);
-  letter-spacing: -0.03em;
+  color: var(--tk-blood);
+  letter-spacing: 0.02em;
 }
 
 .tenkai-stat-label {
@@ -1855,81 +1870,82 @@ body.is-loaded .hero-canvas {
   font-size: 0.62rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: #8a7068;
+  color: var(--tk-ash);
 }
 
 .tenkai-launch {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.55rem 1rem 0.55rem 0.85rem;
-  border: 1px solid #6b4a18;
-  border-radius: 6px;
-  background: #4a3210;
-  color: #ffe8b8;
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.22),
-    inset 0 -2px 0 rgba(0, 0, 0, 0.35);
+  padding: 0.55rem 1rem;
+  border: 1px solid var(--tk-blood);
+  color: var(--tk-ink);
   font-family: var(--font-mono);
-  font-size: 0.8rem;
+  font-size: 0.76rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  transition: filter 0.2s ease, transform 0.2s ease;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
 }
 
 .feature--tenkai:hover .tenkai-launch {
-  filter: brightness(1.08);
+  background: var(--tk-blood);
+  color: var(--tk-bg);
   transform: translateY(-1px);
 }
 
 .tenkai-mock {
   padding: clamp(1rem, 3vw, 1.5rem);
-  border-top: 1px solid #3a1824;
-  background: #080406;
+  border-top: 1px solid var(--tk-line);
+  background: #080604;
   min-width: 0;
 }
 
 .tenkai-mock-bezel {
   position: relative;
   padding: 10px;
-  border: 2px solid #4a2830;
-  border-radius: 14px;
-  background: #1a1014;
-  box-shadow:
-    inset 0 2px 0 rgba(255, 220, 200, 0.08),
-    inset 0 -3px 0 rgba(0, 0, 0, 0.5);
+  border: 1px solid var(--tk-line);
+  background: var(--tk-bg-2);
 }
 
 .tenkai-mock-veil {
   position: absolute;
   inset: 10px;
-  border-radius: 8px;
   pointer-events: none;
-  opacity: 0.5;
-  background: repeating-linear-gradient(
-    180deg,
-    transparent 0 3px,
-    rgba(180, 60, 70, 0.04) 3px 6px
-  );
-  animation: tenkai-veil 8s linear infinite;
-}
-
-@keyframes tenkai-veil {
-  from { background-position: 0 0; }
-  to { background-position: 0 120px; }
+  opacity: 0.4;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
 }
 
 .tenkai-mock-screen {
   position: relative;
   display: grid;
-  grid-template-rows: auto 1fr auto;
+  grid-template-rows: auto auto 1fr auto;
   min-height: 220px;
-  border: 2px solid #3a1820;
-  border-radius: 8px;
-  background: #0c0608;
+  border: 1px solid var(--tk-line);
+  background: var(--tk-bg);
   overflow: hidden;
-  font-family: var(--font-mono);
   font-size: 0.62rem;
+}
+
+.tenkai-mock-marquee {
+  padding: 0.35rem 0.55rem;
+  border-bottom: 1px solid var(--tk-line);
+  color: var(--tk-ash);
+  font-family: var(--tk-jp);
+  font-size: 0.72rem;
+  letter-spacing: 0.45em;
+  text-align: center;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.tenkai-mock-marquee span {
+  display: inline-block;
+  animation: tenkai-marquee 18s linear infinite;
+}
+
+@keyframes tenkai-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-18%); }
 }
 
 .tenkai-mock-header {
@@ -1937,36 +1953,57 @@ body.is-loaded .hero-canvas {
   align-items: baseline;
   justify-content: space-between;
   gap: 0.5rem;
-  padding: 0.45rem 0.55rem;
-  border-bottom: 1px solid #3a1820;
-  background: #180a10;
+  padding: 0.5rem 0.6rem;
+  border-bottom: 1px solid var(--tk-line);
 }
 
 .tenkai-mock-kanji {
-  color: #e8c8b8;
-  font-size: 0.72rem;
-  letter-spacing: 0.35em;
+  font-family: var(--tk-jp);
+  font-size: 0.85rem;
+  letter-spacing: 0.2em;
+  color: var(--tk-ink);
 }
 
 .tenkai-mock-vol {
-  color: var(--accent);
+  font-family: var(--font-mono);
+  color: var(--tk-blood);
   font-size: 0.58rem;
   letter-spacing: 0.12em;
 }
 
 .tenkai-mock-scroll {
+  position: relative;
   display: grid;
-  gap: 0.45rem;
+  gap: 0.4rem;
   align-content: start;
-  padding: 0.65rem 0.55rem;
+  padding: 0.65rem 0.6rem 0.75rem 1.1rem;
+  border-left: 2px solid var(--tk-blood);
+  margin: 0.5rem 0.55rem;
+}
+
+.tenkai-mock-hero {
+  font-family: var(--tk-serif);
+  font-size: 1.15rem;
+  font-weight: 600;
+  font-style: italic;
+  color: var(--tk-ink);
+  line-height: 1.15;
+}
+
+.tenkai-mock-sub {
+  font-family: var(--font-mono);
+  font-size: 0.56rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--tk-ink-dim);
 }
 
 .tenkai-mock-line {
   display: block;
-  height: 6px;
-  border-radius: 2px;
-  background: rgba(200, 120, 100, 0.18);
-  border: 1px solid rgba(200, 120, 100, 0.22);
+  height: 5px;
+  border-radius: 1px;
+  background: rgba(237, 228, 211, 0.08);
+  border: 1px solid var(--tk-line);
 }
 
 .tenkai-mock-line.wide { width: 92%; }
@@ -1974,11 +2011,23 @@ body.is-loaded .hero-canvas {
 .tenkai-mock-line.short { width: 34%; }
 
 .tenkai-mock-quote {
-  margin-top: 0.35rem;
-  color: #9a7068;
+  margin-top: 0.25rem;
+  color: var(--tk-ink-dim);
   font-style: italic;
   font-size: 0.58rem;
-  letter-spacing: 0.04em;
+}
+
+.tenkai-mock-margin {
+  position: absolute;
+  right: 0.35rem;
+  top: 0.35rem;
+  color: var(--tk-blood);
+  font-family: var(--font-mono);
+  font-size: 0.5rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transform: rotate(90deg);
+  transform-origin: right top;
 }
 
 .tenkai-mock-footer {
@@ -1987,8 +2036,8 @@ body.is-loaded .hero-canvas {
   justify-content: space-between;
   gap: 0.5rem;
   padding: 0.4rem 0.55rem;
-  border-top: 1px solid #3a1820;
-  background: #14080c;
+  border-top: 1px solid var(--tk-line);
+  background: var(--tk-bg-2);
 }
 
 .tenkai-mock-wave {
@@ -2002,7 +2051,7 @@ body.is-loaded .hero-canvas {
   display: block;
   width: 3px;
   border-radius: 1px;
-  background: var(--accent);
+  background: var(--tk-blood);
   font-style: normal;
   animation: tenkai-wave 1.2s ease-in-out infinite;
 }
@@ -2022,8 +2071,9 @@ body.is-loaded .hero-canvas {
 }
 
 .tenkai-mock-hold {
-  color: #c9a890;
-  font-size: 0.56rem;
+  color: var(--tk-ink-dim);
+  font-family: var(--font-mono);
+  font-size: 0.54rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
@@ -2033,18 +2083,18 @@ body.is-loaded .hero-canvas {
   width: 7px;
   height: 7px;
   border-radius: 50% 50% 50% 0;
-  background: #c44a52;
-  border: 1px solid rgba(255, 180, 170, 0.35);
-  opacity: 0.75;
+  background: var(--tk-blood);
+  border: 1px solid rgba(237, 228, 211, 0.2);
+  opacity: 0.7;
   animation: tenkai-petal 4s ease-in-out infinite;
 }
 
-.tenkai-mock-petal.p1 { top: 28%; right: 14%; animation-delay: 0s; }
-.tenkai-mock-petal.p2 { top: 52%; right: 22%; animation-delay: 1.1s; }
-.tenkai-mock-petal.p3 { top: 38%; right: 8%; animation-delay: 2.2s; }
+.tenkai-mock-petal.p1 { top: 32%; right: 12%; animation-delay: 0s; }
+.tenkai-mock-petal.p2 { top: 55%; right: 20%; animation-delay: 1.1s; }
+.tenkai-mock-petal.p3 { top: 42%; right: 6%; animation-delay: 2.2s; }
 
 @keyframes tenkai-petal {
-  0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.5; }
+  0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.45; }
   50% { transform: translateY(8px) rotate(40deg); opacity: 0.9; }
 }
 
@@ -2815,7 +2865,7 @@ body.is-loaded .hero-canvas {
 
   .pocket-mock {
     border-top: 0;
-    border-left: 1px solid #1e3350;
+    border-left: 1px solid #2a3545;
   }
 
   .pocket-mock-screen {
@@ -2828,7 +2878,7 @@ body.is-loaded .hero-canvas {
 
   .tenkai-mock {
     border-top: 0;
-    border-left: 1px solid #3a1824;
+    border-left: 1px solid rgba(237, 228, 211, 0.12);
   }
 
   .tenkai-mock-screen {
