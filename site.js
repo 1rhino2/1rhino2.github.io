@@ -434,6 +434,15 @@ startHeroCanvas();
 const OWNER = '1rhino2';
 const EXCLUDED = new Set(['RhinoWAFNoah']);
 
+const LIVE_DEMOS = {
+  'pocket-net': 'https://pocket-net.vercel.app/',
+  pocket: 'https://pocket-net.vercel.app/',
+  rhinonet: 'https://pocket-net.vercel.app/',
+  'ryoki-tenkai': 'https://ryoki-tenkai.vercel.app/',
+  ryoki: 'https://ryoki-tenkai.vercel.app/',
+  tenkai: 'https://ryoki-tenkai.vercel.app/',
+};
+
 const RAIL = {
   TypeScript: '#3178c6',
   Go: '#00add8',
@@ -905,3 +914,491 @@ if (sortSelect) sortSelect.addEventListener('change', refresh);
 if (retryBtn) retryBtn.addEventListener('click', () => load());
 
 load();
+
+/* --- signature shell ---------------------------------------------- */
+/* a tiny real CLI that responds to commands tied to live page state.
+   press / anywhere to open, esc to close. arrow keys cycle history,
+   tab autocompletes commands. */
+
+(function initShell() {
+  const root = document.getElementById('cli');
+  if (!root) return;
+
+  const pill = document.getElementById('cli-open');
+  const panel = document.getElementById('cli-panel');
+  const out = document.getElementById('cli-out');
+  const form = document.getElementById('cli-form');
+  const input = document.getElementById('cli-in');
+  const closeBtn = document.getElementById('cli-close');
+
+  if (!pill || !panel || !out || !form || !input || !closeBtn) return;
+
+  const history = [];
+  let hPos = -1;
+  let opened = false;
+  let introPrinted = false;
+
+  function scrollOut() {
+    out.scrollTop = out.scrollHeight;
+  }
+
+  function clearOut() {
+    while (out.firstChild) out.removeChild(out.firstChild);
+  }
+
+  function makeLine(cls) {
+    const p = document.createElement('p');
+    p.className = 'cli-line ' + (cls || 'cli-ok');
+    return p;
+  }
+
+  function printLine(text, cls) {
+    const p = makeLine(cls);
+    p.textContent = text;
+    out.appendChild(p);
+    scrollOut();
+    return p;
+  }
+
+  function printRaw(node, cls) {
+    const p = makeLine(cls);
+    if (node instanceof Node) p.appendChild(node);
+    else if (Array.isArray(node)) {
+      node.forEach((n) => {
+        if (n instanceof Node) p.appendChild(n);
+        else p.appendChild(document.createTextNode(String(n)));
+      });
+    } else {
+      p.textContent = String(node);
+    }
+    out.appendChild(p);
+    scrollOut();
+    return p;
+  }
+
+  function printBlank() {
+    const p = makeLine('cli-muted');
+    p.textContent = '\u00a0';
+    out.appendChild(p);
+    scrollOut();
+  }
+
+  function printCmd(text) {
+    const p = makeLine('cli-cmd');
+    const prompt = document.createElement('span');
+    prompt.className = 'cli-prompt-out';
+    prompt.textContent = 'guest@rhino:~$';
+    p.appendChild(prompt);
+    p.appendChild(document.createTextNode(text));
+    out.appendChild(p);
+    scrollOut();
+  }
+
+  function link(href, text) {
+    const a = document.createElement('a');
+    a.href = href;
+    a.target = '_blank';
+    a.rel = 'noopener';
+    a.textContent = text;
+    return a;
+  }
+
+  function span(cls, text) {
+    const s = document.createElement('span');
+    s.className = cls;
+    s.textContent = text;
+    return s;
+  }
+
+  function padRight(str, n) {
+    if (str.length >= n) return str;
+    return str + ' '.repeat(n - str.length);
+  }
+
+  function open() {
+    if (opened) {
+      input.focus();
+      return;
+    }
+    opened = true;
+    panel.hidden = false;
+    root.dataset.state = 'open';
+    pill.setAttribute('aria-expanded', 'true');
+    if (!introPrinted) {
+      printIntro();
+      introPrinted = true;
+    }
+    requestAnimationFrame(() => input.focus());
+  }
+
+  function close() {
+    if (!opened) return;
+    opened = false;
+    root.dataset.state = 'collapsed';
+    pill.setAttribute('aria-expanded', 'false');
+    setTimeout(() => {
+      if (!opened) panel.hidden = true;
+    }, 240);
+    pill.focus();
+  }
+
+  function printIntro() {
+    const banner = [
+      ' ____  _   _ ___ _   _  ___  ',
+      '|  _ \\| | | |_ _| \\ | |/ _ \\ ',
+      '| |_) | |_| || ||  \\| | | | |',
+      '|  _ <|  _  || || |\\  | |_| |',
+      '|_| \\_\\_| |_|___|_| \\_|\\___/ ',
+    ];
+    banner.forEach((row) => printLine(row, 'cli-art'));
+    printLine('backend, bots, apis, scrapers, automation, cli tools.', 'cli-muted');
+    printRaw([
+      'type ',
+      span('k', 'help'),
+      ' for commands. press ',
+      span('k', 'esc'),
+      ' to close.',
+    ], 'cli-muted');
+    printBlank();
+  }
+
+  /* --- commands ----------------------------------------------------- */
+
+  const sections = ['work', 'stack', 'featured', 'repos', 'contact'];
+
+  const commands = {
+    help() {
+      const rows = [
+        ['help',            'this list'],
+        ['about',           'who i am'],
+        ['stack',           'tools i reach for'],
+        ['repos [n]',       'list latest repos (default 6)'],
+        ['top',             'top repos by stars'],
+        ['open <name>',     'open a repo or live demo'],
+        ['nav <section>',   'jump to ' + sections.join(' | ')],
+        ['contact',         'how to reach me'],
+        ['time',            'clock in new england'],
+        ['date',            'full local date'],
+        ['whoami',          'who is at this prompt'],
+        ['ls',              'sections of this site'],
+        ['echo <text>',     'print text back'],
+        ['ping',            'pong'],
+        ['clear',           'wipe the terminal'],
+        ['rhino',           'something fitting'],
+      ];
+      printLine('available commands:', 'cli-muted');
+      rows.forEach(([name, desc]) => {
+        printRaw([
+          '  ',
+          span('k', padRight(name, 18)),
+          span('sep', desc),
+        ], 'cli-ok');
+      });
+    },
+
+    about() {
+      printLine('rhino / 1rhino2', 'cli-ok');
+      printLine('backend engineer. new england, available remote.', 'cli-muted');
+      printLine('builds bots, apis, scrapers, automations, and cli tools.', 'cli-muted');
+      printLine('plain contracts, useful logs, small services. ships and stays up.', 'cli-muted');
+    },
+
+    stack() {
+      const langs = [
+        'Python', 'Go', 'TypeScript', 'JavaScript',
+        'Rust', 'C', 'C++', 'C#', 'Java', 'Lua', 'D', 'R',
+      ];
+      printLine('primary lane:', 'cli-muted');
+      printLine('  Go, Python, TypeScript', 'cli-ok');
+      printLine('also written:', 'cli-muted');
+      printLine('  ' + langs.join(', '), 'cli-ok');
+    },
+
+    repos(args) {
+      const limit = Math.max(1, Math.min(20, parseInt(args[0], 10) || 6));
+      if (!Array.isArray(allRepos) || allRepos.length === 0) {
+        printLine('no repos loaded yet. github fetch may still be running.', 'cli-warn');
+        return;
+      }
+      const list = allRepos.slice().sort((a, b) => {
+        const ta = new Date(a.pushed_at || a.updated_at || 0).getTime();
+        const tb = new Date(b.pushed_at || b.updated_at || 0).getTime();
+        return tb - ta;
+      }).slice(0, limit);
+      printLine('latest ' + list.length + ' originals:', 'cli-muted');
+      list.forEach((r) => {
+        const stars = '\u2605 ' + (r.stargazers_count || 0);
+        printRaw([
+          '  ',
+          link(r.html_url, r.name),
+          '  ',
+          span('sep', padRight(stars, 8)),
+          span('v', r.description || ''),
+        ], 'cli-ok');
+      });
+    },
+
+    top() {
+      if (!Array.isArray(allRepos) || allRepos.length === 0) {
+        printLine('no repos loaded yet.', 'cli-warn');
+        return;
+      }
+      const list = allRepos.slice()
+        .sort((a, b) => (b.stargazers_count || 0) - (a.stargazers_count || 0))
+        .slice(0, 5);
+      printLine('top 5 by stars:', 'cli-muted');
+      list.forEach((r) => {
+        const stars = '\u2605 ' + (r.stargazers_count || 0);
+        printRaw([
+          '  ',
+          span('k', padRight(stars, 6)),
+          link(r.html_url, r.name),
+        ], 'cli-ok');
+      });
+    },
+
+    open(args) {
+      const name = (args[0] || '').toLowerCase().trim();
+      if (!name) {
+        printLine('open <name>  -- repo, demo, or `github`', 'cli-warn');
+        return;
+      }
+      const demoUrl = LIVE_DEMOS[name];
+      if (demoUrl) {
+        printRaw(['opening ', link(demoUrl, demoUrl.replace(/^https:\/\//, ''))], 'cli-ok');
+        window.open(demoUrl, '_blank', 'noopener');
+        return;
+      }
+      if (name === 'github' || name === 'profile') {
+        printRaw([
+          'opening ',
+          link('https://github.com/1rhino2', 'github.com/1rhino2'),
+        ], 'cli-ok');
+        window.open('https://github.com/1rhino2', '_blank', 'noopener');
+        return;
+      }
+      const r = (allRepos || []).find((x) => x.name.toLowerCase() === name)
+        || (allRepos || []).find((x) => x.name.toLowerCase().includes(name));
+      if (!r) {
+        printLine('no repo matched `' + (args[0] || '') + '`. try `repos` first.', 'cli-err');
+        return;
+      }
+      printRaw(['opening ', link(r.html_url, r.name)], 'cli-ok');
+      window.open(r.html_url, '_blank', 'noopener');
+    },
+
+    nav(args) {
+      const target = (args[0] || '').toLowerCase().trim();
+      if (!target) {
+        printLine('nav <section>  -- ' + sections.join(' | '), 'cli-warn');
+        return;
+      }
+      if (sections.indexOf(target) === -1) {
+        printLine('unknown section. try: ' + sections.join(', '), 'cli-err');
+        return;
+      }
+      const el = document.getElementById(target);
+      if (!el) {
+        printLine('section element missing.', 'cli-err');
+        return;
+      }
+      el.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+      printLine('-> ' + target, 'cli-ok');
+    },
+
+    contact() {
+      printRaw(['discord  ', span('v', '1rhino2')], 'cli-ok');
+      printRaw(['github   ', link('https://github.com/1rhino2', 'github.com/1rhino2')], 'cli-ok');
+      printRaw(['payment  ', span('sep', 'cash app once scope and price are locked')], 'cli-ok');
+    },
+
+    time() {
+      try {
+        const fmt = new Intl.DateTimeFormat('en-US', {
+          timeZone: 'America/New_York',
+          hour: 'numeric',
+          minute: '2-digit',
+          hour12: true,
+          weekday: 'short',
+        });
+        printLine(fmt.format(new Date()) + '  (New England / ET)', 'cli-ok');
+      } catch (_e) {
+        printLine(new Date().toLocaleTimeString(), 'cli-ok');
+      }
+    },
+
+    date() {
+      try {
+        const fmt = new Intl.DateTimeFormat('en-US', {
+          weekday: 'long',
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+          timeZone: 'America/New_York',
+        });
+        printLine(fmt.format(new Date()) + '  (ET)', 'cli-ok');
+      } catch (_e) {
+        printLine(new Date().toDateString(), 'cli-ok');
+      }
+    },
+
+    whoami() {
+      printLine('guest@rhino.field -- bring the messy job.', 'cli-ok');
+    },
+
+    ls() {
+      printLine(sections.join('  '), 'cli-ok');
+    },
+
+    echo(args, raw) {
+      printLine(raw.slice(5).trim() || '', 'cli-ok');
+    },
+
+    ping() {
+      printLine('pong', 'cli-ok');
+    },
+
+    clear() {
+      clearOut();
+    },
+
+    rhino() {
+      const art = [
+        '                  ___',
+        '              ,-~~   ~~-.',
+        '          ,-~`             `~-.',
+        '   /\\___,-~`                    \\',
+        '  /  o  o                         \\',
+        ' |     >                          |',
+        '  \\__/  \\__         _.--.        /',
+        '         /  ~~--~~~`     \\______/',
+        '         |                       ||',
+        '         ||                      ||',
+      ];
+      art.forEach((row) => printLine(row, 'cli-art'));
+      printLine('stay sharp.', 'cli-muted');
+    },
+
+    sudo() {
+      printLine('permission denied: you are guest. nice try.', 'cli-err');
+    },
+
+    exit() {
+      printLine('bye.', 'cli-muted');
+      setTimeout(close, 250);
+    },
+  };
+
+  commands.man = commands.help;
+  commands.quit = commands.exit;
+  commands.cls = commands.clear;
+
+  /* --- runner ------------------------------------------------------- */
+
+  function run(raw) {
+    const trimmed = raw.trim();
+    if (!trimmed) {
+      printCmd('');
+      return;
+    }
+    printCmd(trimmed);
+    history.push(trimmed);
+    if (history.length > 80) history.shift();
+    hPos = -1;
+
+    const parts = trimmed.split(/\s+/);
+    const name = parts[0].toLowerCase();
+    const args = parts.slice(1);
+    const fn = commands[name];
+
+    if (!fn) {
+      printLine('unknown command: ' + name + '. type `help`.', 'cli-err');
+      return;
+    }
+
+    try {
+      fn(args, trimmed);
+    } catch (err) {
+      printLine('error: ' + (err && err.message ? err.message : 'failed'), 'cli-err');
+    }
+  }
+
+  /* --- bindings ----------------------------------------------------- */
+
+  pill.addEventListener('click', open);
+  closeBtn.addEventListener('click', close);
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const val = input.value;
+    input.value = '';
+    run(val);
+  });
+
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowUp') {
+      if (history.length === 0) return;
+      e.preventDefault();
+      hPos = hPos < 0 ? history.length - 1 : Math.max(0, hPos - 1);
+      input.value = history[hPos] || '';
+      requestAnimationFrame(() => {
+        input.setSelectionRange(input.value.length, input.value.length);
+      });
+    } else if (e.key === 'ArrowDown') {
+      if (hPos < 0) return;
+      e.preventDefault();
+      hPos = hPos + 1;
+      if (hPos >= history.length) {
+        hPos = -1;
+        input.value = '';
+      } else {
+        input.value = history[hPos];
+      }
+    } else if (e.key === 'Tab') {
+      e.preventDefault();
+      const v = input.value;
+      const space = v.indexOf(' ');
+      const stub = (space >= 0 ? v.slice(0, space) : v).toLowerCase();
+      if (!stub) return;
+      const matches = Object.keys(commands).filter((c) => c.startsWith(stub));
+      if (matches.length === 1) {
+        input.value = matches[0] + (space >= 0 ? v.slice(space) : ' ');
+        input.setSelectionRange(input.value.length, input.value.length);
+      } else if (matches.length > 1) {
+        printLine(matches.join('  '), 'cli-muted');
+      }
+    } else if (e.key === 'Escape') {
+      e.preventDefault();
+      close();
+    } else if (e.key === 'l' && (e.ctrlKey || e.metaKey)) {
+      e.preventDefault();
+      clearOut();
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.defaultPrevented) return;
+    if (e.altKey || e.ctrlKey || e.metaKey) return;
+    if (e.key === 'Escape' && opened) {
+      e.preventDefault();
+      close();
+      return;
+    }
+    const t = e.target;
+    const inField = t && (
+      t.tagName === 'INPUT' ||
+      t.tagName === 'TEXTAREA' ||
+      t.tagName === 'SELECT' ||
+      t.isContentEditable
+    );
+    if (inField) return;
+    if (e.key === '/') {
+      e.preventDefault();
+      open();
+    }
+  });
+
+  panel.addEventListener('click', () => {
+    if (opened) input.focus();
+  });
+})();

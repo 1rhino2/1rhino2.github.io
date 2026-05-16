@@ -253,8 +253,44 @@
             <span class='line'><span class='line-inner'>build</span></span>
           </h2>
         </div>
-        <p class='block-lead'>One live thing with enough personality to prove the browser is not an afterthought.</p>
+        <p class='block-lead'>Live front-end builds with enough personality to prove the browser is not an afterthought.</p>
       </header>
+
+      <div class='feature-grid'>
+      <a class='feature' href='https://pocket-net.vercel.app/' target='_blank' rel='noopener' data-tilt data-magnetic-strength='8'>
+        <div class='feature-meta'>
+          <span class='feature-meta-left'>
+            <span class='dots' aria-hidden='true'><span></span><span></span><span></span></span>
+            <span>Live site</span>
+          </span>
+          <span>pocket-net.vercel.app</span>
+        </div>
+        <div class='feature-body'>
+          <div class='feature-copy'>
+            <span class='feature-tag'>Toy OS / SPA</span>
+            <h3 class='feature-name'>RhinoNet 2000</h3>
+            <p class='feature-desc'>Fake ISP desktop and pocket mobile shell. Boot sequence, draggable windows, rn: sites, quests, live radio, and a full handset UI.</p>
+            <ul class='feature-stats'>
+              <li><span class='num'>17</span><span class='label'>rn: sites</span></li>
+              <li><span class='num'>react</span><span class='label'>vite + TS</span></li>
+              <li><span class='num'>github</span><span class='label'>open source</span></li>
+            </ul>
+            <span class='feature-go'>Open project <span aria-hidden='true'>&#8594;</span></span>
+          </div>
+          <div class='feature-preview feature-preview--os' aria-hidden='true'>
+            <span class='preview-bar'></span>
+            <span class='preview-title'></span>
+            <span class='preview-line wide'></span>
+            <span class='preview-line mid'></span>
+            <span class='preview-block'></span>
+            <div class='chips'>
+              <span class='preview-chip'></span>
+              <span class='preview-chip'></span>
+            </div>
+            <span class='preview-line short'></span>
+          </div>
+        </div>
+      </a>
 
       <a class='feature' href='https://ryoki-tenkai.vercel.app/' target='_blank' rel='noopener' data-tilt data-magnetic-strength='8'>
         <div class='feature-meta'>
@@ -290,6 +326,7 @@
           </div>
         </div>
       </a>
+      </div>
     </section>
 
     <section class='block block-projects' id='repos' data-reveal>
@@ -371,6 +408,27 @@
     <p>&copy; <span id='y'></span> 1rhino2 &middot; shipped from New England.</p>
     <a class='to-top' href='#' aria-label='Back to top'>Back to top</a>
   </footer>
+
+  <aside class='cli' id='cli' data-state='collapsed' aria-label='Site shell'>
+    <button type='button' class='cli-pill' id='cli-open' aria-expanded='false' aria-controls='cli-panel'>
+      <span class='cli-pill-prompt' aria-hidden='true'>$</span>
+      <span class='cli-pill-text'>rhino.shell</span>
+      <kbd aria-hidden='true'>/</kbd>
+    </button>
+    <div class='cli-panel' id='cli-panel' role='region' aria-label='Interactive shell' hidden>
+      <div class='cli-top'>
+        <span class='cli-dots' aria-hidden='true'><span></span><span></span><span></span></span>
+        <span class='cli-title'>rhino.shell &middot; type <code>help</code></span>
+        <button type='button' class='cli-close' id='cli-close' aria-label='Close shell'>esc</button>
+      </div>
+      <div class='cli-out' id='cli-out' aria-live='polite' aria-atomic='false'></div>
+      <form class='cli-form' id='cli-form' autocomplete='off'>
+        <span class='cli-prompt' aria-hidden='true'>guest@rhino:~$</span>
+        <input id='cli-in' class='cli-in' type='text' spellcheck='false' autocapitalize='off' autocomplete='off' aria-label='Command input'/>
+        <span class='cli-caret' aria-hidden='true'></span>
+      </form>
+    </div>
+  </aside>
 
   <script src='site.js' defer></script>
 </body>
