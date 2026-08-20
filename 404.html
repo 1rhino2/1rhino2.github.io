@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset='utf-8'/>
+  <meta name='viewport' content='width=device-width, initial-scale=1'/>
+  <meta name='color-scheme' content='dark'/>
+  <meta name='theme-color' content='#0d1015'/>
+  <meta name='robots' content='noindex'/>
+  <title>404 - 1rhino2</title>
+  <link rel='icon' href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='8' fill='%239fb6d9'/%3E%3Ctext x='32' y='45' text-anchor='middle' font-family='Helvetica,Arial,sans-serif' font-weight='bold' font-size='38' fill='%230d1015'%3ER%3C/text%3E%3C/svg%3E"/>
+  <link rel='preconnect' href='https://fonts.googleapis.com'/>
+  <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin/>
+  <link href='https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap' rel='stylesheet'/>
+  <link rel='stylesheet' href='styles.css?v=3'/>
+</head>
+<body>
+  <header class='header'>
+    <a class='brand' href='/'>
+      <span class='brand-mark' aria-hidden='true'>R</span>
+      <span class='brand-name'>1rhino2</span>
+    </a>
+  </header>
+
+  <main class='main'>
+    <section class='hero'>
+      <div class='hero-main'>
+        <p class='eyebrow'>404 &middot; no route matched</p>
+        <h1 class='hero-name'>That path<br/><span>does not exist.</span></h1>
+        <p class='hero-line'>
+          Nothing here. The link is either old or I moved it. The working stuff is all on the front page.
+        </p>
+        <div class='hero-actions'>
+          <a class='btn btn-solid' href='/'>Back to the site</a>
+          <a class='btn btn-line' href='https://github.com/1rhino2' target='_blank' rel='noopener'>GitHub</a>
+        </div>
+      </div>
+
+      <div class='terminal-card' style='margin-top:2rem;max-width:34rem'>
+        <div class='terminal-top'>
+          <span class='terminal-dots' aria-hidden='true'><span></span><span></span><span></span></span>
+          <span class='terminal-title'>rhino.field</span>
+          <span class='terminal-status'>online</span>
+        </div>
+        <div class='terminal-body'>
+          <p><span class='tag'>$</span> curl -I <span id='u-path'>/whatever</span></p>
+          <p><span class='tag'>..</span> HTTP/2 404</p>
+          <p><span class='tag'>ok</span> served the friendly page instead</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class='footer'>
+    <p>&copy; <span id='y'></span> 1rhino2 &middot; New England</p>
+  </footer>
+
+  <script>
+    document.getElementById('y').textContent = String(new Date().getFullYear());
+    var p = document.getElementById('u-path');
+    // show what they actually asked for, trimmed so nobody can inject markup
+    p.textContent = String(location.pathname + location.search).slice(0, 60);
+  </script>
+</body>
+</html>

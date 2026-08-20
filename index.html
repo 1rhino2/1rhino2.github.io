@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset='utf-8'/>
+  <meta name='viewport' content='width=device-width, initial-scale=1'/>
+  <meta name='description' content='1rhino2. Bots, APIs, scrapers, automation, CLI tools. New England / remote.'/>
+  <meta name='color-scheme' content='dark'/>
+  <meta name='theme-color' content='#0d1015'/>
+  <meta property='og:title' content='1rhino2 - bots, APIs, tools'/>
+  <meta property='og:description' content='I build bots, APIs, scrapers, and small tools. Stuff that still works after the demo.'/>
+  <meta property='og:type' content='website'/>
+  <title>1rhino2 - bots, APIs, tools</title>
+  <link rel='icon' href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='8' fill='%239fb6d9'/%3E%3Ctext x='32' y='45' text-anchor='middle' font-family='Helvetica,Arial,sans-serif' font-weight='bold' font-size='38' fill='%230d1015'%3ER%3C/text%3E%3C/svg%3E"/>
+  <link rel='preconnect' href='https://fonts.googleapis.com'/>
+  <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin/>
+  <link href='https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap' rel='stylesheet'/>
+  <link rel='stylesheet' href='styles.css?v=3'/>
+  <!-- hand built. rhino was here. press / for the shell. -->
+</head>
+<body>
+
+  <a class='skip' href='#main'>Skip to content</a>
+
+  <header class='header' id='site-header'>
+    <a class='brand' href='#'>
+      <span class='brand-mark' aria-hidden='true'>R</span>
+      <span class='brand-name'>1rhino2</span>
+    </a>
+    <nav class='nav' id='nav' aria-label='Section nav'>
+      <a href='#work' data-link='work'>Work</a>
+      <a href='#lab' data-link='lab'>Lab</a>
+      <a href='#stack' data-link='stack'>Stack</a>
+      <a href='#featured' data-link='featured'>Featured</a>
+      <a href='#repos' data-link='repos'>Repos</a>
+      <a href='#contact' data-link='contact'>Contact</a>
+    </nav>
+    <span class='status-pill'><i aria-hidden='true'></i>open for work</span>
+    <button type='button' class='menu-btn' id='nav-toggle' aria-expanded='false' aria-controls='nav' aria-label='Menu'>
+      <span></span><span></span>
+    </button>
+  </header>
+
+  <main class='main' id='main'>
+
+    <section class='hero' id='hero'>
+      <div class='hero-grid'>
+        <div class='hero-main'>
+          <p class='eyebrow'>Backend dev &middot; New England / remote</p>
+          <h1 class='hero-name'>I build the<br/>boring parts<br/><span>properly.</span></h1>
+          <p class='hero-line'>
+            Bots, APIs, scrapers, automation, CLI tools. I scope it, build it, and leave you notes
+            so it is not a black box after I go. Stuff that still works after the demo.
+          </p>
+          <div class='hero-actions'>
+            <a class='btn btn-solid' href='#contact'>Start a job</a>
+            <a class='btn btn-line' href='#repos'>See the code</a>
+          </div>
+        </div>
+
+        <aside class='hero-panel' aria-label='Profile snapshot'>
+          <div class='terminal-card'>
+            <div class='terminal-top'>
+              <span class='terminal-dots' aria-hidden='true'><span></span><span></span><span></span></span>
+              <span class='terminal-title'>rhino.field</span>
+              <span class='terminal-status'>online</span>
+            </div>
+            <div class='terminal-body'>
+              <p><span class='tag'>$</span> deploy bot --prod</p>
+              <p><span class='tag'>..</span> waiting on rate limit, nbd</p>
+              <p><span class='tag'>ok</span> slash cmds + sqlite up</p>
+              <p><span class='tag'>$</span> logs look fine<span class='caret' aria-hidden='true'></span></p>
+            </div>
+          </div>
+        </aside>
+      </div>
+
+      <dl class='spec-strip'>
+        <div>
+          <dt>Based</dt>
+          <dd>New England, US</dd>
+        </div>
+        <div>
+          <dt>Local time</dt>
+          <dd id='hero-clock'>--:-- ET</dd>
+        </div>
+        <div>
+          <dt>Lead time</dt>
+          <dd>1 to 3 weeks</dd>
+        </div>
+        <div>
+          <dt>Stars earned</dt>
+          <dd><span id='stat-stars'>--</span> <span class='dd-sub'>across <span id='stat-repos'>--</span> repos</span></dd>
+        </div>
+      </dl>
+    </section>
+
+    <section class='block' id='work' data-reveal>
+      <header class='block-head'>
+        <span class='block-num' aria-hidden='true'>01</span>
+        <h2 class='block-title'>What I take on</h2>
+        <p class='block-lead'>Usual jobs. Discord bots are the main one, the rest pays the same.</p>
+      </header>
+
+      <div class='work-grid'>
+        <article class='work-card work-card--lead'>
+          <span class='work-idx' aria-hidden='true'>01</span>
+          <h3>Discord bots</h3>
+          <p>Slash commands, mod tools, persistence. The dashboard holds up when the server is on fire.</p>
+        </article>
+        <article class='work-card'>
+          <span class='work-idx' aria-hidden='true'>02</span>
+          <h3>APIs</h3>
+          <p>Auth, rate limiting, validation. Errors that say what actually broke.</p>
+        </article>
+        <article class='work-card'>
+          <span class='work-idx' aria-hidden='true'>03</span>
+          <h3>Scrapers</h3>
+          <p>They back off when they should, so the target does not notice and you do not get blocked.</p>
+        </article>
+        <article class='work-card'>
+          <span class='work-idx' aria-hidden='true'>04</span>
+          <h3>Automation</h3>
+          <p>Cron jobs and glue between services. The alert reaches you before the client does.</p>
+        </article>
+        <article class='work-card'>
+          <span class='work-idx' aria-hidden='true'>05</span>
+          <h3>Pipelines</h3>
+          <p>ETL and exports you can still read six months later.</p>
+        </article>
+        <article class='work-card'>
+          <span class='work-idx' aria-hidden='true'>06</span>
+          <h3>CLI and internals</h3>
+          <p>Terminal tools and little scanners. Stuff I end up using every day.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class='block' id='lab' data-reveal>
+      <header class='block-head'>
+        <span class='block-num' aria-hidden='true'>02</span>
+        <h2 class='block-title'>The lab</h2>
+        <p class='block-lead'>Two things you can actually poke at. Both run in your browser, nothing is calling home.</p>
+      </header>
+
+      <div class='lab'>
+        <div class='lab-bar'>
+          <div class='lab-tabs' role='tablist' aria-label='Lab demos'>
+            <button type='button' class='lab-tab is-on' data-tab='pipeline' role='tab' aria-selected='true' aria-controls='panel-pipeline'>request pipeline</button>
+            <button type='button' class='lab-tab' data-tab='bot' role='tab' aria-selected='false' aria-controls='panel-bot'>discord bot</button>
+          </div>
+          <span class='lab-live'><i aria-hidden='true'></i>running live</span>
+        </div>
+
+        <div class='lab-panel' id='panel-pipeline' role='tabpanel' aria-label='Request pipeline simulation'>
+          <p class='lab-note'>
+            This is the shape of every scraper and bot I ship: rate limit it, queue it, pool the workers,
+            retry with backoff, break the circuit when the far end dies. Drag the sliders and try to knock it over.
+          </p>
+
+          <div class='sim-stage' id='sim-stage'>
+            <canvas id='sim-canvas' height='210'></canvas>
+            <button type='button' class='btn btn-line sim-run' id='sim-run' hidden>run the sim</button>
+          </div>
+
+          <div class='sim-metrics'>
+            <div class='metric'><span class='metric-k'>done/s</span><span class='metric-v' id='m-thru'>0</span></div>
+            <div class='metric'><span class='metric-k'>p50</span><span class='metric-v' id='m-p50'>0ms</span></div>
+            <div class='metric'><span class='metric-k'>p95</span><span class='metric-v' id='m-p95'>0ms</span></div>
+            <div class='metric'><span class='metric-k'>queued</span><span class='metric-v' id='m-queue'>0</span></div>
+            <div class='metric'><span class='metric-k'>retried</span><span class='metric-v' id='m-retry'>0</span></div>
+            <div class='metric'><span class='metric-k'>dropped</span><span class='metric-v' id='m-drop'>0</span></div>
+            <div class='metric metric--brk'><span class='metric-k'>breaker</span><span class='metric-v' id='m-breaker' data-state='closed'>closed</span></div>
+            <div class='metric metric--spark'><span class='metric-k'>throughput</span><canvas id='sim-spark' height='22'></canvas></div>
+          </div>
+
+          <div class='sim-controls'>
+            <label class='ctl'>
+              <span class='ctl-k'>incoming <b id='v-rps'>20/s</b></span>
+              <input type='range' id='c-rps' min='1' max='200' value='20'/>
+            </label>
+            <label class='ctl'>
+              <span class='ctl-k'>upstream errors <b id='v-fail'>5%</b></span>
+              <input type='range' id='c-fail' min='0' max='60' value='5'/>
+            </label>
+            <label class='ctl'>
+              <span class='ctl-k'>workers <b id='v-workers'>4</b></span>
+              <input type='range' id='c-workers' min='1' max='8' value='4'/>
+            </label>
+            <button type='button' class='ctl-kill' id='c-kill' data-on='false'>kill upstream</button>
+          </div>
+        </div>
+
+        <div class='lab-panel' id='panel-bot' role='tabpanel' aria-label='Discord bot playground' hidden>
+          <p class='lab-note'>
+            A stripped down version of what I hand clients. Permissions, cooldowns and slowmode are real,
+            so it pushes back the same way the live ones do.
+          </p>
+
+          <div class='chan'>
+            <div class='chan-head'>
+              <span class='chan-name'># support</span>
+              <span class='chan-meta'>2 members &middot; rhino online</span>
+            </div>
+            <div class='chan-log' id='chan-log'></div>
+            <div class='chan-input'>
+              <div class='chan-ac' id='chan-ac' hidden></div>
+              <form class='chan-form' id='chan-form' autocomplete='off'>
+                <input id='chan-in' type='text' spellcheck='false' placeholder='type / for commands' aria-label='Message #support'/>
+                <button type='submit' class='chan-send' aria-label='Send'>send</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class='block' id='stack' data-reveal>
+      <header class='block-head'>
+        <span class='block-num' aria-hidden='true'>03</span>
+        <h2 class='block-title'>Stack</h2>
+        <p class='block-lead'>Go, Python and TypeScript first. Everything else when the job wants it.</p>
+      </header>
+
+      <div class='stack-primary'>
+        <span class='chip chip--lg' data-lang='Go'>Go</span>
+        <span class='chip chip--lg' data-lang='Python'>Python</span>
+        <span class='chip chip--lg' data-lang='TypeScript'>TypeScript</span>
+      </div>
+      <div class='stack-rest'>
+        <span class='chip' data-lang='Rust'>Rust</span>
+        <span class='chip' data-lang='C'>C</span>
+        <span class='chip' data-lang='C++'>C++</span>
+        <span class='chip' data-lang='C#'>C#</span>
+        <span class='chip' data-lang='Java'>Java</span>
+        <span class='chip' data-lang='JavaScript'>JavaScript</span>
+        <span class='chip' data-lang='Node'>Node</span>
+        <span class='chip' data-lang='Lua'>Lua</span>
+        <span class='chip' data-lang='D'>D</span>
+        <span class='chip' data-lang='Shell'>Shell</span>
+        <span class='chip' data-lang='R'>R</span>
+      </div>
+    </section>
+
+    <section class='block' id='featured' data-reveal>
+      <header class='block-head'>
+        <span class='block-num' aria-hidden='true'>04</span>
+        <h2 class='block-title'>Featured builds</h2>
+        <p class='block-lead'>Two browser projects worth showing. Most of my work is backend and does not screenshot well.</p>
+      </header>
+
+      <div class='feature-grid'>
+      <a class='feature feature--pocket' href='https://pocket-net.vercel.app/' target='_blank' rel='noopener'>
+        <div class='pocket-chrome'>
+          <div class='pocket-titlebar'>
+            <span class='pocket-traffic' aria-hidden='true'><i></i><i></i><i></i></span>
+            <span class='pocket-titlebar-brand'>RhinoNet 2000</span>
+            <span class='pocket-titlebar-url'>pocket-net.vercel.app</span>
+            <span class='pocket-live-pill'>live</span>
+          </div>
+          <div class='pocket-shell'>
+            <div class='pocket-copy'>
+              <span class='pocket-era-tag'>toy ISP desktop</span>
+              <h3 class='pocket-name'>Pocket Net</h3>
+              <p class='pocket-desc'>Toy ISP desktop with a boot sequence, draggable windows, seventeen rn: sites, quests and live FM. Built because I felt like being an idiot. Local save, no backend.</p>
+              <ul class='pocket-stats'>
+                <li><span class='pocket-stat-num'>17</span><span class='pocket-stat-label'>rn: sites</span></li>
+                <li><span class='pocket-stat-num'>RC</span><span class='pocket-stat-label'>game economy</span></li>
+                <li><span class='pocket-stat-num'>FM</span><span class='pocket-stat-label'>live radio</span></li>
+              </ul>
+              <span class='pocket-launch'>Open desktop <span aria-hidden='true'>&#8594;</span></span>
+            </div>
+            <div class='pocket-mock' aria-hidden='true'>
+              <div class='pocket-mock-bezel'>
+                <div class='pocket-mock-scan'></div>
+                <div class='pocket-mock-screen'>
+                  <div class='pocket-mock-menubar'>
+                    <span class='pocket-mock-rn'>RN</span>
+                    <span>Session</span>
+                    <span>Places</span>
+                    <span class='pocket-mock-menubar-spacer'></span>
+                    <span class='pocket-mock-rc'>25 RC</span>
+                    <span class='pocket-mock-status'>offline &#183; sandbox</span>
+                  </div>
+                  <div class='pocket-mock-desktop'>
+                    <div class='pocket-mock-icons'>
+                      <span class='pocket-mock-ico'><small>FM</small></span>
+                      <span class='pocket-mock-ico'><small>Mail</small></span>
+                      <span class='pocket-mock-ico'><small>Quest</small></span>
+                      <span class='pocket-mock-ico'><small>rn:</small></span>
+                    </div>
+                    <div class='pocket-mock-window'>
+                      <div class='pocket-mock-win-head'>
+                        <span class='pocket-mock-win-lights'><i></i><i></i><i></i></span>
+                        <span>RhinoBrowser</span>
+                      </div>
+                      <div class='pocket-mock-win-body'>
+                        <span class='pocket-mock-url'>rn:rhino.home/</span>
+                        <span class='pocket-mock-line wide'></span>
+                        <span class='pocket-mock-line mid'></span>
+                        <span class='pocket-mock-line short'></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class='pocket-mock-taskbar'>
+                    <span class='pocket-mock-start'>RN</span>
+                    <span class='pocket-mock-tray'>RhinoBrowser &#183; Quest log &#183; FM</span>
+                    <span class='pocket-mock-clock'>00:00</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <a class='feature feature--tenkai' href='https://ryoki-tenkai.vercel.app/' target='_blank' rel='noopener'>
+        <div class='tenkai-chrome'>
+          <div class='tenkai-titlebar'>
+            <span class='tenkai-seal' aria-hidden='true'>&#21631;</span>
+            <span class='tenkai-titlebar-brand'>Ry&#333;iki Tenkai</span>
+            <span class='tenkai-titlebar-url'>ryoki-tenkai.vercel.app</span>
+            <span class='tenkai-live-pill'>Vol. IX</span>
+          </div>
+          <div class='tenkai-shell'>
+            <div class='tenkai-copy'>
+              <span class='tenkai-era-tag'>ink-and-bone field guide</span>
+              <h3 class='tenkai-name'>The Seven Marked Domains</h3>
+              <p class='tenkai-desc'>Scroll-driven Jujutsu Kaisen field guide for a client who lived in that show. Seven domains, each with its own colour and song and a different way of hitting you.</p>
+              <ul class='tenkai-stats'>
+                <li><span class='tenkai-stat-num'>7</span><span class='tenkai-stat-label'>domains</span></li>
+                <li><span class='tenkai-stat-num'>sound</span><span class='tenkai-stat-label'>on scroll</span></li>
+                <li><span class='tenkai-stat-num'>0</span><span class='tenkai-stat-label'>UI libraries</span></li>
+              </ul>
+              <span class='tenkai-launch'>Enter domain <span aria-hidden='true'>&#8594;</span></span>
+            </div>
+            <div class='tenkai-mock' aria-hidden='true'>
+              <div class='tenkai-mock-bezel'>
+                <div class='tenkai-mock-veil'></div>
+                <div class='tenkai-mock-screen'>
+                  <div class='tenkai-mock-marquee'><span>&#33457;&#37857;&#26865;&#29129;&#28526;&#28784;</span></div>
+                  <div class='tenkai-mock-header'>
+                    <span class='tenkai-mock-kanji'>&#38936;&#22495;&#23637;&#38283;</span>
+                    <span class='tenkai-mock-vol'>Vol. IX</span>
+                  </div>
+                  <div class='tenkai-mock-scroll'>
+                    <p class='tenkai-mock-hero'>Domain Expansion</p>
+                    <p class='tenkai-mock-sub'>Doctrine &#183; Index &#183; seven cages</p>
+                    <span class='tenkai-mock-line wide'></span>
+                    <span class='tenkai-mock-line mid'></span>
+                    <span class='tenkai-mock-line short'></span>
+                    <p class='tenkai-mock-quote'>Hold to listen. Release at &#35299;.</p>
+                    <span class='tenkai-mock-margin'>errata</span>
+                  </div>
+                  <div class='tenkai-mock-footer'>
+                    <span class='tenkai-mock-wave'><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+                    <span class='tenkai-mock-hold'>hold to listen</span>
+                  </div>
+                  <span class='tenkai-mock-petal p1'></span>
+                  <span class='tenkai-mock-petal p2'></span>
+                  <span class='tenkai-mock-petal p3'></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+      </div>
+    </section>
+
+    <section class='block block-projects' id='repos' data-reveal>
+      <header class='block-head'>
+        <span class='block-num' aria-hidden='true'>05</span>
+        <h2 class='block-title'>Repos</h2>
+        <p class='block-lead'>Pulled live from GitHub. Forks and junk filtered out.</p>
+      </header>
+
+      <div class='wait-zone' id='repo-wait'>
+        <div class='wait-copy'>
+          <p class='wait-kicker'>Loading repos</p>
+          <p class='wait-status' id='repo-wait-status'>Hitting GitHub...</p>
+          <button type='button' class='btn btn-line btn-retry hidden' id='repo-retry'>Retry</button>
+        </div>
+        <div class='game-panel'>
+          <div class='game-panel-head'>
+            <span class='game-panel-title'>Tiny loading game</span>
+            <span class='game-panel-pill'>local only</span>
+          </div>
+          <canvas id='octo-canvas' width='340' height='260' tabindex='0' aria-label='Catch the stars mini game. Use arrow keys or A and D.'></canvas>
+          <p class='game-hint'>Arrows or A/D, catch stars, dodge bugs. Score <span id='octo-score'>0</span></p>
+        </div>
+      </div>
+
+      <p class='err hidden' id='repo-error'></p>
+
+      <div class='receipts' id='repo-stats' hidden>
+        <div class='rs-row'>
+          <div class='rs'><span class='rs-v' id='rs-stars'>0</span><span class='rs-k'>stars</span></div>
+          <div class='rs'><span class='rs-v' id='rs-repos'>0</span><span class='rs-k'>repos</span></div>
+          <div class='rs'><span class='rs-v' id='rs-langs'>0</span><span class='rs-k'>languages</span></div>
+          <div class='rs'><span class='rs-v' id='rs-since'>--</span><span class='rs-k'>shipping since</span></div>
+        </div>
+        <div class='langbar' id='lang-bar' aria-hidden='true'></div>
+        <p class='lang-legend' id='lang-legend'></p>
+
+        <div class='tl-wrap'>
+          <p class='sub-label'>Build timeline <span class='tl-hint'>bar runs from first commit to last push</span></p>
+          <div class='tl' id='repo-timeline'></div>
+        </div>
+      </div>
+
+      <div class='pinned' id='repo-pinned' hidden>
+        <p class='sub-label'>Most starred</p>
+        <ul class='pin-grid' id='pin-grid'></ul>
+      </div>
+
+      <div class='index-wrap' id='repo-index' hidden>
+        <div class='toolbar' id='repo-toolbar'>
+          <p class='sub-label'>All repos <span id='repo-count'></span></p>
+          <div class='toolbar-controls'>
+            <input type='search' id='repo-filter' class='field' placeholder='Filter name, description, topic' autocomplete='off' aria-label='Filter projects' disabled/>
+            <label class='field-wrap'>
+              <span class='sr-only'>Sort repos</span>
+              <select id='repo-sort' class='field field-select' disabled>
+                <option value='updated'>Recently pushed</option>
+                <option value='stars'>Stars</option>
+                <option value='name'>Name</option>
+              </select>
+            </label>
+          </div>
+        </div>
+
+        <div class='index-head' aria-hidden='true'>
+          <span>Project</span>
+          <span>Language</span>
+          <span>Stars</span>
+          <span>Pushed</span>
+        </div>
+        <ul class='repo-index' id='repo-grid'></ul>
+        <p class='empty hidden' id='repo-empty'>Nothing matched that.</p>
+      </div>
+    </section>
+
+    <section class='block block-contact' id='contact' data-reveal>
+      <div class='contact-panel'>
+        <div class='contact-lead-col'>
+          <span class='block-num' aria-hidden='true'>06</span>
+          <h2 class='contact-title'>Got a messy job?</h2>
+          <p class='contact-lead'>Send what is broken or what you want built. I will tell you straight if it is a weekend or a month. DM on Discord, Cash App once scope and price are locked.</p>
+        </div>
+        <div class='contact-cards'>
+          <div class='contact-card'>
+            <span class='contact-label'>Discord</span>
+            <code>1rhino2</code>
+          </div>
+          <div class='contact-card'>
+            <span class='contact-label'>GitHub</span>
+            <a href='https://github.com/1rhino2' target='_blank' rel='noopener'>github.com/1rhino2</a>
+          </div>
+          <div class='contact-card contact-card--wide'>
+            <span class='contact-label'>Payment</span>
+            <p>Cash App once the price is locked. Cashtag stays in DMs.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class='footer'>
+    <p>&copy; <span id='y'></span> 1rhino2 &middot; New England</p>
+    <p class='footer-hint'>press <kbd>/</kbd> for the shell</p>
+    <a class='to-top' href='#' aria-label='Back to top'>Top</a>
+  </footer>
+
+  <aside class='cli' id='cli' data-state='collapsed' aria-label='Site shell'>
+    <button type='button' class='cli-pill' id='cli-open' aria-expanded='false' aria-controls='cli-panel'>
+      <span class='cli-pill-prompt' aria-hidden='true'>$</span>
+      <span class='cli-pill-text'>rhino.shell</span>
+      <kbd aria-hidden='true'>/</kbd>
+    </button>
+    <div class='cli-panel' id='cli-panel' role='region' aria-label='Interactive shell' hidden>
+      <div class='cli-top'>
+        <span class='cli-dots' aria-hidden='true'><span></span><span></span><span></span></span>
+        <span class='cli-title'>rhino.shell &middot; type <code>help</code></span>
+        <button type='button' class='cli-close' id='cli-close' aria-label='Close shell'>esc</button>
+      </div>
+      <div class='cli-out' id='cli-out' aria-live='polite' aria-atomic='false'></div>
+      <form class='cli-form' id='cli-form' autocomplete='off'>
+        <span class='cli-prompt' aria-hidden='true'>guest@rhino:~$</span>
+        <input id='cli-in' class='cli-in' type='text' spellcheck='false' autocapitalize='off' autocomplete='off' aria-label='Command input'/>
+      </form>
+    </div>
+  </aside>
+
+  <script src='lab.js?v=3' defer></script>
+  <script src='site.js?v=3' defer></script>
+</body>
+</html>
