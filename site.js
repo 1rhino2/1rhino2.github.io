@@ -907,7 +907,7 @@ load();
 
   /* --- commands ----------------------------------------------------- */
 
-  const sections = ['work', 'stack', 'featured', 'repos', 'contact'];
+  const sections = ['work', 'stack', 'featured', 'repos', 'security', 'contact'];
 
   const commands = {
     help() {

@@ -14,7 +14,7 @@
   <link rel='preconnect' href='https://fonts.googleapis.com'/>
   <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin/>
   <link href='https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap' rel='stylesheet'/>
-  <link rel='stylesheet' href='styles.css?v=3'/>
+  <link rel='stylesheet' href='styles.css?v=4'/>
   <!-- hand built. rhino was here. press / for the shell. -->
 </head>
 <body>
@@ -32,6 +32,7 @@
       <a href='#stack' data-link='stack'>Stack</a>
       <a href='#featured' data-link='featured'>Featured</a>
       <a href='#repos' data-link='repos'>Repos</a>
+      <a href='#security' data-link='security'>Security</a>
       <a href='#contact' data-link='contact'>Contact</a>
     </nav>
     <span class='status-pill'><i aria-hidden='true'></i>open for work</span>
@@ -440,10 +441,85 @@
       </div>
     </section>
 
+    <section class='block' id='security' data-reveal>
+      <header class='block-head'>
+        <span class='block-num' aria-hidden='true'>06</span>
+        <h2 class='block-title'>Security research</h2>
+        <p class='block-lead'>Other side of the desk. Alongside the build work I hunt vulnerabilities and report them through coordinated disclosure, on HackerOne and in open source.</p>
+      </header>
+
+      <div class='sec-stats'>
+        <div class='rs-row'>
+          <div class='rs'><span class='rs-v'>3</span><span class='rs-k'>credited findings</span></div>
+          <div class='rs'><span class='rs-v'>5</span><span class='rs-k'>programs credited</span></div>
+          <div class='rs'><span class='rs-v'>curl</span><span class='rs-k'>upstream fix merged</span></div>
+          <div class='rs'><span class='rs-v'>web / auth / TLS</span><span class='rs-k'>what I look at</span></div>
+        </div>
+      </div>
+
+      <div class='work-grid sec-finds'>
+        <article class='work-card find-card'>
+          <div class='find-head'>
+            <span class='work-idx'>improper cert validation</span>
+            <span class='find-pill' data-s='disclosed'>Disclosed</span>
+          </div>
+          <h3>TLS session reused across a changed trust profile</h3>
+          <p>The session cache could hand back a connection that was validated under a different CA path, sidestepping the trust profile meant for the new request.</p>
+          <p class='find-meta'>curl &middot; open source</p>
+        </article>
+
+        <article class='work-card find-card'>
+          <div class='find-head'>
+            <span class='work-idx'>information exposure</span>
+            <span class='find-pill' data-s='disclosed'>Disclosed</span>
+          </div>
+          <h3>Cookie jar load skipped the public-suffix check</h3>
+          <p>On some builds, loading a saved cookie jar bypassed the public-suffix guard, so a cookie could be scoped wider than it should be.</p>
+          <p class='find-meta'>curl &middot; open source</p>
+        </article>
+
+        <article class='work-card find-card'>
+          <div class='find-head'>
+            <span class='work-idx'>unauthenticated exposure</span>
+            <span class='find-pill' data-s='resolved'>Resolved</span>
+          </div>
+          <h3>Object storage left world-readable</h3>
+          <p>A misconfigured bucket allowed unauthenticated listing and download of internal business files. Reported with a repro, fixed by the vendor.</p>
+          <p class='find-meta'>enterprise VDP</p>
+        </article>
+
+        <article class='work-card find-card'>
+          <div class='find-head'>
+            <span class='work-idx'>account takeover</span>
+            <span class='find-pill' data-s='resolved'>Resolved</span>
+          </div>
+          <h3>Admin takeover from a leaked default and a hardcoded key</h3>
+          <p>A shipped default credential plus a hardcoded key chained into full admin access on a factory onboarding flow. Reported and remediated.</p>
+          <p class='find-meta'>enterprise VDP</p>
+        </article>
+      </div>
+
+      <div class='sec-credit'>
+        <p class='sub-label'>Credited by</p>
+        <div class='sec-credit-chips'>
+          <span class='chip'>curl</span>
+          <span class='chip'>Henkel</span>
+          <span class='chip'>Xiaomi</span>
+          <span class='chip'>Amazon VRP</span>
+          <span class='chip'>Crypto.com</span>
+        </div>
+      </div>
+
+      <div class='sec-cta'>
+        <a class='btn btn-line' href='https://hackerone.com/1rhino2' target='_blank' rel='noopener'>Full history on HackerOne <span aria-hidden='true'>&#8594;</span></a>
+        <p class='sec-note'>Named-scope programs only, always coordinated. Repro in, fix suggested, details stay with the program until they disclose.</p>
+      </div>
+    </section>
+
     <section class='block block-contact' id='contact' data-reveal>
       <div class='contact-panel'>
         <div class='contact-lead-col'>
-          <span class='block-num' aria-hidden='true'>06</span>
+          <span class='block-num' aria-hidden='true'>07</span>
           <h2 class='contact-title'>Got a messy job?</h2>
           <p class='contact-lead'>Send what is broken or what you want built. I will tell you straight if it is a weekend or a month. DM on Discord, Cash App once scope and price are locked.</p>
         </div>
@@ -493,6 +569,6 @@
   </aside>
 
   <script src='lab.js?v=3' defer></script>
-  <script src='site.js?v=3' defer></script>
+  <script src='site.js?v=4' defer></script>
 </body>
 </html>
